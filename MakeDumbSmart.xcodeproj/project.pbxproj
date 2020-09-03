@@ -13,6 +13,8 @@
 		BC88EFC4250141DB009821D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC88EFC3250141DB009821D7 /* Assets.xcassets */; };
 		BC88EFC7250141DB009821D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC88EFC6250141DB009821D7 /* Preview Assets.xcassets */; };
 		BC88EFCA250141DB009821D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC88EFC8250141DB009821D7 /* LaunchScreen.storyboard */; };
+		BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD225014356009821D7 /* DeviceViewModel.swift */; };
+		BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD62501437E009821D7 /* DeviceModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		BC88EFC6250141DB009821D7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BC88EFC9250141DB009821D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC88EFCB250141DB009821D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC88EFD225014356009821D7 /* DeviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewModel.swift; sourceTree = "<group>"; };
+		BC88EFD62501437E009821D7 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,9 @@
 		BC88EFB1250141DA009821D7 = {
 			isa = PBXGroup;
 			children = (
+				BC88EFD52501436C009821D7 /* Model */,
+				BC88EFD425014360009821D7 /* ViewModel */,
+				BC88EFD125014331009821D7 /* View */,
 				BC88EFBC250141DA009821D7 /* MakeDumbSmart */,
 				BC88EFBB250141DA009821D7 /* Products */,
 			);
@@ -58,7 +65,6 @@
 			children = (
 				BC88EFBD250141DA009821D7 /* AppDelegate.swift */,
 				BC88EFBF250141DA009821D7 /* SceneDelegate.swift */,
-				BC88EFC1250141DA009821D7 /* ContentView.swift */,
 				BC88EFC3250141DB009821D7 /* Assets.xcassets */,
 				BC88EFC8250141DB009821D7 /* LaunchScreen.storyboard */,
 				BC88EFCB250141DB009821D7 /* Info.plist */,
@@ -73,6 +79,30 @@
 				BC88EFC6250141DB009821D7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BC88EFD125014331009821D7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC88EFC1250141DA009821D7 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC88EFD425014360009821D7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BC88EFD225014356009821D7 /* DeviceViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BC88EFD52501436C009821D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC88EFD62501437E009821D7 /* DeviceModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,7 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */,
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
+				BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
 			);
