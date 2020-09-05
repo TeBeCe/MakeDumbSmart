@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+
+struct Device: Identifiable, Decodable{
+    let id = UUID()
+    let uid: Int
+    let name: String
+    let avatar: String
+    let functions: [String]
+}

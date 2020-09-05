@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC4B551A25024B9600DB6819 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B551925024B9600DB6819 /* GridStack.swift */; };
 		BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBD250141DA009821D7 /* AppDelegate.swift */; };
 		BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBF250141DA009821D7 /* SceneDelegate.swift */; };
 		BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFC1250141DA009821D7 /* ContentView.swift */; };
@@ -15,9 +16,12 @@
 		BC88EFCA250141DB009821D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC88EFC8250141DB009821D7 /* LaunchScreen.storyboard */; };
 		BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD225014356009821D7 /* DeviceViewModel.swift */; };
 		BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD62501437E009821D7 /* DeviceModel.swift */; };
+		BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD8250149FC009821D7 /* DevicesView.swift */; };
+		BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFDA2501A04D009821D7 /* SceneView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC4B551925024B9600DB6819 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeDumbSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC88EFBD250141DA009821D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC88EFBF250141DA009821D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +32,8 @@
 		BC88EFCB250141DB009821D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC88EFD225014356009821D7 /* DeviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewModel.swift; sourceTree = "<group>"; };
 		BC88EFD62501437E009821D7 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		BC88EFD8250149FC009821D7 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
+		BC88EFDA2501A04D009821D7 /* SceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,9 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFC1250141DA009821D7 /* ContentView.swift */,
+				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
+				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
+				BC4B551925024B9600DB6819 /* GridStack.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -178,8 +187,11 @@
 			files = (
 				BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */,
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
+				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
+				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
 				BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
+				BC4B551A25024B9600DB6819 /* GridStack.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
