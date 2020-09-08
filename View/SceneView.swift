@@ -12,7 +12,7 @@ struct SceneView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
-                .fill(Color.black)
+                .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
                 .opacity(0.7)
                 .frame(width: 250, height: 60)
             
