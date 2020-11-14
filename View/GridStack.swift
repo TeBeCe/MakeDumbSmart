@@ -8,14 +8,13 @@
 
 import SwiftUI
 
-func CalculateRows()->[[Int]]{
-    let array = [1,2,3,4,5,6,7,8,9,10]
-    var row: [Int] = []
-    //    var index = 1
-    var rows: [[Int]] = [[]]
+func CalculateRows(array: [Device])->[[Device]]{
+//    var array : [Int] = [1,2,3,4,5,6,7,8,9,10]
+    var row: [Device] = []
+    var rows: [[Device]] = [[]]
     for item in array {
         row.append(item)
-        if(rows.count == 3){
+        if(row.count == 3){
             rows.append(row)
             row.removeAll()
         }
@@ -23,22 +22,11 @@ func CalculateRows()->[[Int]]{
     return rows
 }
 
-//struct RowsStack: View {
-//
-//    let arrays: [[Int]]
-//    var rows: Int = 0
-//
-//    var body: some View {
-//        ForEach(0..<3){x in
-//            Text("\(x)")
-//        }
-//
-//    }
-//}
-
 struct GridStack: View {
-    let rows: [[Int]] = [[1,2,3],[1,2,3],[1]] //CalculateRows()
-//    let rows: [[Int]] = [[1,2,3],] //CalculateRows()
+    var rows : [[Device]]
+//    let rows: [[Int]] = [[1,2,3],[1,2,3],[1]] //CalculateRows()
+//    var rows =  CalculateRows(array: [1,2,3,4,5,6,7,8,9,10])
+    
 
     //    var rows: Int = 0
     
@@ -48,7 +36,7 @@ struct GridStack: View {
                 HStack(){
                     ForEach(0..<self.rows[i].count){x in
                         //            print(x)
-                        DevicesView()
+                        DevicesView(device: Device(id: 1, device_name: "test",device_custom_name: "",glyph: ""))
                     }
                 }
             }
@@ -58,6 +46,6 @@ struct GridStack: View {
 
 struct GridStack_Previews: PreviewProvider {
     static var previews: some View {
-        GridStack()
+        GridStack(rows: [[Device(id: 1, device_name: "test",device_custom_name: "cust_name",glyph: "")]])
     }
 }

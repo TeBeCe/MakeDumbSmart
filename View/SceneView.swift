@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct SceneView: View {
+//    var scene: Scene
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
@@ -18,17 +19,16 @@ struct SceneView: View {
             
             HStack(alignment: .center){
                 Image(systemName: "house")
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color(UIColor.systemGray2))
                     .padding(.bottom, 5.0)
                     .padding(.leading, 10)
                     .font(.system(size:30, weight: .semibold))
                 
                 Text("Scene name")
                     .fontWeight(.medium)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(UIColor.systemGray6))
                     .font(.system(size:20))
                     .multilineTextAlignment(.leading)
-                    .padding(0.0)
                 Spacer()
             }
             .frame(width: 250,height: 60)

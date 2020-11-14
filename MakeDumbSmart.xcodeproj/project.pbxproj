@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC0D27AF255EF1AC005F5E46 /* DeviceFunctionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27AE255EF1AC005F5E46 /* DeviceFunctionsView.swift */; };
 		BC4B551A25024B9600DB6819 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B551925024B9600DB6819 /* GridStack.swift */; };
-		BC561BFD25069FF20088C55C /* RowStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC561BFC25069FF20088C55C /* RowStack.swift */; };
 		BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBD250141DA009821D7 /* AppDelegate.swift */; };
 		BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBF250141DA009821D7 /* SceneDelegate.swift */; };
 		BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFC1250141DA009821D7 /* ContentView.swift */; };
@@ -19,11 +19,12 @@
 		BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD62501437E009821D7 /* DeviceModel.swift */; };
 		BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD8250149FC009821D7 /* DevicesView.swift */; };
 		BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFDA2501A04D009821D7 /* SceneView.swift */; };
+		BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC0D27AE255EF1AC005F5E46 /* DeviceFunctionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionsView.swift; sourceTree = "<group>"; };
 		BC4B551925024B9600DB6819 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
-		BC561BFC25069FF20088C55C /* RowStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowStack.swift; sourceTree = "<group>"; };
 		BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeDumbSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC88EFBD250141DA009821D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC88EFBF250141DA009821D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +37,7 @@
 		BC88EFD62501437E009821D7 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		BC88EFD8250149FC009821D7 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
 		BC88EFDA2501A04D009821D7 /* SceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
+		BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,8 @@
 				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
 				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
 				BC4B551925024B9600DB6819 /* GridStack.swift */,
-				BC561BFC25069FF20088C55C /* RowStack.swift */,
+				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
+				BC0D27AE255EF1AC005F5E46 /* DeviceFunctionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -144,7 +147,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Martin Bachratý";
 				TargetAttributes = {
 					BC88EFB9250141DA009821D7 = {
@@ -188,7 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC561BFD25069FF20088C55C /* RowStack.swift in Sources */,
+				BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */,
 				BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */,
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
 				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
@@ -196,6 +199,7 @@
 				BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC4B551A25024B9600DB6819 /* GridStack.swift in Sources */,
+				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionsView.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +244,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -264,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -300,6 +305,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -318,7 +324,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

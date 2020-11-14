@@ -9,18 +9,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var array = [1,2,3,4,5,6,7,8,9,10]
     @State var showingDetail = false
+    var decodedDevices : [Device]? = nil
+    
+    @ObservedObject var dvcObj = LoadJSONData()
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         VStack(alignment: .leading){
-            Text("Home").font(.system(size: 50, weight: .bold))
+            Text(dvcObj.home.home_name).font(.system(size: 50, weight: .bold))
                 .fontWeight(.bold)
                 .padding(.leading, 20)
+                .padding(.top, 20)
             
             ScrollView(){
                 VStack(alignment: .leading){
-                    Text("Favourite scenes").padding(.leading, 20)
+                    Text("Favorite scenes").padding(.leading, 20)
                     
                     ScrollView(.horizontal,showsIndicators: false){
                         HStack{
@@ -37,28 +46,30 @@ struct ContentView: View {
                 }.padding(.bottom, 10)
                 
                 VStack(alignment: .leading){
-                    Text("Favourite functions")
-                        .multilineTextAlignment(.leading)
+                    Text("Favorite Functions").padding(.leading, 20)
                     
-                    GridStack()
-                    //                    HStack{
-                    //                        DevicesView()
-                    //                            .onTapGesture {
-                    //                                print("tap")
-                    //                        }
-                    //                        .onLongPressGesture {
-                    //                            self.showingDetail.toggle()
-                    //                        }
-                    //                        .sheet(isPresented: $showingDetail){
-                    //                            DevicesView()
-                    //                        }
-                    //                    }
-                    //                    .padding(.leading, 0)
-                    //                    .padding(.bottom, 20)
+                    LazyVGrid(columns: columns, spacing: 10) {
+                        ForEach(dvcObj.devices ) { device in
+                            Button(action: {
+                                print(device)
+                                self.showingDetail.toggle()
+                                
+                            })
+                            {
+                                DevicesView(device: device)
+                            }.sheet(isPresented: $showingDetail){
+                                DeviceDetailView(device: device)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
                 }
             }
-            //        .edgesIgnoringSafeArea(.all)
-        }
+                    
+        }.onAppear(perform: {self.dvcObj.loadData()
+        })
+        .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)), Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))]), startPoint: .top, endPoint: .trailing))
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
