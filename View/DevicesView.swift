@@ -14,29 +14,31 @@ struct DevicesView: View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
                 .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
-                .opacity(0.7)
+                .opacity(device.is_active ? 1.0 : 0.7)
                 .frame(width: 120, height: 120)
             
             VStack(alignment: .leading){
                 
-                Image(systemName: "square.and.pencil").foregroundColor(Color(UIColor.systemGray2)).font(.system(size:30, weight: .bold))
+                Image(systemName: "square.and.pencil")
+                    .foregroundColor(Color(.label))
+                    .font(.system(size:30, weight: .bold))
 
                 Text(device.device_name)
                     .fontWeight(.medium)
-                    .foregroundColor(Color(UIColor.systemGray6))
+                    .foregroundColor(Color(.label))
                     .font(.system(size:17))
                     .multilineTextAlignment(.leading)
                     
                 
                 Text(device.device_custom_name ?? device.device_name)
                     .fontWeight(.medium)
-                    .foregroundColor(Color(UIColor.systemGray6))
+                    .foregroundColor(Color(.label))
                     .font(.system(size:15))
                     .multilineTextAlignment(.leading)
                     
                 Text("Vyp.")
                     .fontWeight(.regular)
-                    .foregroundColor(Color(UIColor.systemGray6))
+                    .foregroundColor(Color(.secondaryLabel))
                     .font(.system(size:15))
                     .multilineTextAlignment(.leading)
                 
@@ -48,6 +50,7 @@ struct DevicesView: View {
 
 struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
-        DevicesView(device: Device(id: 1, device_name: "test",device_custom_name: "cust_name",glyph: "glyph"))
+        DevicesView(device: Device(id: 1, device_name: "test",device_custom_name: "cust_name",glyph: "glyph", is_active: false))
+            
     }
 }

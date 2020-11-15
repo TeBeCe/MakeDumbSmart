@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC0D27AF255EF1AC005F5E46 /* DeviceFunctionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27AE255EF1AC005F5E46 /* DeviceFunctionsView.swift */; };
+		BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */; };
+		BC0D27B625603BBF005F5E46 /* DeviceFunctionSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */; };
+		BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */; };
 		BC4B551A25024B9600DB6819 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B551925024B9600DB6819 /* GridStack.swift */; };
 		BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBD250141DA009821D7 /* AppDelegate.swift */; };
 		BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBF250141DA009821D7 /* SceneDelegate.swift */; };
@@ -23,7 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BC0D27AE255EF1AC005F5E46 /* DeviceFunctionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionsView.swift; sourceTree = "<group>"; };
+		BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionSwitchView.swift; sourceTree = "<group>"; };
+		BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionSliderView.swift; sourceTree = "<group>"; };
+		BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionLevelView.swift; sourceTree = "<group>"; };
 		BC4B551925024B9600DB6819 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeDumbSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC88EFBD250141DA009821D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC0D27BB2561361E005F5E46 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */,
+				BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */,
+				BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */,
+			);
+			name = Functions;
+			sourceTree = "<group>";
+		};
 		BC88EFB1250141DA009821D7 = {
 			isa = PBXGroup;
 			children = (
@@ -95,11 +109,11 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFC1250141DA009821D7 /* ContentView.swift */,
+				BC0D27BB2561361E005F5E46 /* Functions */,
 				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
 				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
 				BC4B551925024B9600DB6819 /* GridStack.swift */,
 				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
-				BC0D27AE255EF1AC005F5E46 /* DeviceFunctionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,10 +210,12 @@
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
 				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
+				BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */,
+				BC0D27B625603BBF005F5E46 /* DeviceFunctionSliderView.swift in Sources */,
 				BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC4B551A25024B9600DB6819 /* GridStack.swift in Sources */,
-				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionsView.swift in Sources */,
+				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

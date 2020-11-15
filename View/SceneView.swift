@@ -9,35 +9,38 @@
 import SwiftUI
 
 struct SceneView: View {
-//    var scene: Scene
+    var scene: Scene
+    var color = UIColor(.gray)
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius:20, style: .continuous)
+            RoundedRectangle(cornerRadius:15, style: .continuous)
                 .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
-                .opacity(0.7)
+//                .opacity(scene.is_active ? 0.65 : 1.0)
                 .frame(width: 250, height: 60)
             
             HStack(alignment: .center){
                 Image(systemName: "house")
-                    .foregroundColor(Color(UIColor.systemGray2))
+                    .foregroundColor(Color(.label))
                     .padding(.bottom, 5.0)
                     .padding(.leading, 10)
                     .font(.system(size:30, weight: .semibold))
                 
-                Text("Scene name")
+                Text(scene.scene_name)
                     .fontWeight(.medium)
-                    .foregroundColor(Color(UIColor.systemGray6))
+                    .foregroundColor(Color(.label))
                     .font(.system(size:20))
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
             .frame(width: 250,height: 60)
-        }
+        } .opacity(scene.is_active ? 0.65 : 1.0)
     }
 }
 
 struct SceneView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneView()
+        Group {
+            SceneView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false))
+        }
     }
 }

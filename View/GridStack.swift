@@ -24,11 +24,6 @@ func CalculateRows(array: [Device])->[[Device]]{
 
 struct GridStack: View {
     var rows : [[Device]]
-//    let rows: [[Int]] = [[1,2,3],[1,2,3],[1]] //CalculateRows()
-//    var rows =  CalculateRows(array: [1,2,3,4,5,6,7,8,9,10])
-    
-
-    //    var rows: Int = 0
     
     var body: some View {
         VStack(alignment: .leading){
@@ -36,7 +31,7 @@ struct GridStack: View {
                 HStack(){
                     ForEach(0..<self.rows[i].count){x in
                         //            print(x)
-                        DevicesView(device: Device(id: 1, device_name: "test",device_custom_name: "",glyph: ""))
+                        DevicesView(device: Device(id: 1, device_name: "test",device_custom_name: "",glyph: "", is_active: false))
                     }
                 }
             }
@@ -46,6 +41,6 @@ struct GridStack: View {
 
 struct GridStack_Previews: PreviewProvider {
     static var previews: some View {
-        GridStack(rows: [[Device(id: 1, device_name: "test",device_custom_name: "cust_name",glyph: "")]])
+        GridStack(rows: [[Device(id: 1, device_name: "test",device_custom_name: "cust_name",glyph: "", is_active: false)]])
     }
 }

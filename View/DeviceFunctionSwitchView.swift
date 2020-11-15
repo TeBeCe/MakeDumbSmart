@@ -1,5 +1,5 @@
 //
-//  DeviceFunctionsView.swift
+//  DeviceFunctionSwitchView.swift
 //  MakeDumbSmart
 //
 //  Created by Martin Bachraty on 13/11/2020.
@@ -21,6 +21,7 @@ struct DeviceFunctionSwitchView: View {
                   .opacity(0.7)
                   .frame(width: 140, height: 400)
                 Button(action:{self.offsetY = self.offsetY == -100.0 ? 100.0 : -100.0}){
+//                Button(action:{self.offsetY = self.state == false ? 100.0 : -100.0 }){
                 RoundedRectangle(cornerRadius:20, style: .continuous)
                     .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.systemGray))
                     .opacity(1)
@@ -39,8 +40,6 @@ struct DeviceFunctionSwitchView: View {
                         .padding(.bottom,65)
                 }
             }.frame(width: 140, height: 400, alignment: .center)
-            
-        
     }
 }
 

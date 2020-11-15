@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showingDetail = false
-    var decodedDevices : [Device]? = nil
     
     @ObservedObject var dvcObj = LoadJSONData()
     
@@ -18,6 +17,10 @@ struct ContentView: View {
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
+    ]
+    let rows = [
+        GridItem(.fixed(60)),
+        GridItem(.fixed(60))
     ]
     
     var body: some View {
@@ -32,15 +35,14 @@ struct ContentView: View {
                     Text("Favorite scenes").padding(.leading, 20)
                     
                     ScrollView(.horizontal,showsIndicators: false){
-                        HStack{
-                            SceneView()
-                            SceneView()
-                        }.padding(.leading, 20.0)
-                        HStack{
-                            SceneView()
-                            SceneView()
-                        }.padding(.leading, 20.0)
-                        
+                        LazyHGrid(rows: rows,alignment: .center, spacing: 10)
+                        {
+                            ForEach(dvcObj.scenes){ scene in
+                                SceneView(scene: scene)
+                            }
+//                            SceneView(scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: "Lamp"))
+//                            SceneView(scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: "Lamp"))
+                        }.padding(.leading,20)
                     }.padding(.leading, 0.0)
                     
                 }.padding(.bottom, 10)
@@ -48,12 +50,11 @@ struct ContentView: View {
                 VStack(alignment: .leading){
                     Text("Favorite Functions").padding(.leading, 20)
                     
-                    LazyVGrid(columns: columns, spacing: 10) {
+                    LazyVGrid(columns: columns, spacing: 10){
                         ForEach(dvcObj.devices ) { device in
                             Button(action: {
                                 print(device)
                                 self.showingDetail.toggle()
-                                
                             })
                             {
                                 DevicesView(device: device)

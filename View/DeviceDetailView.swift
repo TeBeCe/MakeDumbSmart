@@ -20,17 +20,21 @@ struct DeviceDetailView: View {
                     
                     Text(device.device_custom_name ?? device.device_name)
                         .font(.system(size: 20, weight: .semibold ))
-                    
                 }
                 Spacer()
-            }.padding([.top, .leading], 20)
-            DeviceFunctionsView()
+            }.padding([.top, .leading], 20).padding(.bottom, 100)
+//            DeviceFunctionSliderView().frame(width: 140, height: 400, alignment: .center).accentColor(.white)
+            DeviceFunctionLevelView()
+                .frame(width: 140, height: 400, alignment: .center)
+                .accentColor(.white)
+                
         }
     }
 }
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetailView(device: Device(id: 0, device_name: "Test", device_custom_name: "test_custom", glyph: "Lamp"))
+        DeviceDetailView(device: Device(id: 0, device_name: "Test", device_custom_name: "test_custom", glyph: "Lamp" , is_active: false))
+            .preferredColorScheme(.dark)
     }
 }

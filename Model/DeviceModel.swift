@@ -11,21 +11,26 @@ import Foundation
 struct Home: Codable {
     let home_name: String
     let id: Int
-    let devices: [Device]?
+    let scenes: [Scene]
+    let devices: [Device]
 }
+
 struct Device:  Codable, Identifiable {
     let id: Int
     let device_name: String
     let device_custom_name: String?
     let glyph : String?
+    let is_active: Bool
 //    let functions: Functions?
 }
+
 struct Functions: Codable {
     let state: xState?
     let level: Level?
     let mode: Mode?
     let special: Special?
 }
+
 struct xState : Codable {
     
     let name: String?
@@ -41,21 +46,31 @@ struct Mode: Codable {
     let name: Int? // String
     let mode: Int?
 }
+
 struct Special: Codable {
     let func1: Int? // String
     let func2: Int?
 }
+
 struct Scene: Codable,Identifiable {
     let scene_name: String
     let id: Int
-    let favorite: Bool
-    let glyph: String
+    let is_favorite: Bool
+    let glyph: String?
+    let is_active: Bool
+}
+
+enum FunctionEnum {
+    case switchFunc
+    case slider
+    case levels
 }
 
 class LoadJSONData : ObservableObject {
     
-    @Published var home = Home(home_name: "", id: 0, devices: nil)
+    @Published var home = Home(home_name: "" ,id: 0 ,scenes: [] ,devices: [])
     @Published var devices = [Device]()
+    @Published var scenes = [Scene]()
     
     func loadData() {
         //        let jsonUrlString = "https://my.api.mockaroo.com/test_dp.json?key=96614480"
@@ -73,7 +88,8 @@ class LoadJSONData : ObservableObject {
             DispatchQueue.main.async {
                 print(data!)
                 self.home = try! JSONDecoder().decode(Home.self, from: data!)
-                self.devices = self.home.devices ?? [Device(id: 0, device_name: "def",device_custom_name: "def_cust",glyph: "def_glyph")]
+                self.devices = self.home.devices
+                self.scenes = self.home.scenes 
                 print(self.home)
             }
             //                    }
@@ -95,6 +111,7 @@ class LoadJSONData : ObservableObject {
     //            }
     //        }
     //    }
+    
     
 }
 
