@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var showingDetail = false
+    @State  private var selectedDevice : Device? = nil
     
     @ObservedObject var dvcObj = LoadJSONData()
     
@@ -37,11 +37,13 @@ struct ContentView: View {
                     ScrollView(.horizontal,showsIndicators: false){
                         LazyHGrid(rows: rows,alignment: .center, spacing: 10)
                         {
-                            ForEach(dvcObj.scenes){ scene in
-                                SceneView(scene: scene)
+                            ForEach(dvcObj.scenes.indices,id: \.self){ indx in
+                                Button(action: {
+                                    dvcObj.scenes[indx].is_active.toggle()
+                                }){
+                                    SceneView(scene: self.dvcObj.scenes[indx])
+                                }
                             }
-//                            SceneView(scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: "Lamp"))
-//                            SceneView(scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: "Lamp"))
                         }.padding(.leading,20)
                     }.padding(.leading, 0.0)
                     
@@ -51,18 +53,19 @@ struct ContentView: View {
                     Text("Favorite Functions").padding(.leading, 20)
                     
                     LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(dvcObj.devices ) { device in
+                        ForEach(dvcObj.devices.indices,id: \.self ) { indx in
                             Button(action: {
-                                print(device)
-                                self.showingDetail.toggle()
+                                self.selectedDevice = self.dvcObj.devices[indx]
+                                print(self.dvcObj.devices[indx])
+//                                self.dvcObj.devices[indx].is_active.toggle()
                             })
                             {
-                                DevicesView(device: device)
-                            }.sheet(isPresented: $showingDetail){
-                                DeviceDetailView(device: device)
+                                DevicesView(device: self.dvcObj.devices[indx])
                             }
                         }
-                    }
+                    }.sheet(item: $selectedDevice){ device in
+                        DeviceDetailView(dvcObj: dvcObj, device: device)
+                                                }
                     .padding(.horizontal)
                 }
             }

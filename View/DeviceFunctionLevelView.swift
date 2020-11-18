@@ -21,7 +21,7 @@ func CalculateLevels(levels: Int) -> [Float]{
 struct DeviceFunctionLevelView: View {
     @State var percentage : Float = 50
     @State var selectedLevel: Int = 0
-    
+    @Binding var valueStr : String
     var levels : Int = 3
     var levelArr : [Float] = CalculateLevels(levels: 3)
     
@@ -51,7 +51,6 @@ struct DeviceFunctionLevelView: View {
                         .onChanged({ value in
                             // TODO: - maybe use other logic here
                             self.percentage = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
-                            print(CGFloat(self.percentage / 100))
                             for i in (0..<levelArr.count).reversed(){
                                 if(percentage > levelArr[i]){
                                     self.selectedLevel = levelArr.count - i
@@ -60,6 +59,7 @@ struct DeviceFunctionLevelView: View {
                                     self.selectedLevel = 0
                                 }
                             }
+                            valueStr = selectedLevel == 0 ? "Vyp." : "\(selectedLevel)"
                         }))
         }
     }
@@ -67,6 +67,6 @@ struct DeviceFunctionLevelView: View {
 
 struct DeviceFunctionLevelView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionLevelView().frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionLevelView(valueStr: .constant("4")).frame(width: 140, height: 400, alignment: .center)
     }
 }

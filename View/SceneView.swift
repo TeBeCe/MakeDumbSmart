@@ -15,7 +15,6 @@ struct SceneView: View {
         ZStack {
             RoundedRectangle(cornerRadius:15, style: .continuous)
                 .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
-//                .opacity(scene.is_active ? 0.65 : 1.0)
                 .frame(width: 250, height: 60)
             
             HStack(alignment: .center){
@@ -30,6 +29,7 @@ struct SceneView: View {
                     .foregroundColor(Color(.label))
                     .font(.system(size:20))
                     .multilineTextAlignment(.leading)
+                
                 Spacer()
             }
             .frame(width: 250,height: 60)
@@ -41,6 +41,7 @@ struct SceneView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SceneView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false))
+                .preferredColorScheme(.dark)
         }
     }
 }

@@ -8,20 +8,22 @@
 
 import Foundation
 
-struct Home: Codable {
-    let home_name: String
+struct Home: Codable, Identifiable {
+    var home_name: String
     let id: Int
-    let scenes: [Scene]
-    let devices: [Device]
+    var scenes: [Scene]
+    var devices: [Device]
 }
 
 struct Device:  Codable, Identifiable {
     let id: Int
-    let device_name: String
+    var device_name: String
     let device_custom_name: String?
     let glyph : String?
-    let is_active: Bool
-//    let functions: Functions?
+    var is_active: Bool
+    let type: String
+    var value: Float
+    //    let functions: Functions?
 }
 
 struct Functions: Codable {
@@ -53,17 +55,17 @@ struct Special: Codable {
 }
 
 struct Scene: Codable,Identifiable {
-    let scene_name: String
+    var scene_name: String
     let id: Int
-    let is_favorite: Bool
+    var is_favorite: Bool
     let glyph: String?
-    let is_active: Bool
+    var is_active: Bool
 }
 
 enum FunctionEnum {
     case switchFunc
-    case slider
-    case levels
+    case sliderFunc
+    case levelsFunc
 }
 
 class LoadJSONData : ObservableObject {
@@ -81,38 +83,33 @@ class LoadJSONData : ObservableObject {
         let request = URLRequest(url: urlx)
         
         URLSession.shared.dataTask(with: request){data, response,error in
-            //                if let data = data {
-            //                print(response)
-            
-            //                {
-            DispatchQueue.main.async {
-                print(data!)
-                self.home = try! JSONDecoder().decode(Home.self, from: data!)
-                self.devices = self.home.devices
-                self.scenes = self.home.scenes 
-                print(self.home)
+            if let data = data {
+                do {
+                    DispatchQueue.main.async {
+//                        print(data)
+                        self.home = try! JSONDecoder().decode(Home.self, from: data)
+                        self.devices = self.home.devices
+                        self.scenes = self.home.scenes
+//                        print(self.home)
+                    }
+                }
             }
-            //                    }
-            //                    else{
-            //                        print(error)
-            //                    }
-            //                }
+            else{
+                print(error!)
+            }
         }.resume()
     }
-    //    func CalculateRows(){
-    //    //    var array : [Int] = [1,2,3,4,5,6,7,8,9,10]
-    //        var row: [Device] = []
-    ////        var rows: [[Device]] = [[]]
-    //        for item in self.dvc {
-    //            row.append(item)
-    //            if(row.count == 3){
-    //                self.arrayDvc.append(row)
-    //                row.removeAll()
-    //            }
-    //        }
-    //    }
     
-    
+    func updateDevice(device: Device)
+    {
+        if let indx = devices.firstIndex(where: {$0.id == device.id}){
+            devices[indx] = device
+        }
+        else{
+            print(devices)
+        }
+        
+    }
 }
 
 

@@ -29,14 +29,15 @@ struct DevicesView: View {
                     .font(.system(size:17))
                     .multilineTextAlignment(.leading)
                     
-                
-                Text(device.device_custom_name ?? device.device_name)
+                Text(device.type)
                     .fontWeight(.medium)
                     .foregroundColor(Color(.label))
                     .font(.system(size:15))
                     .multilineTextAlignment(.leading)
-                    
-                Text("Vyp.")
+                
+//                let formattedFloat = String(format: "%.1f", myfloat)
+//                return Text("My Float: \(formattedFloat)")
+                Text(device.is_active == true ? "\(Int(device.value))" :"Vyp.")
                     .fontWeight(.regular)
                     .foregroundColor(Color(.secondaryLabel))
                     .font(.system(size:15))
@@ -50,7 +51,7 @@ struct DevicesView: View {
 
 struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
-        DevicesView(device: Device(id: 1, device_name: "test",device_custom_name: "cust_name",glyph: "glyph", is_active: false))
+        DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name",glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0)))
             
     }
 }

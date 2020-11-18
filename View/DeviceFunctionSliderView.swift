@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DeviceFunctionSliderView: View {
     @State var percentage: Float = 50 // or some value binded
-    
+    @Binding var valueStr : String
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
@@ -26,7 +26,8 @@ struct DeviceFunctionSliderView: View {
                         .onChanged({ value in
                             // TODO: - maybe use other logic here
                             self.percentage = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
-                            print(CGFloat(self.percentage / 100))
+//                            print(CGFloat(self.percentage / 100))
+                            valueStr = percentage == 0 ? "Vyp.": "\(percentage)%"
                         }))
         }
     }
@@ -35,6 +36,6 @@ struct DeviceFunctionSliderView: View {
 struct DeviceFunctionSliderView_Previews: PreviewProvider {
     
     static var previews: some View {
-        DeviceFunctionSliderView().frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionSliderView(valueStr: .constant("30")).frame(width: 140, height: 400, alignment: .center)
     }
 }
