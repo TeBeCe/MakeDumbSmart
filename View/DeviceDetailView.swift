@@ -8,59 +8,87 @@
 
 import SwiftUI
 
+func DetermineValue(device: Device)-> String {
+    
+    switch device.type{
+    case "Switch" :
+        return device.value == 0.0 ? "Vyp." : "Zap."
+    case "Slider" :
+        return device.value == 0.0 ? "Vyp." : "\(String(format: "%.1f%", device.value))%"
+    case "Levels" :
+        return device.value == 0.0 ? "Vyp." : "\(String(format: "%.0f%", device.value))"
+        
+    default:
+        return "Unknown device type/state"
+    }
+}
+
 struct DeviceDetailView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @State var device : Device
-    @State var valueStr : String = "Vyp."
     var body: some View {
-        VStack{
-            HStack(){
-                Image(systemName: "square.and.pencil").foregroundColor(Color(UIColor.systemGray2)).font(.system(size:40, weight: .bold))
-                VStack(alignment: .leading){
-                    Text(device.device_name)
-                        .font(.system(size: 20, weight: .bold))
+        NavigationView(){
+            VStack{
+                Capsule()
+                    .fill(Color.secondary)
+                    .frame(width: 40, height: 8)
+                                .padding(.top,10)
+                                .padding(.bottom,5)
+                
+                HStack(){
+                    Image(systemName:getGlyph(device: device)).foregroundColor(Color(UIColor.systemGray2))
+                        .font(.system(size:40, weight: .bold))
                     
-                    Text("\(device.value)")
-                        .font(.system(size: 20, weight: .semibold ))
+                    VStack(alignment: .leading){
+                        Text(device.device_name)
+                            .font(.system(size: 20, weight: .bold))
+                        
+                        Text(DetermineValue(device: device))
+                            .font(.system(size: 20, weight: .semibold ))
+                    }
+                    Spacer()
+                }.padding(.leading, 20)
+                
+                Spacer()
+                
+                switch device.type{
+                case "Switch":
+                    DeviceFunctionSwitchView(dvcObj: dvcObj, device: $device)
+                        .frame(width: 140, height: 400, alignment: .center)
+                        .accentColor(.white)
+                    
+                case "Slider":
+                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device)
+                        .frame(width: 140, height: 400, alignment: .center)
+                        .accentColor(.white)
+                    
+                case "Levels":
+                    DeviceFunctionLevelView(dvcObj: dvcObj, device: $device, levelArr: CalculateLevels(levels: device.max_level!))
+                        .frame(width: 140, height: 400, alignment: .center)
+                        .accentColor(.white)
+                    
+                default:
+                    Spacer()
                 }
                 Spacer()
-                Text("x").padding(.trailing, 20)
-                    .font(.system(size: 30, weight: .bold))
-            }.padding(.leading, 20)
-            .padding(.top, 10)
-            Spacer()
-            
-            switch device.type{
-            case "Switch":
-                DeviceFunctionSwitchView(state: $device.is_active, valueStr: $valueStr, device: $device, dvcObj: dvcObj)
-                    .frame(width: 140, height: 400, alignment: .center)
-                    .accentColor(.white)
-
-            case "Slider":
-                DeviceFunctionSliderView(percentage:Float(device.value) ,valueStr: $valueStr)
-                    .frame(width: 140, height: 400, alignment: .center)
-                    .accentColor(.white)
-
-            case "Levels":
-                DeviceFunctionLevelView(percentage: Float(device.value) ,valueStr: $valueStr)
-                    .frame(width: 140, height: 400, alignment: .center)
-                    .accentColor(.white)
-
-            default:
-                Spacer()
+                HStack(alignment: .top){
+                    Spacer()
+                    
+                    NavigationLink(
+                        destination: DeviceSettingsView(dvcObj: dvcObj,device: $device),
+                        label: {
+                            Image(systemName: "gear")
+                                .font(.system(size:30, weight: .bold))
+                        }).navigationBarHidden(true).accentColor(.gray)
+                }.padding([.trailing,.bottom], 20)
             }
-            Spacer()
-            HStack(alignment: .top){
-                Spacer()
-                Text("X")
-            }.padding([.trailing,.bottom], 20)
         }
     }
 }
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetailView(dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: "test_custom", glyph: "Lamp" , is_active: false, type: "Switch", value: Float(Int(1.0))))
+        DeviceDetailView(dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: nil, glyph: nil , is_active: false, type: "Slider", value: Float(Int(1.0)), max_level: 3))
             .preferredColorScheme(.dark)
     }
 }

@@ -57,7 +57,7 @@ struct ContentView: View {
                             Button(action: {
                                 self.selectedDevice = self.dvcObj.devices[indx]
                                 print(self.dvcObj.devices[indx])
-//                                self.dvcObj.devices[indx].is_active.toggle()
+                                //self.dvcObj.devices[indx].is_active.toggle()
                             })
                             {
                                 DevicesView(device: self.dvcObj.devices[indx])
@@ -65,11 +65,11 @@ struct ContentView: View {
                         }
                     }.sheet(item: $selectedDevice){ device in
                         DeviceDetailView(dvcObj: dvcObj, device: device)
-                                                }
+                    }
                     .padding(.horizontal)
                 }
             }
-                    
+            
         }.onAppear(perform: {self.dvcObj.loadData()
         })
         .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)), Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))]), startPoint: .top, endPoint: .trailing))

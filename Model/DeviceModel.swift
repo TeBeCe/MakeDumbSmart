@@ -13,6 +13,7 @@ struct Home: Codable, Identifiable {
     let id: Int
     var scenes: [Scene]
     var devices: [Device]
+    var rooms: [Room]
 }
 
 struct Device:  Codable, Identifiable {
@@ -23,9 +24,22 @@ struct Device:  Codable, Identifiable {
     var is_active: Bool
     let type: String
     var value: Float
+    let max_level: Int?
+    var room: Int?
     //    let functions: Functions?
 }
+struct Scene: Codable,Identifiable {
+    var scene_name: String
+    let id: Int
+    var is_favorite: Bool
+    let glyph: String?
+    var is_active: Bool
+}
 
+struct Room: Codable, Identifiable {
+    var room_name: String
+    let id: Int
+}
 struct Functions: Codable {
     let state: xState?
     let level: Level?
@@ -54,14 +68,6 @@ struct Special: Codable {
     let func2: Int?
 }
 
-struct Scene: Codable,Identifiable {
-    var scene_name: String
-    let id: Int
-    var is_favorite: Bool
-    let glyph: String?
-    var is_active: Bool
-}
-
 enum FunctionEnum {
     case switchFunc
     case sliderFunc
@@ -70,9 +76,10 @@ enum FunctionEnum {
 
 class LoadJSONData : ObservableObject {
     
-    @Published var home = Home(home_name: "" ,id: 0 ,scenes: [] ,devices: [])
+    @Published var home = Home(home_name: "" ,id: 0 ,scenes: [] ,devices: [], rooms: [])
     @Published var devices = [Device]()
     @Published var scenes = [Scene]()
+    @Published var rooms = [Room]()
     
     func loadData() {
         //        let jsonUrlString = "https://my.api.mockaroo.com/test_dp.json?key=96614480"
@@ -90,6 +97,7 @@ class LoadJSONData : ObservableObject {
                         self.home = try! JSONDecoder().decode(Home.self, from: data)
                         self.devices = self.home.devices
                         self.scenes = self.home.scenes
+                        self.rooms = self.home.rooms
 //                        print(self.home)
                     }
                 }

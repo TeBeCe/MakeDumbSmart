@@ -21,6 +21,7 @@
 		BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD8250149FC009821D7 /* DevicesView.swift */; };
 		BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFDA2501A04D009821D7 /* SceneView.swift */; };
 		BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */; };
+		BCE609BE2566EAD500B9405C /* DeviceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		BC88EFD8250149FC009821D7 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
 		BC88EFDA2501A04D009821D7 /* SceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
 		BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
 				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
 				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
+				BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
 				BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */,
 				BC0D27B625603BBF005F5E46 /* DeviceFunctionSliderView.swift in Sources */,
+				BCE609BE2566EAD500B9405C /* DeviceSettingsView.swift in Sources */,
 				BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */,
