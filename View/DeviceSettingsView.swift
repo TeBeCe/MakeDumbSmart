@@ -11,10 +11,12 @@ import SwiftUI
 struct DeviceSettingsView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
-    @State private var roomIndex = 0
+    @State var roomIndex = 0
     @State var isFavorite : Bool = false
     @State private var sceneIndex = 0
     @State var showInState : Bool = false
+    @State var showPicker : Bool = false
+    
     var body: some View {
         VStack{
             Form{
@@ -25,18 +27,34 @@ struct DeviceSettingsView: View {
                         }
                 }
                 Section(){
-                    Picker(selection: $roomIndex, label: Text("Room")) {
-                        ForEach(0 ..< dvcObj.rooms.count) {indx in
-                            Text(self.dvcObj.rooms[indx].room_name)
-                        }
-                    }.onChange(of: roomIndex){ _ in
-                        device.room = roomIndex
-                        dvcObj.updateDevice(device: device)
+                    HStack{
+                        Text("Test")
+                        Spacer()
+                        Text(getRoomFrom(rooms: dvcObj.rooms, device: device)).foregroundColor(.orange)
                     }
-                    //                .pickerStyle(InlinePickerStyle())
+                    .contentShape(Rectangle())
+                    .onTapGesture(perform: {
+//                        withAnimation(.linear(duration:0.2)){
+                            self.showPicker.toggle()
+//                        }
+                    })
+                    if self.showPicker {
+                        Picker(selection: $roomIndex, label: Text("Room")) {
+                            ForEach(dvcObj.rooms,id: \.id){
+                                Text($0.room_name).tag($0.id)
+                            }
+                        }.onChange(of: roomIndex){ _ in
+                            device.room = dvcObj.rooms[roomIndex-1].id
+                            dvcObj.updateDevice(device: device)
+                        }
+                        .pickerStyle(InlinePickerStyle())
+                    }
                     Toggle(isOn: $isFavorite) {
                         Text("Add to Favorite")
                     }
+//                    DisclosureGroup(isExpanded: $showPicker){
+//                        Text("noice")
+//                    } label: {Text("txt")}
                 }
                 Section(){
                     Picker(selection: $sceneIndex, label: Text("Scene")) {
@@ -53,7 +71,7 @@ struct DeviceSettingsView: View {
             }
             Spacer()
         }.navigationBarTitle(Text(""),displayMode: .inline)
-//        .navigationBarHidden(true)
+        //        .navigationBarHidden(true)
     }
 }
 

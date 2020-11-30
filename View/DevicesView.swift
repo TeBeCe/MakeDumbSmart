@@ -21,39 +21,51 @@ func getGlyph(device:Device)->String{
     }
 }
 
+func getRoomFrom(rooms: [Room], device: Device) -> String{
+    
+    if let indx = rooms.firstIndex(where: {$0.id == device.room}){
+        return rooms[indx].room_name
+    }
+    else{
+        return ""
+    }
+}
+
 struct DevicesView: View {
     var device : Device
+    var rooms : [Room]
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
-                .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
-                .opacity(device.is_active ? 1.0 : 0.7)
+//                .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
+                .fill(device.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
+                .opacity(device.is_active ? 1.0 : 0.8)
                 .frame(width: 120, height: 120)
             
             VStack(alignment: .leading){
                 
                 Image(systemName: getGlyph(device: device))
-                    .foregroundColor(Color(.label))
-                    .font(.system(size:30, weight: .bold)).scaledToFit()
+                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
+                    .font(.system(size:30, weight: .semibold)).scaledToFit()
                     .frame(width: 30, height: 30)
                     .padding(.bottom,0.5)
                 
                 Text(device.device_name)
-                    .fontWeight(.medium)
-                    .foregroundColor(Color(.label))
+                    .fontWeight(.semibold)
+                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                     .font(.system(size:17))
 //                    .padding(.top,1)
 //                    .multilineTextAlignment(.leading)
                 
-                Text(device.type)
-                    .fontWeight(.medium)
-                    .foregroundColor(Color(.label))
+                Text(getRoomFrom(rooms: rooms, device: device))
+                    .fontWeight(.semibold)
+                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                     .font(.system(size:16))
                     .multilineTextAlignment(.leading)
                 
                 Text(DetermineValue(device: device))
-                    .fontWeight(.regular)
-                    .foregroundColor(Color(.secondaryLabel))
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color(.systemGray))
                     .font(.system(size:15))
                     .multilineTextAlignment(.leading)
             }
@@ -64,7 +76,9 @@ struct DevicesView: View {
 
 struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
-        DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name",glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3))
+
+            DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name",glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), rooms: [])
+                .preferredColorScheme(.dark)
             
     }
 }

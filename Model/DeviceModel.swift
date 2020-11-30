@@ -34,6 +34,7 @@ struct Scene: Codable,Identifiable {
     var is_favorite: Bool
     let glyph: String?
     var is_active: Bool
+    var devices : [Device]
 }
 
 struct Room: Codable, Identifiable {
@@ -93,12 +94,12 @@ class LoadJSONData : ObservableObject {
             if let data = data {
                 do {
                     DispatchQueue.main.async {
-//                        print(data)
+                        //                        print(data)
                         self.home = try! JSONDecoder().decode(Home.self, from: data)
                         self.devices = self.home.devices
                         self.scenes = self.home.scenes
                         self.rooms = self.home.rooms
-//                        print(self.home)
+                        //                        print(self.home)
                     }
                 }
             }
@@ -116,7 +117,105 @@ class LoadJSONData : ObservableObject {
         else{
             print(devices)
         }
-        
+    }
+    func getDevicesInRooms()->[TestData]{
+        var returnData : [TestData] = []
+        var devicesAssignedToRoom : [Device] = []
+        for roomx in self.rooms
+        {
+            devicesAssignedToRoom = []
+            for devicex in devices where devicex.room == roomx.id {
+                devicesAssignedToRoom.append(devicex)
+            }
+            returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
+            
+        }
+        return returnData
+    }
+    func getDevicesInScene(scene: Scene)->[TestData]{
+//        print(scene)
+        var returnData : [TestData] = []
+        var devicesAssignedToRoom : [Device] = []
+        for roomx in self.rooms
+        {
+            devicesAssignedToRoom = []
+            for devicex in devices where devicex.room == roomx.id {
+                if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+                    if let _ =  scenes[indxSc].devices.firstIndex(where: {$0.id == devicex.id}){
+                        devicesAssignedToRoom.append(devicex)
+                    }}
+            }
+            if(devicesAssignedToRoom.count != 0){
+                returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
+            }
+        }
+        return returnData
+    }
+    
+    func isDeviceInScene(scene: Scene, device:Device)->Bool{
+        //        var scene: Scene
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            if let _ =  scenes[indxSc].devices.firstIndex(where: {$0.id == device.id}){
+                return true
+            }
+            else{return false}
+        }
+        else{
+            print("something wrong")
+            return false
+        }
+        //        return false
+    }
+    
+    func addOrRemoveDeviceToScene(scene: Scene, device: Device){
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            if let indxDv =  scenes[indxSc].devices.firstIndex(where: {$0.id == device.id}){
+                scenes[indxSc].devices.remove(at: indxDv)
+                //                print("removing")
+                //                print(scenes[indxSc].devices.count)
+            }
+            else{
+                scenes[indxSc].devices.append(device)
+                //                print("adding")
+                //                print(scenes[indxSc].devices.count)
+            }
+        }
+        else{
+            
+        }
+    }
+    func getSceneFromScenes(scene:Scene)->Scene{
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            return scenes[indxSc]
+        }
+        else {
+            return Scene(scene_name: "DummyScene", id: 0, is_favorite: false, glyph: nil, is_active: true, devices: [])
+        }
+    }
+    
+    func createScene(scene: Scene){
+        scenes.append(scene)
+    }
+    func validateScenes(){
+//        if let indxSc = scenes.firstIndex(where: {$0.id == 0}){
+//            print ("removing scene: \(scenes[indxSc].scene_name)")
+//            scenes.remove(at: indxSc)
+//        }
+        scenes.removeAll(where: {$0.id == 0})
+    }
+    func deleteScene(scene:Scene){
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            print ("removing scene: \(scene.scene_name)")
+            scenes.remove(at: indxSc)
+        }
+    }
+    func getDevicesInSceneArray(scene: Scene)->[Device]{
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            return scenes[indxSc].devices
+        }
+        else{
+            return []
+        }
     }
 }
 

@@ -24,31 +24,21 @@ func DetermineValue(device: Device)-> String {
 }
 
 struct DeviceDetailView: View {
+    @Binding var sd : Device?
     @ObservedObject var dvcObj : LoadJSONData
     @State var device : Device
     var body: some View {
+        
+        //        HStack{Spacer()
+        //            Capsule()
+        //            .fill(Color.secondary)
+        //            .frame(width: 40, height: 8)
+        //                        .padding(.top,5)
+        //            .padding(.bottom,0)
+        //            Spacer()
+        //        }.background(Color.red)
         NavigationView(){
             VStack{
-                Capsule()
-                    .fill(Color.secondary)
-                    .frame(width: 40, height: 8)
-                                .padding(.top,10)
-                                .padding(.bottom,5)
-                
-                HStack(){
-                    Image(systemName:getGlyph(device: device)).foregroundColor(Color(UIColor.systemGray2))
-                        .font(.system(size:40, weight: .bold))
-                    
-                    VStack(alignment: .leading){
-                        Text(device.device_name)
-                            .font(.system(size: 20, weight: .bold))
-                        
-                        Text(DetermineValue(device: device))
-                            .font(.system(size: 20, weight: .semibold ))
-                    }
-                    Spacer()
-                }.padding(.leading, 20)
-                
                 Spacer()
                 
                 switch device.type{
@@ -75,20 +65,37 @@ struct DeviceDetailView: View {
                     Spacer()
                     
                     NavigationLink(
-                        destination: DeviceSettingsView(dvcObj: dvcObj,device: $device),
+                        destination: DeviceSettingsView(dvcObj: dvcObj,device: $device,roomIndex: device.room ?? 0),
                         label: {
                             Image(systemName: "gear")
                                 .font(.system(size:30, weight: .bold))
-                        }).navigationBarHidden(true).accentColor(.gray)
+                        })
+                        //                        .navigationBarHidden(true)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .accentColor(.gray)
                 }.padding([.trailing,.bottom], 20)
-            }
+            }.navigationBarItems(leading:
+                                    HStack(){
+                                        Image(systemName:getGlyph(device: device)).foregroundColor(Color(UIColor.systemGray2))
+                                            .font(.system(size:35, weight: .semibold))
+                                        
+                                        VStack(alignment: .leading){
+                                            Text(device.device_name)
+                                                .font(.system(size: 18, weight: .bold))
+                                            
+                                            Text(DetermineValue(device: device))
+                                                .font(.system(size: 18, weight: .semibold ))
+                                        }
+                                        Spacer()
+                                    }, trailing: Button(action:{self.sd = nil}){Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size:25, weight: .bold)).accentColor(.gray)})
         }
     }
 }
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetailView(dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: nil, glyph: nil , is_active: false, type: "Slider", value: Float(Int(1.0)), max_level: 3))
+        DeviceDetailView(sd: .constant(nil), dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: nil, glyph: nil , is_active: false, type: "Slider", value: Float(Int(1.0)), max_level: 3))
             .preferredColorScheme(.dark)
     }
 }

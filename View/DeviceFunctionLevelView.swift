@@ -39,7 +39,7 @@ struct DeviceFunctionLevelView: View {
                             .foregroundColor(.gray)
                             .opacity(Float(100 / device.max_level!) * device.value > levelArr[i] ? 1.0 : 0)
                         
-                        Color.white.frame(height:CGFloat(2) / UIScreen.main.scale)
+                        Color.white.frame(height:CGFloat(3) / UIScreen.main.scale)
                             .opacity(i+1 == device.max_level ? 0.0 : 1.0)
                     }
                 }
@@ -47,7 +47,7 @@ struct DeviceFunctionLevelView: View {
                     .foregroundColor(Color(UIColor(.init(.systemGray))))
                     .frame(height:geometry.size.height * CGFloat(self.percentage / 100))
                     .opacity(0.0)
-                Text("level: \(selectedLevel)")
+//                Text("level: \(selectedLevel)")
             }
             .cornerRadius(30)
             .gesture(DragGesture(minimumDistance: 0)
@@ -63,6 +63,7 @@ struct DeviceFunctionLevelView: View {
                                 }
                             }
                             //TODO: - no need to update every onChange
+                            self.device.is_active = self.selectedLevel == 0 ? false : true
                             self.device.value = Float(self.selectedLevel)
                             dvcObj.updateDevice(device: device)
                         }))
