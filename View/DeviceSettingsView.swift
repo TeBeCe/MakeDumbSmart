@@ -30,7 +30,8 @@ struct DeviceSettingsView: View {
                     HStack{
                         Text("Test")
                         Spacer()
-                        Text(getRoomFrom(rooms: dvcObj.rooms, device: device)).foregroundColor(.orange)
+                        Text(getRoomFrom(rooms: dvcObj.rooms, device: device))
+                            .foregroundColor(.orange)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture(perform: {

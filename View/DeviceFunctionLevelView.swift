@@ -23,7 +23,7 @@ struct DeviceFunctionLevelView: View {
     @State var selectedLevel: Int = 0
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
-    
+    @State var scene : Scene?
     @State var levelArr : [Float] = []
     
     var body: some View {
@@ -33,11 +33,11 @@ struct DeviceFunctionLevelView: View {
                     .foregroundColor(Color(UIColor(.init(.systemGray3))))
                     .opacity(0.8)
                 VStack(spacing:0){
-//                    ForEach(0..<levels) { i in
                     ForEach(0..<device.max_level!) { i in
-                        Rectangle().frame(height: (geometry.size.height/CGFloat(device.max_level!)), alignment: .center)
+                        Rectangle()
+                            .frame(height: (geometry.size.height/CGFloat(device.max_level!)), alignment: .center)
                             .foregroundColor(.gray)
-                            .opacity(Float(100 / device.max_level!) * device.value > levelArr[i] ? 1.0 : 0)
+                            .opacity(Float(100 / device.max_level!) * device.value > levelArr[i] ? 1.0 : 0.0)
                         
                         Color.white.frame(height:CGFloat(3) / UIScreen.main.scale)
                             .opacity(i+1 == device.max_level ? 0.0 : 1.0)
@@ -65,7 +65,13 @@ struct DeviceFunctionLevelView: View {
                             //TODO: - no need to update every onChange
                             self.device.is_active = self.selectedLevel == 0 ? false : true
                             self.device.value = Float(self.selectedLevel)
-                            dvcObj.updateDevice(device: device)
+                            if (scene == nil){
+                                dvcObj.updateDevice(device: device)
+                            }
+                            else{
+                                dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                            }
+                            
                         }))
         }
     }
@@ -73,6 +79,6 @@ struct DeviceFunctionLevelView: View {
 
 struct DeviceFunctionLevelView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, glyph: nil, is_active: true, type: "Levels", value: 1.0, max_level: 3)), levelArr: [0,33.3,66.66]).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, glyph: nil, is_active: true, type: "Levels", value: 0, max_level: 3)), levelArr: [0,33.3,66.66]).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
     }
 }

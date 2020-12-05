@@ -35,40 +35,19 @@ struct Scene: Codable,Identifiable {
     let glyph: String?
     var is_active: Bool
     var devices : [Device]
+    var scene_devices: [SceneDevice]
 }
 
 struct Room: Codable, Identifiable {
     var room_name: String
     let id: Int
 }
-struct Functions: Codable {
-    let state: xState?
-    let level: Level?
-    let mode: Mode?
-    let special: Special?
-}
 
-struct xState : Codable {
-    
-    let name: String?
-    let state: Bool?
+struct SceneDevice: Codable, Identifiable{
+    let id: Int
+    var value: Float
+    var is_active: Bool
 }
-
-struct Level: Codable {
-    let name: Int?// String
-    let level: Int?
-}
-
-struct Mode: Codable {
-    let name: Int? // String
-    let mode: Int?
-}
-
-struct Special: Codable {
-    let func1: Int? // String
-    let func2: Int?
-}
-
 enum FunctionEnum {
     case switchFunc
     case sliderFunc
@@ -81,6 +60,7 @@ class LoadJSONData : ObservableObject {
     @Published var devices = [Device]()
     @Published var scenes = [Scene]()
     @Published var rooms = [Room]()
+    @Published var devices_in_room = [TestData]()
     
     func loadData() {
         //        let jsonUrlString = "https://my.api.mockaroo.com/test_dp.json?key=96614480"
@@ -118,6 +98,7 @@ class LoadJSONData : ObservableObject {
             print(devices)
         }
     }
+    
     func getDevicesInRooms()->[TestData]{
         var returnData : [TestData] = []
         var devicesAssignedToRoom : [Device] = []
@@ -128,10 +109,10 @@ class LoadJSONData : ObservableObject {
                 devicesAssignedToRoom.append(devicex)
             }
             returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
-            
         }
         return returnData
     }
+    
     func getDevicesInScene(scene: Scene)->[TestData]{
 //        print(scene)
         var returnData : [TestData] = []
@@ -164,7 +145,6 @@ class LoadJSONData : ObservableObject {
             print("something wrong")
             return false
         }
-        //        return false
     }
     
     func addOrRemoveDeviceToScene(scene: Scene, device: Device){
@@ -184,18 +164,31 @@ class LoadJSONData : ObservableObject {
             
         }
     }
+    
+    func addOrRemoveSceneDeviceToScene(scene: Scene, device: Device){
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            if let indxDv = scenes[indxSc].scene_devices.firstIndex(where: {$0.id == device.id}){
+                scenes[indxSc].scene_devices.remove(at: indxDv)
+            }
+            else{
+                scenes[indxSc].scene_devices.append(SceneDevice(id: device.id,value: device.value , is_active: device.is_active))
+            }
+        }
+    }
+    
     func getSceneFromScenes(scene:Scene)->Scene{
         if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
             return scenes[indxSc]
         }
         else {
-            return Scene(scene_name: "DummyScene", id: 0, is_favorite: false, glyph: nil, is_active: true, devices: [])
+            return Scene(scene_name: "DummyScene", id: 0, is_favorite: false, glyph: nil, is_active: true, devices: [], scene_devices: [])
         }
     }
     
     func createScene(scene: Scene){
         scenes.append(scene)
     }
+    
     func validateScenes(){
 //        if let indxSc = scenes.firstIndex(where: {$0.id == 0}){
 //            print ("removing scene: \(scenes[indxSc].scene_name)")
@@ -203,18 +196,75 @@ class LoadJSONData : ObservableObject {
 //        }
         scenes.removeAll(where: {$0.id == 0})
     }
+    
     func deleteScene(scene:Scene){
         if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
             print ("removing scene: \(scene.scene_name)")
             scenes.remove(at: indxSc)
         }
     }
+    
     func getDevicesInSceneArray(scene: Scene)->[Device]{
         if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
             return scenes[indxSc].devices
         }
         else{
             return []
+        }
+    }
+    
+    func modifyDeviceInScene(scene:Scene, device:Device)->[Int]{
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            if let indxDv = scenes[indxSc].devices.firstIndex(where: {$0.id == device.id}){
+                return [indxSc,indxDv]
+            }
+        }
+        return [0,0]
+    }
+//
+// Probably could be deleted
+//
+    func internalDetermineValue(device: Device)-> String {
+        
+        switch device.type{
+        case "Switch" :
+            return !device.is_active || device.value == 0.0 ? "Vyp." : "Zap."
+        case "Slider" :
+            return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.1f%", device.value))%"
+        case "Levels" :
+            return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.0f%", device.value))"
+            
+        default:
+            return "Unknown device type/state"
+        }
+    }
+    
+    func activateScene(scene: Scene){
+        if let indSc = scenes.firstIndex(where:{ $0.id == scene.id}){
+            for device in scenes[indSc].devices {
+//                if let indDvc = devices.firstIndex(where: {$0.id == device.id}){
+//                    make copy of device for now, we will need to copy new value and store old
+                    updateDevice(device: device)
+//                }
+            }
+        }
+        
+    }
+    
+    func updateScene(scene: Scene){
+        if let indx = scenes.firstIndex(where: {$0.id == scene.id}){
+            scenes[indx] = scene
+        }
+        else{
+            print(scenes)
+        }
+    }
+    
+    func updateDeviceInScene(scene:Scene, device:Device){
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
+            if let indxDv = scenes[indxSc].devices.firstIndex(where: {$0.id == device.id}){
+                scenes[indxSc].devices[indxDv] = device
+            }
         }
     }
 }

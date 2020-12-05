@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum ActiveSheet: Identifiable {
-    case first, second
+    case first, second, third
     
     var id: Int {
         hashValue
@@ -51,13 +51,21 @@ struct ContentView: View {
                             Text("Add Scene")
                             Image(systemName: "plus")
                         }
-                } )
+                })
+                Divider()
+                Button(action: {self.activeSheet = .third}, label: {
+                    HStack{
+                        Text("Home Settings")
+                        Image(systemName: "gear")
+                    }
+                })
             } label: {
                 Label(title: { Text("Add") }, icon: {
                         Image(systemName: "plus")
-                            .font(.system(size:30, weight: .semibold))
+                            .font(.system(size:25, weight: .semibold))
                 }).foregroundColor(.black)
             }.padding(.leading , 20)
+            .padding(.top, 5)
             
             .sheet(item: $activeSheet, onDismiss: {dvcObj.validateScenes()}) { item in
                         switch item {
@@ -65,6 +73,8 @@ struct ContentView: View {
                             AddDeviceView(activeSheet: $activeSheet)
                         case .second:
                             AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj, devicesInRoom: [])
+                        case .third:
+                            HomeSettingsView(activeSheet: $activeSheet, dvcObj: dvcObj)
                         }
             }
             
@@ -72,7 +82,6 @@ struct ContentView: View {
                 .fontWeight(.bold)
                 .padding(.leading, 20)
                 .padding(.top, 20)
-            
             ScrollView(){
                 VStack(alignment: .leading){
                     Text("Favorite scenes").padding(.leading, 20)
@@ -81,7 +90,7 @@ struct ContentView: View {
                         LazyHGrid(rows: rows,alignment: .center, spacing: 10)
                         {
                             ForEach(dvcObj.scenes.indices,id: \.self){ indx in
-                                Button(action: {print("tapx")})
+                                Button(action: {})
                                 {
                                     SceneView(scene: self.dvcObj.scenes[indx])
                                         .onTapGesture{
@@ -95,30 +104,34 @@ struct ContentView: View {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration) {
                                                 self.didScale.toggle()
                                             }
-                                            print("tap")}
+                                            dvcObj.activateScene(scene: self.dvcObj.scenes[indx])
+                                            let impactMedium = UIImpactFeedbackGenerator(style: .medium)
+                                                        impactMedium.impactOccurred()
+                                        }
                                         .onLongPressGesture{
                                             self.selectedScene = dvcObj.scenes[indx]
-                                            
-                                            print("longtap")}
+                                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                                        impactHeavy.impactOccurred()
+                                        }
 //                                        .updating(self.$islong) { value, state, transcation in
 //                                                print(value)
 //                                                print(state)
 //                                                print(transcation)
 //                                            }
                                         .scaleEffect(didScale && indx == selectedIndx ? 0.95 : 1)
-                                        .animation(Animation.linear(duration: self.animationDuration).repeatCount(1, autoreverses: true))
+                                        .animation(Animation
+                                                    .linear(duration: self.animationDuration)
+                                                    .repeatCount(1, autoreverses: true))
                                         
                                 }
-                                //                                .simultaneousGesture(
-                                //                                    LongPressGesture(minimumDuration: 1).onEnded { _ in self.didLongPress = true }.onChanged{value in print("changed\(value)")}
-                                
-                                //                                )
+//                                .simultaneousGesture(
+//                                    LongPressGesture(minimumDuration: 1).onEnded { _ in self.didLongPress = true }.onChanged{value in print("changed\(value)")}
+//                                )
                                 
                             }
                         }.padding(.leading,20)
                     }.sheet(item: $selectedScene){ scene in
                         SceneDetailView(sc: $selectedScene,dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
-                        
                     }.padding(.leading, 0.0)
                 }.padding(.bottom, 10)
                 

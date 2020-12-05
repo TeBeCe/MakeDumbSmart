@@ -41,7 +41,7 @@ struct SceneView: View {
 struct SceneView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SceneView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: []))
+            SceneView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []))
                 .preferredColorScheme(.dark)
         }
     }

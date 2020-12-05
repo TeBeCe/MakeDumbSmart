@@ -11,6 +11,7 @@ import SwiftUI
 struct DeviceFunctionSliderView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
+    @State var scene : Scene?
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
@@ -19,7 +20,7 @@ struct DeviceFunctionSliderView: View {
                     .opacity(0.8)
                 Rectangle()
                     .foregroundColor(Color(UIColor(.init(.systemGray))))
-                    .frame(height: (geometry.size.height * CGFloat(self.device.value / 100)))
+                    .frame(height: (geometry.size.height * CGFloat((self.device.is_active ? self.device.value : 0) / 100)))
                     .animation(.linear(duration: 0.1))
             }
             .cornerRadius(30)
@@ -29,7 +30,12 @@ struct DeviceFunctionSliderView: View {
                             self.device.value = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
 //                            print(CGFloat(self.percentage / 100))
                             self.device.is_active = self.device.value == 0.0 ? false : true
-                            dvcObj.updateDevice(device: device)
+                            if(scene == nil){
+                                dvcObj.updateDevice(device: device)
+                            }
+                            else{
+                                dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                            }
                         }))
         }
     }

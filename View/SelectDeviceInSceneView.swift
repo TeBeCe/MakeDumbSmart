@@ -28,6 +28,7 @@ struct SelectDeviceInSceneView: View {
                                 CheckableDeviceView(device:device,checked:dvcObj.isDeviceInScene(scene: scene, device: device))
                                     .onTapGesture {
                                         dvcObj.addOrRemoveDeviceToScene(scene: scene, device: device)
+                                        dvcObj.addOrRemoveSceneDeviceToScene(scene: scene, device: device)
                                     }
                             }
                         }.padding(.leading,-20)
@@ -43,6 +44,6 @@ struct SelectDeviceInSceneView: View {
 
 struct SelectDeviceInSceneView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectDeviceInSceneView(dvcObj: LoadJSONData(), scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: nil, is_active: false, devices: []), devicesInRoom: [])
+        SelectDeviceInSceneView(dvcObj: LoadJSONData(), scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: nil, is_active: false, devices: [], scene_devices: []), devicesInRoom: [])
     }
 }

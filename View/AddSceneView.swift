@@ -11,7 +11,7 @@ import SwiftUI
 struct AddSceneView: View {
     @Binding var activeSheet: ActiveSheet?
     @ObservedObject var dvcObj : LoadJSONData
-    @State var scene : Scene = Scene(scene_name: "", id: 0, is_favorite: false, glyph: nil, is_active: false, devices: [])
+    @State var scene : Scene = Scene(scene_name: "", id: 0, is_favorite: false, glyph: nil, is_active: false, devices: [],scene_devices: [])
     @State var selectedScene : Scene? = nil
     @State var devicesInRoom : [TestData]
     @State var enabledButton : Bool = false
@@ -54,12 +54,14 @@ struct AddSceneView: View {
                     }
                     Section(){
                         Button(action: {print("testing scene// not implemented")}){
-                            Text("Test scene// not implemented").foregroundColor(Color(.systemOrange))
+                            Text("Test scene// not implemented")
+                                .foregroundColor(Color(.systemOrange))
                         }
                         Button(action: {
                             self.selectedScene = scene
                         }){
-                            Text("Add or remove Accesories").foregroundColor(self.enabledButton ? Color(.systemOrange) : Color(.gray))
+                            Text("Add or remove Accesories")
+                                .foregroundColor(self.enabledButton ? Color(.systemOrange) : Color(.gray))
                         }.disabled(!self.enabledButton)
                         .sheet(item: $selectedScene){ scene in
                             SelectDeviceInSceneView(dvcObj: dvcObj, scene: scene, devicesInRoom: dvcObj.getDevicesInRooms())
@@ -68,7 +70,7 @@ struct AddSceneView: View {
                     Section(){
                         Button(action: {print("Create scene")
                             
-                            dvcObj.createScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene)))
+                            dvcObj.createScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
                             activeSheet = nil
                         }){
                             Text("Create scene")
@@ -77,18 +79,14 @@ struct AddSceneView: View {
                 }
                 .listStyle(InsetGroupedListStyle())
             }
-            .navigationBarTitle(Text("Add Scene")
-            ).navigationBarTitleDisplayMode(.inline)
-            .onAppear(perform: {
-//                dvcObj.createScene(scene: scene)
-//                mayber we can create invisible scene, and then replace with created one
-            })
+            .navigationBarTitle(Text("Add Scene"), displayMode: .inline)
+
         }
     }
 }
 
 struct AddSceneView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSceneView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), scene: Scene(scene_name: "xx", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: []), devicesInRoom: [])
+        AddSceneView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), scene: Scene(scene_name: "xx", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
     }
 }

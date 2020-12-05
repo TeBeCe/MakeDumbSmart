@@ -19,6 +19,9 @@ struct SceneDetailView: View {
     @State var scene : Scene
     @State var selectedScene : Scene? = nil
     @State var devicesInRoom : [TestData]
+    @State var selectedDevice : Device? = nil
+    
+    var arr:[Int] = []
     
     let columns = [
         GridItem(.flexible()),
@@ -32,19 +35,35 @@ struct SceneDetailView: View {
                 List{
                     Section(){
                         HStack{
-                            Image(systemName: "lightbulb").font(.system(size:20, weight: .semibold)).padding(.leading,-10)
+                            Image(systemName: "lightbulb")
+                                .font(.system(size:20, weight: .semibold))
+                                .padding(.leading,-10)
                             TextField("Name", text: $scene.scene_name)
                                 .onChange(of: scene.scene_name){ _ in
-                                    //dvcObj.updateDevice(device: device)
+                                    dvcObj.updateScene(scene: scene)
                                 }
                         }
                     }
 //                    TODO: Rework variables
-                    ForEach(dvcObj.getDevicesInScene(scene: scene)){ xx in
-                        Section(header: Text(dvcObj.rooms[xx.id-1].room_name)){
+                    ForEach(dvcObj.getDevicesInScene(scene: scene)){ dvcsInRoom in
+                        Section(header: Text(dvcObj.rooms[dvcsInRoom.id-1].room_name)){
                             LazyVGrid(columns: columns,spacing: 10){
-                                ForEach(xx.devices){device in
-                                    DevicesView(device:device, rooms:dvcObj.rooms)
+                                ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
+                                    let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
+//                                    DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
+                                    DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
+                                        .onTapGesture{
+                                            dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active.toggle()
+                                            print(dvcObj.scenes[arrr[0]].devices[arrr[1]])
+//                                            self.selectedIndx = indx
+                                            
+                                        }
+                                        .onLongPressGesture{
+                                            print("long")
+                                            self.selectedDevice = dvcObj.scenes[arrr[0]].devices[arrr[1]]
+                                        }
+                                    
+                                    
                                 }
                             }.padding(.leading,-20).padding(.trailing,-20)
                         }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
@@ -68,6 +87,8 @@ struct SceneDetailView: View {
                             Text("Delete Scene").foregroundColor(Color(.systemRed))
                         }
                     }
+                }.sheet(item: $selectedDevice){ device in
+                    SceneDeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device, scene: scene)
                 }
                 .listStyle(InsetGroupedListStyle())
             }
@@ -83,7 +104,7 @@ struct SceneDetailView: View {
 
 struct SceneDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneDetailView(sc: .constant(nil),dvcObj: LoadJSONData(),scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: []), devicesInRoom: [])
+        SceneDetailView(sc: .constant(nil),dvcObj: LoadJSONData(),scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
             .preferredColorScheme(.dark)
     }
 }

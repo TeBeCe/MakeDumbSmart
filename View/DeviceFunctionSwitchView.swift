@@ -12,6 +12,7 @@ struct DeviceFunctionSwitchView: View {
 //    @State var offsetY:CGFloat = -100.0
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
+    @State var scene: Scene?
     
     var body: some View {
         
@@ -26,7 +27,14 @@ struct DeviceFunctionSwitchView: View {
                     {
                         self.device.is_active.toggle()
                         device.value = self.device.is_active == true ? 1.0 : 0.0
-                        dvcObj.updateDevice(device: device)
+                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                    impactHeavy.impactOccurred()
+                        if(scene == nil){
+                            dvcObj.updateDevice(device: device)
+                        }
+                        else{
+                            dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                        }
                     }){
                 RoundedRectangle(cornerRadius:20, style: .continuous)
                     .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.systemGray))

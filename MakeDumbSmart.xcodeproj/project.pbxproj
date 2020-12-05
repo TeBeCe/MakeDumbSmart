@@ -22,6 +22,8 @@
 		BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD62501437E009821D7 /* DeviceModel.swift */; };
 		BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFD8250149FC009821D7 /* DevicesView.swift */; };
 		BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFDA2501A04D009821D7 /* SceneView.swift */; };
+		BC9D9078257596C300A2CFCD /* HomeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9D9077257596C300A2CFCD /* HomeSettingsView.swift */; };
+		BC9D907B257BBD4000A2CFCD /* SceneDeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */; };
 		BCB7B012256D7EF000CB0F5B /* SelectDeviceInSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */; };
 		BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */; };
 		BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */; };
@@ -48,6 +50,8 @@
 		BC88EFD62501437E009821D7 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		BC88EFD8250149FC009821D7 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
 		BC88EFDA2501A04D009821D7 /* SceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
+		BC9D9077257596C300A2CFCD /* HomeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsView.swift; sourceTree = "<group>"; };
+		BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDeviceDetailView.swift; sourceTree = "<group>"; };
 		BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDeviceInSceneView.swift; sourceTree = "<group>"; };
 		BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableDeviceView.swift; sourceTree = "<group>"; };
 		BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 				BCE609C02569693800B9405C /* TestingView.swift */,
 				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
 				BC4102F82572DD3D001258BF /* AddSceneView.swift */,
+				BC9D9077257596C300A2CFCD /* HomeSettingsView.swift */,
+				BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -241,6 +247,8 @@
 			files = (
 				BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */,
 				BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */,
+				BC9D907B257BBD4000A2CFCD /* SceneDeviceDetailView.swift in Sources */,
+				BC9D9078257596C300A2CFCD /* HomeSettingsView.swift in Sources */,
 				BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */,
 				BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */,
 				BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */,

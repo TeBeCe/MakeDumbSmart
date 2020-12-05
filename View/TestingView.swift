@@ -10,9 +10,30 @@ import SwiftUI
 
 struct TestingView: View {
     var body: some View {
-        Text("Ahoj Barbora")
-            .fontWeight(.bold)
-            .foregroundColor(.red)
+//        this is handle
+        //        HStack{Spacer()
+        //            Capsule()
+        //            .fill(Color.secondary)
+        //            .frame(width: 40, height: 8)
+        //                        .padding(.top,5)
+        //            .padding(.bottom,0)
+        //            Spacer()
+        //        }.background(Color.red)
+            RoundedRectangle(cornerRadius: 30)
+              .foregroundColor(Color.gray)
+              .mask(
+                ZStack {
+                  Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 150, height: 100)
+                    Text("Ahoj AHOJ AHOJ")
+                    .font(.system(size: 24))
+                    .foregroundColor(Color.black)
+                }
+                  .compositingGroup()
+                  .luminanceToAlpha()
+              ).frame(width: 150, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        
     }
 }
 
