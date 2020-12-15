@@ -37,8 +37,8 @@ struct DevicesView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
-//                .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.gray))
-                .fill(device.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
+//                .fill(device.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
+                .fill(device.is_active ? Color(UIColor.white) : Color(.systemGray5))
                 .opacity(device.is_active ? 1.0 : 0.7)
                 .frame(width: 120, height: 120)
             

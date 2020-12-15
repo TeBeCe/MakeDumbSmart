@@ -14,8 +14,9 @@ struct SceneView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:15, style: .continuous)
-                .fill(scene.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
-                .opacity(scene.is_active ? 1 : 0.8)
+//                .fill(scene.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
+                .fill(scene.is_active ? Color(UIColor.white) : Color(.systemGray5))
+                .opacity(scene.is_active ? 1 : 0.7)
                 .frame(width: 250, height: 60)
                 
             HStack(alignment: .center){

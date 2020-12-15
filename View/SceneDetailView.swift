@@ -37,12 +37,17 @@ struct SceneDetailView: View {
                         HStack{
                             Image(systemName: "lightbulb")
                                 .font(.system(size:20, weight: .semibold))
-                                .padding(.leading,-10)
+                                .padding(4)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color(.systemOrange), lineWidth: 2)
+                                )
+                                .frame(width:25,height:25)
                             TextField("Name", text: $scene.scene_name)
                                 .onChange(of: scene.scene_name){ _ in
                                     dvcObj.updateScene(scene: scene)
                                 }
-                        }
+                        }.padding(.leading, -10)
                     }
 //                    TODO: Rework variables
                     ForEach(dvcObj.getDevicesInScene(scene: scene)){ dvcsInRoom in

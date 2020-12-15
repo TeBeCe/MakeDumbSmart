@@ -267,6 +267,16 @@ class LoadJSONData : ObservableObject {
             }
         }
     }
+    
+    func getDeviceInScenes(device: Device) -> [Scene]{
+        var toReturnScenes : [Scene] = []
+        for scene in scenes {
+            if let _ = scene.devices.firstIndex(where: {$0.id == device.id}){
+                toReturnScenes.append(scene)
+            }
+        }
+        return toReturnScenes
+    }
 }
 
 

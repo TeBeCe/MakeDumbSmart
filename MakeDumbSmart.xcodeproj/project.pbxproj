@@ -27,6 +27,9 @@
 		BCB7B012256D7EF000CB0F5B /* SelectDeviceInSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */; };
 		BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */; };
 		BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */; };
+		BCC6FCD3257E5D9000481D44 /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC6FCD2257E5D9000481D44 /* SensorView.swift */; };
+		BCC6FCD6257E8E8A00481D44 /* DeviceInSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC6FCD5257E8E8A00481D44 /* DeviceInSceneView.swift */; };
+		BCC6FCD9257E933E00481D44 /* SceneListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */; };
 		BCE609BE2566EAD500B9405C /* DeviceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */; };
 		BCE609C12569693800B9405C /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609C02569693800B9405C /* TestingView.swift */; };
 		BCE609C4256994F800B9405C /* SceneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609C3256994F800B9405C /* SceneDetailView.swift */; };
@@ -55,6 +58,9 @@
 		BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDeviceInSceneView.swift; sourceTree = "<group>"; };
 		BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableDeviceView.swift; sourceTree = "<group>"; };
 		BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		BCC6FCD2257E5D9000481D44 /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
+		BCC6FCD5257E8E8A00481D44 /* DeviceInSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInSceneView.swift; sourceTree = "<group>"; };
+		BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneListItemView.swift; sourceTree = "<group>"; };
 		BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSettingsView.swift; sourceTree = "<group>"; };
 		BCE609C02569693800B9405C /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		BCE609C3256994F800B9405C /* SceneDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailView.swift; sourceTree = "<group>"; };
@@ -126,14 +132,14 @@
 			children = (
 				BC88EFC1250141DA009821D7 /* ContentView.swift */,
 				BCB7B019256DB57900CB0F5B /* DeviceViews */,
+				BCC6FCDB257E98B800481D44 /* SensorViews */,
 				BCB7B018256DB56200CB0F5B /* SceneViews */,
 				BC0D27BB2561361E005F5E46 /* Functions */,
 				BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */,
 				BCE609C02569693800B9405C /* TestingView.swift */,
-				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
-				BC4102F82572DD3D001258BF /* AddSceneView.swift */,
 				BC9D9077257596C300A2CFCD /* HomeSettingsView.swift */,
-				BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */,
+				BCC6FCD5257E8E8A00481D44 /* DeviceInSceneView.swift */,
+				BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,6 +166,8 @@
 				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
 				BCE609C3256994F800B9405C /* SceneDetailView.swift */,
 				BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */,
+				BC4102F82572DD3D001258BF /* AddSceneView.swift */,
+				BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */,
 			);
 			name = SceneViews;
 			sourceTree = "<group>";
@@ -170,8 +178,17 @@
 				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
 				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
 				BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */,
+				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
 			);
 			name = DeviceViews;
+			sourceTree = "<group>";
+		};
+		BCC6FCDB257E98B800481D44 /* SensorViews */ = {
+			isa = PBXGroup;
+			children = (
+				BCC6FCD2257E5D9000481D44 /* SensorView.swift */,
+			);
+			name = SensorViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCC6FCD9257E933E00481D44 /* SceneListItemView.swift in Sources */,
 				BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */,
 				BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */,
 				BC9D907B257BBD4000A2CFCD /* SceneDeviceDetailView.swift in Sources */,
@@ -253,6 +271,8 @@
 				BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */,
 				BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */,
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
+				BCC6FCD6257E8E8A00481D44 /* DeviceInSceneView.swift in Sources */,
+				BCC6FCD3257E5D9000481D44 /* SensorView.swift in Sources */,
 				BCB7B012256D7EF000CB0F5B /* SelectDeviceInSceneView.swift in Sources */,
 				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,

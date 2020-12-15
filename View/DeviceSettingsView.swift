@@ -28,7 +28,7 @@ struct DeviceSettingsView: View {
                 }
                 Section(){
                     HStack{
-                        Text("Test")
+                        Text("Room")
                         Spacer()
                         Text(getRoomFrom(rooms: dvcObj.rooms, device: device))
                             .foregroundColor(.orange)
@@ -53,16 +53,17 @@ struct DeviceSettingsView: View {
                     Toggle(isOn: $isFavorite) {
                         Text("Add to Favorite")
                     }
-//                    DisclosureGroup(isExpanded: $showPicker){
-//                        Text("noice")
-//                    } label: {Text("txt")}
                 }
                 Section(){
-                    Picker(selection: $sceneIndex, label: Text("Scene")) {
-                        ForEach(0 ..< dvcObj.scenes.count) {indx in
-                            Text(self.dvcObj.scenes[indx].scene_name)
-                        }
-                    }
+                    NavigationLink(
+                        destination: DeviceInSceneView(dvcObj: dvcObj,device: device),
+                        label: {
+                            HStack{
+                                Text("Scenes")                                    
+                                Spacer()
+                                Text("\(dvcObj.getDeviceInScenes(device: device).count)")
+                            }
+                        })
                 }
                 Section(){
                     Toggle(isOn: $isFavorite) {
@@ -72,7 +73,6 @@ struct DeviceSettingsView: View {
             }
             Spacer()
         }.navigationBarTitle(Text(""),displayMode: .inline)
-        //        .navigationBarHidden(true)
     }
 }
 

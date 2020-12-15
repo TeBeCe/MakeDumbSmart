@@ -37,8 +37,6 @@ struct SelectDeviceInSceneView: View {
                 }
             }.navigationBarTitle(Text("Add / Remove Accesory"), displayMode: .inline)
         }
-        
-//        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -61,6 +61,11 @@ struct DeviceDetailView: View {
                             Image(systemName: "gear")
                                 .font(.system(size:30, weight: .bold))
                         })
+//                        .onTapGesture {
+//                            print("tap")
+//                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+//                                        impactHeavy.impactOccurred()
+//                        }
                         .navigationBarTitleDisplayMode(.inline)
                         .accentColor(.gray)
                 }.padding([.trailing,.bottom], 20)

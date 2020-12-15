@@ -39,49 +39,59 @@ struct ContentView: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            Menu {
-                Button(action: {self.activeSheet = .first}, label: {
+            HStack{
+                Menu {
+                    Button(action: {self.activeSheet = .first}, label: {
                         HStack{
                             Text("Add Device")
                             Image(systemName: "plus")
                         }
-                } )
-                Button(action: {self.activeSheet = .second}, label: {
+                    } )
+                    Button(action: {self.activeSheet = .second}, label: {
                         HStack{
                             Text("Add Scene")
                             Image(systemName: "plus")
                         }
-                })
-                Divider()
-                Button(action: {self.activeSheet = .third}, label: {
-                    HStack{
-                        Text("Home Settings")
-                        Image(systemName: "gear")
-                    }
-                })
-            } label: {
-                Label(title: { Text("Add") }, icon: {
+                    })
+                } label: {
+                    Label(title: { Text("Add") }, icon: {
                         Image(systemName: "plus")
                             .font(.system(size:25, weight: .semibold))
-                }).foregroundColor(.black)
-            }.padding(.leading , 20)
-            .padding(.top, 5)
-            
-            .sheet(item: $activeSheet, onDismiss: {dvcObj.validateScenes()}) { item in
-                        switch item {
-                        case .first:
-                            AddDeviceView(activeSheet: $activeSheet)
-                        case .second:
-                            AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj, devicesInRoom: [])
-                        case .third:
-                            HomeSettingsView(activeSheet: $activeSheet, dvcObj: dvcObj)
+                    }).foregroundColor(Color(UIColor.init(named:"textColor")!))
+                    
+                }
+                Spacer()
+                Menu {
+                    Button(action: {self.activeSheet = .third}, label: {
+                        HStack{
+                            Text("Home Settings")
+                            Image(systemName: "gear")
                         }
+                    })
+                } label: {
+                    Label(title: { Text("") }, icon: {
+                        Image(systemName: "gear")
+                            .font(.system(size:25, weight: .semibold))
+                    }).foregroundColor(Color(UIColor.init(named:"textColor")!))
+                }
+            }.padding(.horizontal , 20)
+            .padding(.top,20)
+            .sheet(item: $activeSheet, onDismiss: {dvcObj.validateScenes()}) { item in
+                switch item {
+                case .first:
+                    AddDeviceView(activeSheet: $activeSheet)
+                case .second:
+                    AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj, devicesInRoom: [])
+                case .third:
+                    HomeSettingsView(activeSheet: $activeSheet, dvcObj: dvcObj)
+                }
             }
             
-            Text(dvcObj.home.home_name).font(.system(size: 45, weight: .bold))
+            Text(dvcObj.home.home_name)
+                .font(.system(size: 45, weight: .bold))
                 .fontWeight(.bold)
-                .padding(.leading, 20)
-                .padding(.top, 20)
+                .padding([.leading,.top], 20)
+                .foregroundColor(Color(UIColor.init(named:"textColor")!))
             ScrollView(){
                 VStack(alignment: .leading){
                     Text("Favorite scenes").padding(.leading, 20)
@@ -156,7 +166,8 @@ struct ContentView: View {
             }
         }.onAppear(perform: {self.dvcObj.loadData()
         })
-        .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9695343375, green: 0.5495890379, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.9504212737, green: 0.8822066784, blue: 0.2864913642, alpha: 1))]), startPoint: .top, endPoint: .bottom))
+//        .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9695343375, green: 0.5495890379, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.9504212737, green: 0.8822066784, blue: 0.2864913642, alpha: 1))]), startPoint: .top, endPoint: .bottom))
+        .background(Image("Image").resizable())
         .edgesIgnoringSafeArea(.all)
     }
 }

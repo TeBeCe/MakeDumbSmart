@@ -19,7 +19,7 @@ func CalculateLevels(levels: Int) -> [Float]{
 }
 
 struct DeviceFunctionLevelView: View {
-    @State var percentage : Float = 50
+    @State var percentage : Float = 0
     @State var selectedLevel: Int = 0
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
@@ -48,7 +48,9 @@ struct DeviceFunctionLevelView: View {
                     .frame(height:geometry.size.height * CGFloat(self.percentage / 100))
                     .opacity(0.0)
 //                Text("level: \(selectedLevel)")
-            }
+            }.onAppear(perform: {
+//                self.percentage = Float(100 / device.max_level!) * device.value
+            })
             .cornerRadius(30)
             .gesture(DragGesture(minimumDistance: 0)
                         .onChanged({ value in
@@ -79,6 +81,6 @@ struct DeviceFunctionLevelView: View {
 
 struct DeviceFunctionLevelView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, glyph: nil, is_active: true, type: "Levels", value: 0, max_level: 3)), levelArr: [0,33.3,66.66]).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, glyph: nil, is_active: true, type: "Levels", value: 1, max_level: 3)), levelArr: [0,33.4,66.7]).preferredColorScheme(.light).frame(width: 140, height: 400, alignment: .center)
     }
 }

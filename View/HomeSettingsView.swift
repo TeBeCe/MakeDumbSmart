@@ -11,14 +11,28 @@ import SwiftUI
 struct HomeSettingsView: View {
     @Binding var activeSheet: ActiveSheet?
     @ObservedObject var dvcObj: LoadJSONData
-    
+    var images : [String] = ["Image","Image2"]
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    TextField("Home Name", text: $dvcObj.home.home_name)
+                    VStack(alignment: .leading) {
+                        TextField("Home Name", text: $dvcObj.home.home_name)
+                    }
+                    
+                    ScrollView(.horizontal){
+                        HStack(spacing: 10){
+                            ForEach(images , id: \.self){ i in
+                                Image(i)
+                                    .resizable()
+//                                    .frame(width:50, height: 200)
+                                    .scaledToFit()
+                            }
+                        }
+                    }.frame(height: 200)
+                    
                 }.listStyle(InsetGroupedListStyle())
-            }.navigationBarTitle(Text("Home"), displayMode: .inline)
+            }.navigationBarTitle(Text("Home Settings"), displayMode: .inline)
         }
     }
 }

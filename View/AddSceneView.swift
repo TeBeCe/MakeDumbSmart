@@ -15,6 +15,8 @@ struct AddSceneView: View {
     @State var selectedScene : Scene? = nil
     @State var devicesInRoom : [TestData]
     @State var enabledButton : Bool = false
+    @State var selectedDevice : Device? = nil
+
     
     let columns = [
         GridItem(.flexible()),
@@ -28,10 +30,18 @@ struct AddSceneView: View {
                 List{
                     Section(){
                         HStack{
-                            Image(systemName: "lightbulb").font(.system(size:20, weight: .semibold)).padding(.leading,-10)
+                            Image(systemName: "lightbulb")
+                                .font(.system(size:20, weight: .semibold))
+                                .padding(4)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color(.systemOrange), lineWidth: 2)
+                                )
+                                .frame(width:25,height:25)
+                            
                             TextField("Scene Name", text: $scene.scene_name)
                                 .onChange(of: scene.scene_name){ _ in
-                                    //dvcObj.updateDevice(device: device)
+                                    dvcObj.updateScene(scene: scene)
                                     if(scene.scene_name.count > 0){
                                         dvcObj.createScene(scene: scene)
                                         self.enabledButton = true
@@ -40,14 +50,28 @@ struct AddSceneView: View {
                                         self.enabledButton = false
                                     }
                                 }
-                        }
+                        }.padding(.leading, -10)
                     }
-                    //                    TODO: Rework variables
-                    ForEach(dvcObj.getDevicesInScene(scene: scene)){ xx in
-                        Section(header: Text(dvcObj.rooms[xx.id-1].room_name)){
+//                    TODO: Rework variables
+                    ForEach(dvcObj.getDevicesInScene(scene: scene)){ dvcsInRoom in
+                        Section(header: Text(dvcObj.rooms[dvcsInRoom.id-1].room_name)){
                             LazyVGrid(columns: columns,spacing: 10){
-                                ForEach(xx.devices){device in
-                                    DevicesView(device:device, rooms:dvcObj.rooms)
+                                ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
+                                    let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
+//                                    DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
+                                    DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
+                                        .onTapGesture{
+                                            dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active.toggle()
+                                            print(dvcObj.scenes[arrr[0]].devices[arrr[1]])
+//                                            self.selectedIndx = indx
+                                            
+                                        }
+                                        .onLongPressGesture{
+                                            print("long")
+                                            self.selectedDevice = dvcObj.scenes[arrr[0]].devices[arrr[1]]
+                                        }
+                                    
+                                    
                                 }
                             }.padding(.leading,-20).padding(.trailing,-20)
                         }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
@@ -76,6 +100,8 @@ struct AddSceneView: View {
                             Text("Create scene")
                         }.disabled(!self.enabledButton)
                     }
+                }.sheet(item: $selectedDevice){ device in
+                    SceneDeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device, scene: scene)
                 }
                 .listStyle(InsetGroupedListStyle())
             }
