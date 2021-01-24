@@ -52,6 +52,7 @@ struct AddSceneView: View {
                                 }
                         }.padding(.leading, -10)
                     }
+                    
 //                    TODO: Rework variables
                     ForEach(dvcObj.getDevicesInScene(scene: scene)){ dvcsInRoom in
                         Section(header: Text(dvcObj.rooms[dvcsInRoom.id-1].room_name)){
@@ -95,6 +96,9 @@ struct AddSceneView: View {
                         Button(action: {print("Create scene")
                             
                             dvcObj.createScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
+                            dvcObj.createBackendScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
+                                dvcObj.loadData()
+
                             activeSheet = nil
                         }){
                             Text("Create scene")

@@ -21,7 +21,10 @@ struct DeviceSettingsView: View {
         VStack{
             Form{
                 Section(){
-                    TextField("Name", text: $device.device_name)
+                    TextField("Name", text: $device.device_name, onEditingChanged: { _ in
+                        print("changed")
+                        dvcObj.updateBackendDevice(device: device)
+                    })
                         .onChange(of: device.device_name){ _ in
                             dvcObj.updateDevice(device: device)
                         }
@@ -45,8 +48,10 @@ struct DeviceSettingsView: View {
                                 Text($0.room_name).tag($0.id)
                             }
                         }.onChange(of: roomIndex){ _ in
+                            print("picker changed")
                             device.room = dvcObj.rooms[roomIndex-1].id
                             dvcObj.updateDevice(device: device)
+                            dvcObj.updateBackendDevice(device: device)
                         }
                         .pickerStyle(InlinePickerStyle())
                     }

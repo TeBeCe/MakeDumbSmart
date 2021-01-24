@@ -65,15 +65,18 @@ struct DeviceFunctionLevelView: View {
                                 }
                             }
                             //TODO: - no need to update every onChange
-                            self.device.is_active = self.selectedLevel == 0 ? false : true
-                            self.device.value = Float(self.selectedLevel)
-                            if (scene == nil){
-                                dvcObj.updateDevice(device: device)
+                            if(self.device.value != Float(self.selectedLevel)){
+                                self.device.is_active = self.selectedLevel == 0 ? false : true
+                                self.device.value = Float(self.selectedLevel)
+                                if (scene == nil){
+                                    dvcObj.updateDevice(device: device)
+                                    dvcObj.updateBackendDevice(device: device)
+                                }
+                                else{
+                                    dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                                    print("changed in scene");
+                                }
                             }
-                            else{
-                                dvcObj.updateDeviceInScene(scene: scene!, device: device)
-                            }
-                            
                         }))
         }
     }

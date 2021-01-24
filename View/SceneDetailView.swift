@@ -43,7 +43,10 @@ struct SceneDetailView: View {
                                         .stroke(Color(.systemOrange), lineWidth: 2)
                                 )
                                 .frame(width:25,height:25)
-                            TextField("Name", text: $scene.scene_name)
+                            TextField("Name", text: $scene.scene_name, onEditingChanged: { _ in
+                                print("changed")
+                                dvcObj.updateBackendScene(scene: scene)
+                            })
                                 .onChange(of: scene.scene_name){ _ in
                                     dvcObj.updateScene(scene: scene)
                                 }
@@ -58,7 +61,12 @@ struct SceneDetailView: View {
 //                                    DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
                                     DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
                                         .onTapGesture{
+                                            if(!dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active && dvcObj.scenes[arrr[0]].devices[arrr[1]].value == 0.0 ){
+                                                dvcObj.scenes[arrr[0]].devices[arrr[1]].value = Float(dvcObj.scenes[arrr[0]].devices[arrr[1]].max_level ?? 1)
+                                                print("set to max")
+                                            }
                                             dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active.toggle()
+                                            dvcObj.updateBackendScene(scene: dvcObj.scenes[arrr[0]])
                                             print(dvcObj.scenes[arrr[0]].devices[arrr[1]])
 //                                            self.selectedIndx = indx
                                             

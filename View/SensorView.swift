@@ -20,12 +20,13 @@ struct SensorView: View {
             VStack(alignment: .leading){
                 ZStack{
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    Text("55%")
+                        .fill(device.type == "sensor_temperature" ? Color(.systemRed) : Color(.systemBlue))
+                    Text(DetermineValue(device: device))
                         .foregroundColor(.white)
                         .lineLimit(1)
                         .font(.system(size: 13))
                 }
-                .frame(width: 35, height: 35)
+                .frame(width: 35, height: 33)
 //                ZStack{
 //                    Circle()
 //                    Text("55°")
@@ -56,7 +57,7 @@ struct SensorView: View {
                     .font(.system(size:15))
                     .multilineTextAlignment(.leading)
             }
-            .frame(width: 100,height: 100,alignment: .leading)
+            .frame(width: 100,height: 100,alignment: .leading).padding(.top, -10)
         }
     }
 }

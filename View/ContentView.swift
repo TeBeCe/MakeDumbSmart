@@ -83,7 +83,7 @@ struct ContentView: View {
                 case .second:
                     AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj, devicesInRoom: [])
                 case .third:
-                    HomeSettingsView(activeSheet: $activeSheet, dvcObj: dvcObj)
+                    HomeSettingsView(activeSheet: $activeSheet, dvcObj: dvcObj, home: $dvcObj.home)
                 }
             }
             
@@ -155,11 +155,22 @@ struct ContentView: View {
                                 print(self.dvcObj.devices[indx])
                             })
                             {
-                                DevicesView(device: self.dvcObj.devices[indx], rooms: dvcObj.rooms)
+                                if(self.dvcObj.devices[indx].type == "sensor_temperature" || self.dvcObj.devices[indx].type == "sensor_humidity"){
+                                    SensorView(device: self.dvcObj.devices[indx], rooms: dvcObj.rooms);
+                                }
+                                else{
+                                    DevicesView(device: self.dvcObj.devices[indx], rooms: dvcObj.rooms)
+                                }
                             }
                         }
                     }.sheet(item: $selectedDevice){ device in
-                        DeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device)
+                        if(device.type == "sensor_temperature" || device.type == "sensor_humidity"){
+                            SensorChartView()
+                        }
+                        else {
+                            DeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device)
+                            
+                        }
                     }
                     .padding(.horizontal)
                 }

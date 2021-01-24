@@ -31,6 +31,7 @@ struct DeviceFunctionSwitchView: View {
                                     impactHeavy.impactOccurred()
                         if(scene == nil){
                             dvcObj.updateDevice(device: device)
+                            dvcObj.updateBackendDevice(device: device)
                         }
                         else{
                             dvcObj.updateDeviceInScene(scene: scene!, device: device)

@@ -34,6 +34,7 @@ func getRoomFrom(rooms: [Room], device: Device) -> String{
 struct DevicesView: View {
     var device : Device
     var rooms : [Room]
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
@@ -43,12 +44,17 @@ struct DevicesView: View {
                 .frame(width: 120, height: 120)
             
             VStack(alignment: .leading){
+                HStack(alignment: .top){
+                    Image(systemName: getGlyph(device: device))
+                        .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
+                        .font(.system(size:30, weight: .semibold)).scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .padding(.bottom,0.5)
+                    Spacer()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                }
                 
-                Image(systemName: getGlyph(device: device))
-                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                    .font(.system(size:30, weight: .semibold)).scaledToFit()
-                    .frame(width: 30, height: 30)
-                    .padding(.bottom,0.5)
                 
                 Text(device.device_name)
                     .fontWeight(.semibold)

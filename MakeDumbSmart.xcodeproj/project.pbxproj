@@ -10,6 +10,7 @@
 		BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */; };
 		BC0D27B625603BBF005F5E46 /* DeviceFunctionSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */; };
 		BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */; };
+		BC3B311325BB375B00CFF544 /* SensorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3B311225BB375A00CFF544 /* SensorChartView.swift */; };
 		BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4102F52572DC99001258BF /* AddDeviceView.swift */; };
 		BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4102F82572DD3D001258BF /* AddSceneView.swift */; };
 		BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBD250141DA009821D7 /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 		BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionSwitchView.swift; sourceTree = "<group>"; };
 		BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionSliderView.swift; sourceTree = "<group>"; };
 		BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionLevelView.swift; sourceTree = "<group>"; };
+		BC3B311225BB375A00CFF544 /* SensorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorChartView.swift; sourceTree = "<group>"; };
 		BC4102F52572DC99001258BF /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
 		BC4102F82572DD3D001258BF /* AddSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSceneView.swift; sourceTree = "<group>"; };
 		BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeDumbSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				BCC6FCD2257E5D9000481D44 /* SensorView.swift */,
+				BC3B311225BB375A00CFF544 /* SensorChartView.swift */,
 			);
 			name = SensorViews;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
 				BCE609C12569693800B9405C /* TestingView.swift in Sources */,
+				BC3B311325BB375B00CFF544 /* SensorChartView.swift in Sources */,
 				BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */,
 				BC0D27B625603BBF005F5E46 /* DeviceFunctionSliderView.swift in Sources */,
 				BCE609BE2566EAD500B9405C /* DeviceSettingsView.swift in Sources */,
