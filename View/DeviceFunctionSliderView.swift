@@ -12,6 +12,7 @@ struct DeviceFunctionSliderView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
     @State var scene : Scene?
+    var tempValue : Float = 0
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
@@ -26,9 +27,9 @@ struct DeviceFunctionSliderView: View {
             .cornerRadius(30)
             .gesture(DragGesture(minimumDistance: 0)
                         .onChanged({ value in
-                            // TODO: - maybe use other logic here
+//                            TODO: update api once 1% changed
+//                            self.device.value = Float(Int(100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)))
                             self.device.value = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
-//                            print(CGFloat(self.percentage / 100))
                             self.device.is_active = self.device.value == 0.0 ? false : true
                             if(scene == nil){
                                 dvcObj.updateDevice(device: device)

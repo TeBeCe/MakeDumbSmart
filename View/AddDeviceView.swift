@@ -14,6 +14,7 @@ struct AddDeviceView: View {
         Button(action: {activeSheet = nil}, label: {
             /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
         })
+//        SensorChartsView(data: dataxx).frame(width: 402, height: 252).border(Color.gray)
     }
 }
 

@@ -21,7 +21,7 @@ struct DeviceFunctionSwitchView: View {
             RoundedRectangle(cornerRadius:20, style: .continuous)
                 //  .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.systemGray))
                 .fill(Color(UIColor.gray ))
-                .opacity(0.7)
+                .opacity(0.8)
             
             Button(action:
                     {
@@ -32,6 +32,7 @@ struct DeviceFunctionSwitchView: View {
                         if(scene == nil){
                             dvcObj.updateDevice(device: device)
                             dvcObj.updateBackendDevice(device: device)
+                            dvcObj.findAndActivateScene()
                         }
                         else{
                             dvcObj.updateDeviceInScene(scene: scene!, device: device)

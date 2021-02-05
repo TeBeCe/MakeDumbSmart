@@ -64,8 +64,6 @@ class LoadJSONData : ObservableObject {
     @Published var isWaitingForResponse = false;
     
     func loadData() {
-        //        let jsonUrlString = "https://my.api.mockaroo.com/test_dp.json?key=96614480"
-        //        let jsonUrlString = "https://my.api.mockaroo.com/test_dp_3.json?key=c7a70460"
 //        guard let urlx = URL(string: "https://my.api.mockaroo.com/test_dp_3.json?key=c7a70460") else { return }
         guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php") else { return }
 
@@ -75,12 +73,13 @@ class LoadJSONData : ObservableObject {
             if let data = data {
                 do {
                     DispatchQueue.main.async {
-                        //                        print(data)
+                        //print(data)
                         self.home = try! JSONDecoder().decode(Home.self, from: data)
                         self.devices = self.home.devices
                         self.scenes = self.home.scenes
                         self.rooms = self.home.rooms
-                        //                        print(self.home)
+                        self.findAndActivateScene()
+                        //print(self.home)
                     }
                 }
             }
@@ -94,7 +93,6 @@ class LoadJSONData : ObservableObject {
     {
         if let indx = devices.firstIndex(where: {$0.id == device.id}){
             devices[indx] = device
-            
         }
     }
     
@@ -248,6 +246,7 @@ class LoadJSONData : ObservableObject {
                 //                if let indDvc = devices.firstIndex(where: {$0.id == device.id}){
                 //                    make copy of device for now, we will need to copy new value and store old
                 updateDevice(device: device)
+                updateBackendDevice(device: device)
                 //                }
             }
         }
@@ -256,9 +255,6 @@ class LoadJSONData : ObservableObject {
     func updateScene(scene: Scene){
         if let indx = scenes.firstIndex(where: {$0.id == scene.id}){
             scenes[indx] = scene
-        }
-        else{
-            print(scenes)
         }
     }
     
@@ -309,6 +305,7 @@ class LoadJSONData : ObservableObject {
         }
         task.resume()
     }
+    
     func genericBackendUpdate(param : String){
         // Prepare URL
         let url = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php")
@@ -333,9 +330,9 @@ class LoadJSONData : ObservableObject {
                 }
          
                 // Convert HTTP Response Data to a String
-                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                    print("Response data string:\n \(dataString)")
-                }
+//                if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                    print("Response data string:\n \(dataString)")
+//                }
         }
         task.resume()
     }
@@ -386,5 +383,29 @@ class LoadJSONData : ObservableObject {
             + "&scene_devices=\(String(data: scene_devices, encoding: .utf8)!)"
         
         genericBackendUpdate(param: param)
+    }
+    
+    func findAndActivateScene(){
+        for scene in scenes {
+            var toActivate = false
+            for device in scene.devices{
+                if let indx = devices.firstIndex(where: {$0.id == device.id}){
+                    if(device.is_active == false
+                        && devices[indx].is_active == device.is_active){
+                        toActivate = true
+                    }
+                    else if(devices[indx].is_active == device.is_active
+                        && devices[indx].value == device.value){
+                        toActivate = true
+                    }
+                    else{
+                        toActivate = false
+                    }
+                }
+            }
+            if let indx = scenes.firstIndex(where: {$0.id == scene.id}){
+                scenes[indx].is_active = toActivate
+            }
+        }
     }
 }

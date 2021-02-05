@@ -64,16 +64,11 @@ struct DevicesView: View {
 //                    .multilineTextAlignment(.leading)
                 
                 Text(getRoomFrom(rooms: rooms, device: device))
-                    .fontWeight(.semibold)
+                    .roomLabel()
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                    .font(.system(size:16))
-                    .multilineTextAlignment(.leading)
                 
                 Text(DetermineValue(device: device))
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color(.systemGray))
-                    .font(.system(size:15))
-                    .multilineTextAlignment(.leading)
+                    .valueLabel()
             }
             .frame(width: 100,height: 100,alignment: .leading)
         }
