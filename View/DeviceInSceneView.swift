@@ -23,7 +23,7 @@ struct DeviceInSceneView: View {
                     }
                 }
             }.sheet(item: $selectedScene){ scene in
-                SceneDetailView(sc: $selectedScene,dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
+                SceneSettingsView(sc: $selectedScene,dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
             }.navigationBarTitle(Text("Scenes"), displayMode: .inline)
         //}
     }
@@ -31,6 +31,6 @@ struct DeviceInSceneView: View {
 
 struct DeviceInSceneView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceInSceneView(dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "test", device_custom_name: nil, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil))
+        DeviceInSceneView(dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "test", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil))
     }
 }

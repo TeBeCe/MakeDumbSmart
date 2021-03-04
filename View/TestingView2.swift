@@ -17,6 +17,10 @@ struct TestingView2: View {
                      gestureState = currentstate
                     print("curr state:")
                     print(currentstate)
+                    print("gest state:")
+                    print(gestureState)
+                    print("trans:")
+                    print(transaction)
                  }
          }
 

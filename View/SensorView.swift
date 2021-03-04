@@ -60,6 +60,12 @@ struct SensorView: View {
 
 struct SensorView_Previews: PreviewProvider {
     static var previews: some View {
-        SensorView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name",glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), rooms: [])
+        Group{
+            SensorView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "sensor_temperature", value: Float(19.0), max_level: 3), rooms: [])
+        
+            SensorView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "sensor_humidity", value: Float(78.0), max_level: 3), rooms: [])
+                .preferredColorScheme(.dark)
+    }
+            .previewLayout(.fixed(width: 125, height: 125))
     }
 }

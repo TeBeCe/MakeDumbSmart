@@ -60,7 +60,7 @@ struct DeviceDetailView: View {
                     Spacer()
                     
                     NavigationLink(
-                        destination: DeviceSettingsView(dvcObj: dvcObj,device: $device,roomIndex: device.room ?? 0),
+                        destination: DeviceSettingsView(dvcObj: dvcObj,device: $device,roomIndex: device.room ?? 0,sd: $sd),
                         label: {
                             Image(systemName: "gear")
                                 .font(.system(size:30, weight: .bold))
@@ -94,7 +94,7 @@ struct DeviceDetailView: View {
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetailView(sd: .constant(nil), dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: nil, glyph: nil , is_active: true, type: "Slider", value: Float(Int(1.0)), max_level: 3))
+        DeviceDetailView(sd: .constant(nil), dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: nil, reseting: false, glyph: nil , is_active: true, type: "Slider", value: Float(Int(1.0)), max_level: 3))
             .preferredColorScheme(.dark)
     }
 }

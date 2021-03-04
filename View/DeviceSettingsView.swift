@@ -16,6 +16,7 @@ struct DeviceSettingsView: View {
     @State private var sceneIndex = 0
     @State var showInState : Bool = false
     @State var showPicker : Bool = false
+    @Binding var sd : Device?
     
     var body: some View {
         VStack{
@@ -70,19 +71,26 @@ struct DeviceSettingsView: View {
                             }
                         })
                 }
-                Section(){
-                    Toggle(isOn: $isFavorite) {
-                        Text("Add to Favorite")
-                    }
+                Button(action:{dvcObj.deleteBackendDevice(device: device)
+                    dvcObj.deleteDevice(device: device)
+                    dvcObj.removeDevicesFromScene(device: device)
+                    self.sd = nil
+//                    dvcObj.loadData()
+                }){
+                    Text("Delete device").foregroundColor(Color(.systemRed))
                 }
             }
             Spacer()
         }.navigationBarTitle(Text(""),displayMode: .inline)
+        .onAppear(perform:{
+            print(device)
+            print(sd ?? "nil")
+        })
     }
 }
 
 struct DeviceSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceSettingsView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, glyph: nil, is_active: true, type: "Levels", value: 1.0, max_level: 3)))
+        DeviceSettingsView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, reseting: false, glyph: nil, is_active: true, type: "Levels", value: 1.0, max_level: 3)),sd:.constant(nil))
     }
 }

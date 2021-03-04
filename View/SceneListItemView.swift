@@ -60,6 +60,9 @@ struct SceneListItemView: View {
 
 struct SceneListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device_custom_name: nil, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil))
+        Group {
+            SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil)).previewLayout(.fixed(width: 400, height: 80))
+            SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil)).preferredColorScheme(.dark).previewLayout(.fixed(width: 400, height: 80))
+        }
     }
 }

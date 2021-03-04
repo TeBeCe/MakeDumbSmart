@@ -65,7 +65,7 @@ struct DeviceFunctionSwitchView: View {
 
 struct DeviceFunctionsView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionSwitchView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "name", device_custom_name: nil, glyph: nil, is_active: true, type: "Switch", value: 1, max_level: nil)) )
+        DeviceFunctionSwitchView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "name", device_custom_name: nil, reseting: false, glyph: nil, is_active: true, type: "Switch", value: 1, max_level: nil)) )
             .frame(width: 140, height: 400, alignment: .center)
             .preferredColorScheme(.dark)
     }

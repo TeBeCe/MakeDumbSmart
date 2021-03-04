@@ -97,7 +97,7 @@ struct AddSceneView: View {
                             
                             dvcObj.createScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
                             dvcObj.createBackendScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
-                                dvcObj.loadData()
+//                                dvcObj.loadData()
 
                             activeSheet = nil
                         }){

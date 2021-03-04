@@ -20,6 +20,7 @@ struct Device:  Codable, Identifiable {
     let id: Int
     var device_name: String
     let device_custom_name: String?
+    var reseting: Bool
     let glyph : String?
     var is_active: Bool
     let type: String
@@ -32,7 +33,7 @@ struct Scene: Codable,Identifiable {
     var scene_name: String
     let id: Int
     var is_favorite: Bool
-    let glyph: String?
+    var glyph: String?
     var is_active: Bool
     var devices : [Device]
     var scene_devices: [SceneDevice]
@@ -61,12 +62,13 @@ class LoadJSONData : ObservableObject {
     @Published var scenes = [Scene]()
     @Published var rooms = [Room]()
     @Published var devices_in_room = [TestData]()
-    @Published var isWaitingForResponse = false;
+    @Published var isWaitingForResponse = false
+    var continueRefresh = true
     
     func loadData() {
-//        guard let urlx = URL(string: "https://my.api.mockaroo.com/test_dp_3.json?key=c7a70460") else { return }
+        //        guard let urlx = URL(string: "https://my.api.mockaroo.com/test_dp_3.json?key=c7a70460") else { return }
         guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php") else { return }
-
+        
         let request = URLRequest(url: urlx)
         
         URLSession.shared.dataTask(with: request){data, response,error in
@@ -79,7 +81,8 @@ class LoadJSONData : ObservableObject {
                         self.scenes = self.home.scenes
                         self.rooms = self.home.rooms
                         self.findAndActivateScene()
-                        //print(self.home)
+                        print("loadedData")
+                        //                        print(self.home)
                     }
                 }
             }
@@ -87,6 +90,12 @@ class LoadJSONData : ObservableObject {
                 print(error!)
             }
         }.resume()
+        DispatchQueue.main.asyncAfter(deadline: .now()+15.0){[self] in
+            if(continueRefresh){
+                self.loadData()
+            }
+            print("fetching")
+        }
     }
     
     func updateDevice(device: Device)
@@ -234,7 +243,7 @@ class LoadJSONData : ObservableObject {
             return "\(String(device.value))°"
         case "sensor_humidity":
             return "\(String(format: "%.0f%", device.value))%"
-        
+            
         default:
             return "Unknown device type/state"
         }
@@ -284,24 +293,24 @@ class LoadJSONData : ObservableObject {
         // Prepare URL Request Object
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
-         
+        
         // HTTP Request Parameters which will be sent in HTTP Request Body
         let postString = param
         // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);
         // Perform HTTP Request
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                // Check for Error
-                if let error = error {
-                    print("Error took place \(error)")
-                    return
-                }
-         
-                // Convert HTTP Response Data to a String
-                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                    print("Response data string:\n \(dataString)")
-                }
+            
+            // Check for Error
+            if let error = error {
+                print("Error took place \(error)")
+                return
+            }
+            
+            // Convert HTTP Response Data to a String
+            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                print("Response data string:\n \(dataString)")
+            }
         }
         task.resume()
     }
@@ -313,54 +322,116 @@ class LoadJSONData : ObservableObject {
         // Prepare URL Request Object
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
-         
+        
         // HTTP Request Parameters which will be sent in HTTP Request Body
-//        let postString = "home_id=1&home_name=" + self.home.home_name;
+        //        let postString = "home_id=1&home_name=" + self.home.home_name;
         let postString = param
-        print(param)
+        //        print(param)
         // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);
         // Perform HTTP Request
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                // Check for Error
-                if let error = error {
-                    print("Error took place \(error)")
-                    return
+        //        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        //
+        //                // Check for Error
+        //                if let error = error {
+        //                    print("Error took place \(error)")
+        //                    return
+        //                }
+        //
+        //                // Convert HTTP Response Data to a String
+        //                if let data = data, let dataString = String(data: data, encoding: .utf8) {
+        //                    print("Response data string:\n \(dataString)")
+        //                }
+        //
+        //        }
+        //        task.resume()
+        URLSession.shared.dataTask(with: request){data, response,error in
+            if let data = data {
+                do {
+                    DispatchQueue.main.async {
+                        self.home = try! JSONDecoder().decode(Home.self, from: data)
+                        self.devices = self.home.devices
+                        self.scenes = self.home.scenes
+                        self.rooms = self.home.rooms
+                        self.findAndActivateScene()
+//                        print(self.home)
+                    }
                 }
-         
-                // Convert HTTP Response Data to a String
-//                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-//                    print("Response data string:\n \(dataString)")
-//                }
-        }
-        task.resume()
-    }
-    func getChartData(device: Device){
-//        let param = "device_id\(device.id)"
+            }
+            else{
+                print(error!)
+            }
+            // Check for Error
+            if let error = error {
+                print("Error took place \(error)")
+                return
+            }
+        }.resume()
     }
     
     func updateBackendDevice(device : Device){
-        let param = "device_id=\(device.id)"
-        + "&device_name=\(device.device_name)"
-        + "&device_value=\(device.value)"
-        + "&device_type=\(device.type)"
-        + "&device_glyph=\(device.glyph ?? "")"
-        + "&device_is_active=\(device.is_active)"
-        + "&device_room=\(device.room ?? 0)"
+        let param = "device_idk=update"
+            + "&device_id=\(device.id)"
+            + "&device_name=\(device.device_name)"
+            + "&device_value=\(device.value)"
+            + "&device_type=\(device.type)"
+            + "&device_glyph=\(device.glyph ?? "")"
+            + "&device_is_active=\(device.is_active)"
+            + "&device_room=\(device.room ?? 0)"
         
         genericBackendUpdate(param: param)
+    }
+    func createBackendDevice(function : NewFunction,restParam: String){
+        let param = "device_idk=create"
+            + "&ir_device_id=\(function.id)"
+            + "&device_name=\(function.functionName)"
+            //        + "&device_value=0.0"
+            //            + "&device_type=\(function.type)"
+            //            + "&device_glyph=\(function.glyph ?? "")"
+            //        + "&device_is_active=\(function.is_active)"
+            //        + "&device_max_value=1" //TODO: set max value.
+            + restParam
+        print(param)
+        genericBackendUpdate(param: param)
+    }
+    func deleteBackendDevice(device: Device){
+        let param = "device_idk=delete"
+            + "&device_id=\(device.id)"
+        
+        genericBackendUpdate(param: param)
+    }
+    
+    func deleteDevice(device: Device){
+        if let indx = devices.firstIndex(where: {$0.id == device.id}){
+            devices.remove(at: indx)
+        }
+    }
+    
+    func removeDevicesFromScene(device: Device){
+        for scene in scenes {
+            if let indsx = scenes.firstIndex(where: {$0.id == scene.id}){
+                //                            for sceneDevice in scene.devices{
+                if let indx = scene.devices.firstIndex(where: {$0.id == device.id}){
+                    //                scene.devices.remove(at: indx)
+                    print("removing device: \(self.scenes[indsx].devices[indx].device_name)")
+                    self.scenes[indsx].devices.remove(at:indx)
+                    updateBackendScene(scene: scenes[indsx])
+                }
+                //                            }
+            }
+        }
     }
     
     func updateBackendScene(scene : Scene){
         let encoder = JSONEncoder()
         let scene_devices = try! encoder.encode(scene.devices)
-        let param = "scene_id=\(scene.id)"
+        let param = "scene_idk=update"
+            + "&scene_id=\(scene.id)"
             + "&scene_name=\(scene.scene_name)"
             + "&scene_is_favorite=\(scene.is_favorite)"
             + "&scene_glyph=\(scene.glyph ?? "")"
             + "&scene_devices=\(String(data: scene_devices, encoding: .utf8)!)"
-
+        
         genericBackendUpdate(param: param)
     }
     
@@ -382,7 +453,7 @@ class LoadJSONData : ObservableObject {
             + "&scene_is_active=\(scene.is_active)"
             + "&scene_devices=\(String(data: scene_devices, encoding: .utf8)!)"
         
-        genericBackendUpdate(param: param)
+        self.genericBackendUpdate(param: param)
     }
     
     func findAndActivateScene(){
@@ -395,7 +466,7 @@ class LoadJSONData : ObservableObject {
                         toActivate = true
                     }
                     else if(devices[indx].is_active == device.is_active
-                        && devices[indx].value == device.value){
+                                && devices[indx].value == device.value){
                         toActivate = true
                     }
                     else{

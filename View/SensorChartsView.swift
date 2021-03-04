@@ -19,7 +19,7 @@ let dataxx: [Point] = [
 //    .init(x: 5, y: 12),
 //    .init(x: 6, y: 14),
 //    .init(x: 7, y: 11)
-    .init(timestamp:"10", y: 5),
+    .init(timestamp: "10", y: 5),
     .init(timestamp: "16", y: 4),
     .init(timestamp: "16", y: 24),
     .init(timestamp: "16", y: 6)
@@ -44,21 +44,21 @@ struct SensorChartsView: View {
         data.max { $0.y < $1.y }?.y ?? 0
     }
     
-//    private var maxXValue: CGFloat {
-//        data.max { $0.x < $1.x }?.x ?? 0
-//    }
+    //private var maxXValue: CGFloat {
+    //    data.max { $0.x < $1.x }?.x ?? 0
+    //}
     
     private var minYValue: CGFloat {
         data.min { $0.y < $1.y }?.y ?? 0
     }
     
-//    private var minXValue: CGFloat {
-//        data.min { $0.x < $1.x }?.x ?? 0
-//    }
+    //private var minXValue: CGFloat {
+    //    data.min { $0.x < $1.x }?.x ?? 0
+    //}
     
-    //    private var xStepsCount: Int {
-    //        return Int(self.maxXValue / self.xStepValue)
-    //    }
+    //private var xStepsCount: Int {
+    //    return Int(self.maxXValue / self.xStepValue)
+    //}
     
     private var yStepsCount: Int {
         let delta = self.maxYValue - self.minYValue
@@ -312,6 +312,6 @@ struct LineChartProvider {
 
 struct SensorChartsView_Previews: PreviewProvider {
     static var previews: some View {
-        SensorChartsView(device: Device(id: 0, device_name: "xxx", device_custom_name: nil, glyph: nil, is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1))
+        SensorChartsView(device: Device(id: 0, device_name: "xxx", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1))
     }
 }

@@ -59,6 +59,9 @@ struct CheckableDeviceView: View {
 
 struct CheckableDeviceView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name",glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), checked: false/*, rooms: []*/)
+        Group{
+            CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), checked: false/*, rooms: []*/)
+            CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Slider", value: Float(1.0), max_level: 3), checked: true/*, rooms: []*/).preferredColorScheme(.dark)
+        }.previewLayout(.fixed(width: 125, height: 125))
     }
 }

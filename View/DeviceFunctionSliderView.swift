@@ -45,6 +45,6 @@ struct DeviceFunctionSliderView: View {
 struct DeviceFunctionSliderView_Previews: PreviewProvider {
     
     static var previews: some View {
-        DeviceFunctionSliderView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device_name", device_custom_name: "", glyph: "", is_active: true, type: "Slider", value: 45, max_level: 3))).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionSliderView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device_name", device_custom_name: "", reseting: false, glyph: "", is_active: true, type: "Slider", value: 45, max_level: 3))).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
     }
 }

@@ -28,10 +28,10 @@ struct ContentView: View {
     let animationDuration = 0.1
     
     let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//        GridItem(.flexible()),
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+        GridItem(.adaptive(minimum: 120, maximum: 120))]
     let rows = [
         GridItem(.fixed(60)),
         GridItem(.fixed(60))
@@ -95,8 +95,9 @@ struct ContentView: View {
                                 
                             }
                         }.padding(.leading,20)
+                        .padding(.trailing,20)
                     }.sheet(item: $selectedScene){ scene in
-                        SceneDetailView(sc: $selectedScene, dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
+                        SceneSettingsView(sc: $selectedScene, dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
                     }.padding(.leading, 0.0)
                 }.padding(.bottom, 10)
                 
@@ -179,7 +180,7 @@ struct ContentView: View {
         .sheet(item: $activeSheet, onDismiss: {dvcObj.validateScenes()}) { item in
             switch item {
             case .first:
-                AddDeviceView(activeSheet: $activeSheet)
+                AddDeviceView(activeSheet: $activeSheet, dvcObj: dvcObj)
             case .second:
                 AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj, devicesInRoom: [])
             case .third:

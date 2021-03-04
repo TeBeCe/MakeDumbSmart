@@ -12,12 +12,14 @@
 		BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */; };
 		BC15F8BB25C5F06500754439 /* TestingView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15F8BA25C5F06500754439 /* TestingView2.swift */; };
 		BC15F8BE25C60C5A00754439 /* SensorChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15F8BD25C60C5A00754439 /* SensorChartsView.swift */; };
+		BC16313725E9794300AE8091 /* NewFunctionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC16313625E9794300AE8091 /* NewFunctionModel.swift */; };
 		BC16346F25C6E48A00ACAF78 /* SensorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC16346E25C6E48A00ACAF78 /* SensorDetailView.swift */; };
 		BC3B311325BB375B00CFF544 /* SensorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3B311225BB375A00CFF544 /* SensorChartView.swift */; };
 		BC3B311725BEF19000CFF544 /* SensorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3B311625BEF19000CFF544 /* SensorModel.swift */; };
 		BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4102F52572DC99001258BF /* AddDeviceView.swift */; };
 		BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4102F82572DD3D001258BF /* AddSceneView.swift */; };
 		BC4360BC25C20B4800EA459D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4360BB25C20B4800EA459D /* Extensions.swift */; };
+		BC490C4125EEDB5C00F76661 /* NewFunctionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */; };
 		BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBD250141DA009821D7 /* AppDelegate.swift */; };
 		BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBF250141DA009821D7 /* SceneDelegate.swift */; };
 		BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFC1250141DA009821D7 /* ContentView.swift */; };
@@ -38,7 +40,7 @@
 		BCC6FCD9257E933E00481D44 /* SceneListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */; };
 		BCE609BE2566EAD500B9405C /* DeviceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */; };
 		BCE609C12569693800B9405C /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609C02569693800B9405C /* TestingView.swift */; };
-		BCE609C4256994F800B9405C /* SceneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609C3256994F800B9405C /* SceneDetailView.swift */; };
+		BCE609C4256994F800B9405C /* SceneSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609C3256994F800B9405C /* SceneSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,12 +49,14 @@
 		BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionLevelView.swift; sourceTree = "<group>"; };
 		BC15F8BA25C5F06500754439 /* TestingView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView2.swift; sourceTree = "<group>"; };
 		BC15F8BD25C60C5A00754439 /* SensorChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorChartsView.swift; sourceTree = "<group>"; };
+		BC16313625E9794300AE8091 /* NewFunctionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFunctionModel.swift; sourceTree = "<group>"; };
 		BC16346E25C6E48A00ACAF78 /* SensorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDetailView.swift; sourceTree = "<group>"; };
 		BC3B311225BB375A00CFF544 /* SensorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorChartView.swift; sourceTree = "<group>"; };
 		BC3B311625BEF19000CFF544 /* SensorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorModel.swift; sourceTree = "<group>"; };
 		BC4102F52572DC99001258BF /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
 		BC4102F82572DD3D001258BF /* AddSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSceneView.swift; sourceTree = "<group>"; };
 		BC4360BB25C20B4800EA459D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFunctionDetailView.swift; sourceTree = "<group>"; };
 		BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeDumbSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC88EFBD250141DA009821D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC88EFBF250141DA009821D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +79,7 @@
 		BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneListItemView.swift; sourceTree = "<group>"; };
 		BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSettingsView.swift; sourceTree = "<group>"; };
 		BCE609C02569693800B9405C /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
-		BCE609C3256994F800B9405C /* SceneDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailView.swift; sourceTree = "<group>"; };
+		BCE609C3256994F800B9405C /* SceneSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,14 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC0D27BB2561361E005F5E46 /* Functions */ = {
+		BC0D27BB2561361E005F5E46 /* FunctionControls */ = {
 			isa = PBXGroup;
 			children = (
 				BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */,
 				BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */,
 				BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */,
 			);
-			name = Functions;
+			name = FunctionControls;
 			sourceTree = "<group>";
 		};
 		BC88EFB1250141DA009821D7 = {
@@ -147,7 +151,7 @@
 				BCB7B019256DB57900CB0F5B /* DeviceViews */,
 				BCC6FCDB257E98B800481D44 /* SensorViews */,
 				BCB7B018256DB56200CB0F5B /* SceneViews */,
-				BC0D27BB2561361E005F5E46 /* Functions */,
+				BC0D27BB2561361E005F5E46 /* FunctionControls */,
 				BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */,
 				BCE609C02569693800B9405C /* TestingView.swift */,
 				BC15F8BA25C5F06500754439 /* TestingView2.swift */,
@@ -170,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFD62501437E009821D7 /* DeviceModel.swift */,
+				BC16313625E9794300AE8091 /* NewFunctionModel.swift */,
 				BC3B311625BEF19000CFF544 /* SensorModel.swift */,
 			);
 			path = Model;
@@ -179,7 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
-				BCE609C3256994F800B9405C /* SceneDetailView.swift */,
+				BCE609C3256994F800B9405C /* SceneSettingsView.swift */,
 				BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */,
 				BC4102F82572DD3D001258BF /* AddSceneView.swift */,
 				BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */,
@@ -194,6 +199,7 @@
 				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
 				BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */,
 				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
+				BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */,
 			);
 			name = DeviceViews;
 			sourceTree = "<group>";
@@ -299,15 +305,17 @@
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
 				BC16346F25C6E48A00ACAF78 /* SensorDetailView.swift in Sources */,
 				BCE609C12569693800B9405C /* TestingView.swift in Sources */,
+				BC490C4125EEDB5C00F76661 /* NewFunctionDetailView.swift in Sources */,
 				BC3B311325BB375B00CFF544 /* SensorChartView.swift in Sources */,
 				BC0D27C0256137DF005F5E46 /* DeviceFunctionLevelView.swift in Sources */,
 				BC0D27B625603BBF005F5E46 /* DeviceFunctionSliderView.swift in Sources */,
+				BC16313725E9794300AE8091 /* NewFunctionModel.swift in Sources */,
 				BCE609BE2566EAD500B9405C /* DeviceSettingsView.swift in Sources */,
 				BC88EFD72501437E009821D7 /* DeviceModel.swift in Sources */,
 				BC4360BC25C20B4800EA459D /* Extensions.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */,
-				BCE609C4256994F800B9405C /* SceneDetailView.swift in Sources */,
+				BCE609C4256994F800B9405C /* SceneSettingsView.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

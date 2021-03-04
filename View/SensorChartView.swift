@@ -29,7 +29,7 @@ struct LineGraph : Shape {
         }
         
         return Path { p in
-            guard data . count > 1 else {return}
+            guard data.count > 1 else {return}
             let start = data[0]
             p.move(to: CGPoint(x:0,y: (1 - start) * rect.height))
             
@@ -77,6 +77,6 @@ struct SensorChartView: View {
 
 struct SensorChartView_Previews: PreviewProvider {
     static var previews: some View {
-        SensorChartView(device: Device(id: 0, device_name: "xxx", device_custom_name: nil, glyph: nil, is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1))
+        SensorChartView(device: Device(id: 0, device_name: "xxx", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1))
     }
 }

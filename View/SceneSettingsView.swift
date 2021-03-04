@@ -1,5 +1,5 @@
 //
-//  SceneDetailView.swift
+//  SceneSettingsView.swift
 //  MakeDumbSmart
 //
 //  Created by Martin Bachraty on 21/11/2020.
@@ -13,7 +13,7 @@ struct TestData: Identifiable {
     var devices: [Device]
 }
 
-struct SceneDetailView: View {
+struct SceneSettingsView: View {
     @Binding var sc : Scene?
     @ObservedObject var dvcObj : LoadJSONData
     @State var scene : Scene
@@ -117,7 +117,7 @@ struct SceneDetailView: View {
 
 struct SceneDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneDetailView(sc: .constant(nil),dvcObj: LoadJSONData(),scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
+        SceneSettingsView(sc: .constant(nil),dvcObj: LoadJSONData(),scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
             .preferredColorScheme(.dark)
     }
 }

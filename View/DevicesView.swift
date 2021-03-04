@@ -10,14 +10,14 @@ import SwiftUI
 
 func getGlyph(device:Device)->String{
     switch(device.type){
-        case "Levels":
-            return "lineweight"
-        case "Slider":
-            return "lightbulb"
-        case "Switch":
-            return "switch.2"
-        default:
-            return "exclamationmark.octagon"
+    case "Levels":
+        return "lineweight"
+    case "Slider":
+        return "lightbulb"
+    case "Switch":
+        return "switch.2"
+    default:
+        return "exclamationmark.octagon"
     }
 }
 
@@ -38,7 +38,7 @@ struct DevicesView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius:20, style: .continuous)
-//                .fill(device.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
+                //.fill(device.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
                 .fill(device.is_active ? Color(UIColor.white) : Color(.systemGray5))
                 .opacity(device.is_active ? 1.0 : 0.7)
                 .frame(width: 120, height: 120)
@@ -51,6 +51,7 @@ struct DevicesView: View {
                         .frame(width: 30, height: 30)
                         .padding(.bottom,0.5)
                     Spacer()
+//                    if(device)
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                 }
@@ -60,8 +61,8 @@ struct DevicesView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                     .font(.system(size:17))
-//                    .padding(.top,1)
-//                    .multilineTextAlignment(.leading)
+                //.padding(.top,1)
+                //.multilineTextAlignment(.leading)
                 
                 Text(getRoomFrom(rooms: rooms, device: device))
                     .roomLabel()
@@ -77,9 +78,12 @@ struct DevicesView: View {
 
 struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
-
-            DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name",glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), rooms: [])
+        Group {
+            DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), rooms: [])
                 .preferredColorScheme(.dark)
             
+            DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Levels", value: Float(1.0), max_level: 3), rooms: [])
+            
+        }.previewLayout(.fixed(width: 125, height: 125))
     }
 }

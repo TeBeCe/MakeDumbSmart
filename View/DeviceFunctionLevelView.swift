@@ -84,6 +84,6 @@ struct DeviceFunctionLevelView: View {
 
 struct DeviceFunctionLevelView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, glyph: nil, is_active: true, type: "Levels", value: 1, max_level: 3)), levelArr: [0,33.4,66.7]).preferredColorScheme(.light).frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, reseting: false, glyph: nil, is_active: true, type: "Levels", value: 1, max_level: 3)), levelArr: [0,33.4,66.7]).preferredColorScheme(.light).frame(width: 140, height: 400, alignment: .center)
     }
 }
