@@ -11,7 +11,7 @@ import SwiftUI
 struct AddSceneView: View {
     @Binding var activeSheet: ActiveSheet?
     @ObservedObject var dvcObj : LoadJSONData
-    @State var scene : Scene = Scene(scene_name: "", id: 0, is_favorite: false, glyph: nil, is_active: false, devices: [],scene_devices: [])
+    @State var scene : Scene = Scene(scene_name: "", id: 0, is_favorite: false, glyph: "lightbulb", is_active: false, devices: [],scene_devices: [])
     @State var selectedScene : Scene? = nil
     @State var devicesInRoom : [TestData]
     @State var enabledButton : Bool = false
@@ -30,20 +30,21 @@ struct AddSceneView: View {
                 List{
                     Section(){
                         HStack{
-                            Image(systemName: "lightbulb")
+                            NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphArray) ){EmptyView()}.hidden().frame(width:0)
+                            Image(systemName: scene.glyph )
                                 .font(.system(size:20, weight: .semibold))
-                                .padding(4)
+                                .padding()
+                                .frame(width:35,height:35)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 4)
+                                    RoundedRectangle(cornerRadius: 6)
                                         .stroke(Color(.systemOrange), lineWidth: 2)
                                 )
-                                .frame(width:25,height:25)
                             
                             TextField("Scene Name", text: $scene.scene_name)
                                 .onChange(of: scene.scene_name){ _ in
                                     dvcObj.updateScene(scene: scene)
                                     if(scene.scene_name.count > 0){
-                                        dvcObj.createScene(scene: scene)
+//                                        dvcObj.createScene(scene: scene)
                                         self.enabledButton = true
                                     }
                                     else{
@@ -59,45 +60,41 @@ struct AddSceneView: View {
                             LazyVGrid(columns: columns,spacing: 10){
                                 ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
                                     let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
-//                                    DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
+                                    //DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
                                     DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
                                         .onTapGesture{
                                             dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active.toggle()
                                             print(dvcObj.scenes[arrr[0]].devices[arrr[1]])
-//                                            self.selectedIndx = indx
+                                            //self.selectedIndx = indx
                                             
                                         }
                                         .onLongPressGesture{
-                                            print("long")
+                                            //print("long")
                                             self.selectedDevice = dvcObj.scenes[arrr[0]].devices[arrr[1]]
                                         }
-                                    
                                     
                                 }
                             }.padding(.leading,-20).padding(.trailing,-20)
                         }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
                     }
                     Section(){
-                        Button(action: {print("testing scene// not implemented")}){
-                            Text("Test scene// not implemented")
-                                .foregroundColor(Color(.systemOrange))
-                        }
                         Button(action: {
                             self.selectedScene = scene
+                            print(scene)
                         }){
                             Text("Add or remove Accesories")
                                 .foregroundColor(self.enabledButton ? Color(.systemOrange) : Color(.gray))
                         }.disabled(!self.enabledButton)
                         .sheet(item: $selectedScene){ scene in
-                            SelectDeviceInSceneView(dvcObj: dvcObj, scene: scene, devicesInRoom: dvcObj.getDevicesInRooms())
+                            SelectDeviceInSceneView(dvcObj: dvcObj, scene: $scene, devicesInRoom: dvcObj.getDevicesInRooms())
                         }
                     }
                     Section(){
                         Button(action: {print("Create scene")
                             
-                            dvcObj.createScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
-                            dvcObj.createBackendScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 10..<100), is_favorite: false, glyph: nil, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
-//                                dvcObj.loadData()
+                            dvcObj.createScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 9999..<99999), is_favorite: false, glyph: scene.glyph, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
+                            dvcObj.createBackendScene(scene: Scene(scene_name: scene.scene_name, id: Int.random(in: 9999..<99999), is_favorite: false, glyph: scene.glyph, is_active: false, devices: dvcObj.getDevicesInSceneArray(scene: scene), scene_devices: []))
+                            //dvcObj.loadData()
 
                             activeSheet = nil
                         }){
@@ -111,12 +108,19 @@ struct AddSceneView: View {
             }
             .navigationBarTitle(Text("Add Scene"), displayMode: .inline)
 
-        }
+        }.onAppear(perform: {
+            dvcObj.continueRefresh = false
+            dvcObj.createScene(scene: scene)
+        })
+        .onDisappear(perform: {
+            dvcObj.continueRefresh = true
+            dvcObj.loadData()
+        })
     }
 }
 
 struct AddSceneView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSceneView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), scene: Scene(scene_name: "xx", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
+        AddSceneView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), scene: Scene(scene_name: "xx", id: 0, is_favorite: true, glyph: "lightbulb", is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
     }
 }

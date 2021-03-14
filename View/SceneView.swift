@@ -20,11 +20,12 @@ struct SceneView: View {
                 .frame(width: 250, height: 60)
                 
             HStack(alignment: .center){
-                Image(systemName: "house")
+                Image(systemName: scene.glyph)
                     .foregroundColor(scene.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                    .padding(.bottom, 5.0)
-                    .padding(.leading, 10)
+                    .padding(10.0)
+//                    .padding(.leading, 10)
                     .font(.system(size:30, weight: .semibold))
+                    .frame(width: 50, height: 50, alignment: .center)
                 
                 Text(scene.scene_name)
                     .fontWeight(.medium)

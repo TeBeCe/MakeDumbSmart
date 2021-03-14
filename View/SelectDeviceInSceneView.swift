@@ -10,13 +10,14 @@ import SwiftUI
 
 struct SelectDeviceInSceneView: View {
     @ObservedObject var dvcObj : LoadJSONData
-    @State var scene : Scene
+    @Binding var scene : Scene
     @State var devicesInRoom : [TestData]
     
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
+//        GridItem(.adaptive(minimum: 120, maximum: 120))
     ]
     var body: some View {
         NavigationView{
@@ -27,8 +28,8 @@ struct SelectDeviceInSceneView: View {
                             ForEach(xx.devices){device in
                                 CheckableDeviceView(device:device,checked:dvcObj.isDeviceInScene(scene: scene, device: device))
                                     .onTapGesture {
-                                        dvcObj.addOrRemoveDeviceToScene(scene: scene, device: device)
-                                        dvcObj.addOrRemoveSceneDeviceToScene(scene: scene, device: device)
+                                        scene = dvcObj.addOrRemoveDeviceToScene(scene: scene, device: device)
+//                                        dvcObj.addOrRemoveSceneDeviceToScene(scene: scene, device: device)
                                     }
                             }
                         }.padding(.leading,-20)
@@ -42,6 +43,6 @@ struct SelectDeviceInSceneView: View {
 
 struct SelectDeviceInSceneView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectDeviceInSceneView(dvcObj: LoadJSONData(), scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: nil, is_active: false, devices: [], scene_devices: []), devicesInRoom: [])
+        SelectDeviceInSceneView(dvcObj: LoadJSONData(), scene: .constant(Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "lightbulb", is_active: false, devices: [], scene_devices: [])), devicesInRoom: [])
     }
 }

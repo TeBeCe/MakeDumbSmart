@@ -34,7 +34,7 @@ struct SceneListItemView: View {
                 //.frame(width: 250, height: 60)
                 
             HStack(alignment: .center){
-                Image(systemName: "house")
+                Image(systemName: scene.glyph )
                     .foregroundColor(Color(.black))
                     //.padding(.bottom, 5.0)
                     .font(.system(size:30, weight: .semibold))
@@ -61,8 +61,8 @@ struct SceneListItemView: View {
 struct SceneListItemView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil)).previewLayout(.fixed(width: 400, height: 80))
-            SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "Switch", value: 0.0, max_level: nil, room: nil)).preferredColorScheme(.dark).previewLayout(.fixed(width: 400, height: 80))
+            SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device: nil, reseting: false, glyph: "lightbulb", is_active: false, type: "Switch", value: 0.0, max_level: 1, room: 1, processing: 0)).previewLayout(.fixed(width: 400, height: 80))
+            SceneListItemView(scene: Scene(scene_name: "Test", id: 0, is_favorite: true, glyph: "house", is_active: false, devices: [], scene_devices: []),device: Device(id: 0, device_name: "test", device: nil, reseting: false, glyph: "lightbulb", is_active: false, type: "Switch", value: 0.0, max_level: 1, room: 1, processing: 0)).preferredColorScheme(.dark).previewLayout(.fixed(width: 400, height: 80))
         }
     }
 }

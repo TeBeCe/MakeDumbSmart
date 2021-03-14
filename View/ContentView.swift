@@ -38,17 +38,23 @@ struct ContentView: View {
     ]
     
     var body: some View {
+//        NavigationView{
         VStack(alignment: .leading){
             
             topMenu
             
-            Text(dvcObj.home.home_name)
-                .font(.system(size: 45, weight: .bold))
-                .fontWeight(.bold)
-                .padding([.leading,.top], 20)
-                .foregroundColor(Color(UIColor.init(named:"textColor")!))
+//            Text(dvcObj.home.home_name)
+//                .font(.system(size: 45, weight: .bold))
+//                .fontWeight(.bold)
+//                .padding([.leading,.top], 20)
+//                .foregroundColor(Color(UIColor.init(named:"textColor")!))
             ScrollView(){
                 VStack(alignment: .leading){
+                    Text(dvcObj.home.home_name)
+                        .font(.system(size: 45, weight: .bold))
+                        .fontWeight(.bold)
+                        .padding([.leading,.top,.bottom], 30)
+                        .foregroundColor(Color(UIColor.init(named:"textColor")!))
                     Text("Favorite scenes").padding(.leading, 20)
                     
                     ScrollView(.horizontal,showsIndicators: false){
@@ -78,27 +84,20 @@ struct ContentView: View {
                                             let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                                             impactHeavy.impactOccurred()
                                         }
-//                                        .updating(self.$islong) { value, state, transcation in
-//                                                print(value)
-//                                                print(state)
-//                                                print(transcation)
-//                                            }
                                         .scaleEffect(didScale && indx == selectedIndx ? 0.95 : 1)
                                         .animation(Animation
                                                     .linear(duration: self.animationDuration)
                                                     .repeatCount(1, autoreverses: true))
-                                    
                                 }
-                                //.simultaneousGesture(
-                                //  LongPressGesture(minimumDuration: 1).onEnded { _ in self.didLongPress = true }.onChanged{value in print("changed\(value)")}
-                                //)
-                                
                             }
                         }.padding(.leading,20)
                         .padding(.trailing,20)
+                        .animation(.easeIn)
+                        //.padding(.bottom,20)
                     }.sheet(item: $selectedScene){ scene in
                         SceneSettingsView(sc: $selectedScene, dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
                     }.padding(.leading, 0.0)
+                   
                 }.padding(.bottom, 10)
                 
                 VStack(alignment: .leading){
@@ -129,16 +128,23 @@ struct ContentView: View {
                             DeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device)
                         }
                     }
+                    .animation(.easeIn)
                     .padding(.horizontal)
+                    .padding(.bottom,20)
                 }
             }
-        }.onAppear(perform: {self.dvcObj.loadData()
+        }
+        .onAppear(perform: {
+            self.dvcObj.loadData()
         })
 //        .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9695343375, green: 0.5495890379, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.9504212737, green: 0.8822066784, blue: 0.2864913642, alpha: 1))]), startPoint: .top, endPoint: .bottom))
-        .background(Image("Image").resizable())
-        .edgesIgnoringSafeArea(.all)
+        .background(Image(UserDefaults.standard.string(forKey: "Wallpaper") ?? images[0])
+                        .resizable())
+        .navigationTitle(dvcObj.home.home_name)
+        .edgesIgnoringSafeArea(.top)
+        
+//        }
     }
-    
     var topMenu: some View {
         HStack{
             Menu {

@@ -31,7 +31,8 @@ struct DeviceFunctionSwitchView: View {
                                     impactHeavy.impactOccurred()
                         if(scene == nil){
                             dvcObj.updateDevice(device: device)
-                            dvcObj.updateBackendDevice(device: device)
+                            //dvcObj.updateBackendDevice(device: device)
+                            dvcObj.activateBackendDevice(device: device, multiplier: 1)
                             dvcObj.findAndActivateScene()
                         }
                         else{
@@ -65,7 +66,7 @@ struct DeviceFunctionSwitchView: View {
 
 struct DeviceFunctionsView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionSwitchView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "name", device_custom_name: nil, reseting: false, glyph: nil, is_active: true, type: "Switch", value: 1, max_level: nil)) )
+        DeviceFunctionSwitchView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "name", device: nil, reseting: false, glyph: "lightbulb", is_active: true, type: "Switch", value: 1, max_level: nil, room: 1, processing: 0)) )
             .frame(width: 140, height: 400, alignment: .center)
             .preferredColorScheme(.dark)
     }

@@ -17,7 +17,8 @@ class LoadJSONSensorData : ObservableObject {
     @Published var data = [Point]()
     
     func loadData(param: String) {
-        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/get_sensors.php") else { return }
+//        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/get_sensors.php") else { return }
+        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/public/index.php/sensors/get") else { return }
 
         var request = URLRequest(url: urlx)
         request.httpMethod = "POST"
@@ -36,9 +37,12 @@ class LoadJSONSensorData : ObservableObject {
                     }
                 }
             }
-            else{
-                print(error!)
-            }
+//            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                print("Response data string:\n \(dataString)")
+//            }
+//            else{
+//                print(error!)
+//            }
         }.resume()
     }
 }

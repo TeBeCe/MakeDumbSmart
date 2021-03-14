@@ -84,13 +84,12 @@ struct DeviceSettingsView: View {
         }.navigationBarTitle(Text(""),displayMode: .inline)
         .onAppear(perform:{
             print(device)
-            print(sd ?? "nil")
         })
     }
 }
 
 struct DeviceSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceSettingsView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device_custom_name: nil, reseting: false, glyph: nil, is_active: true, type: "Levels", value: 1.0, max_level: 3)),sd:.constant(nil))
+        DeviceSettingsView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device: nil, reseting: false, glyph: "lightbulb", is_active: true, type: "Levels", value: 1.0, max_level: 3, room: 1, processing: 0)),sd:.constant(nil))
     }
 }

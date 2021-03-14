@@ -312,6 +312,6 @@ struct LineChartProvider {
 
 struct SensorChartsView_Previews: PreviewProvider {
     static var previews: some View {
-        SensorChartsView(device: Device(id: 0, device_name: "xxx", device_custom_name: nil, reseting: false, glyph: nil, is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1))
+        SensorChartsView(device: Device(id: 0, device_name: "xxx", device: nil, reseting: false, glyph: "lightbulb", is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1, processing: 0))
     }
 }

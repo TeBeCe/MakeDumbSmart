@@ -15,13 +15,36 @@ struct NewFunction : Decodable,Identifiable {
     var functionName : String
     var rawData : String
     var rawDataLen : String
-    
+}
+
+//struct SimilarNewFunction : Identifiable, Decodable {
+//    let id: Int
+//    var vendor : String
+//    var deviceRealName : String
+//    var groupedSimilarFunctions: [NewFunction]?
+//}
+
+struct SimilarNewFunction: Identifiable, Decodable {
+    let id : Int
+    var vendor : String
+    var deviceRealName : String
+    var functionName : String
+    var rawData : String?
+    var rawDataLen : String?
+    var similarIRDevices: [SimilarNewFunction]?
+}
+
+struct NewIRFunctions : Decodable{
+    var myIRDevices : [NewFunction]
+    var similarIRDevices : [SimilarNewFunction]
 }
 
 class LoadJSONNewFunctionData : ObservableObject {
     var loading = true
     var param : String = ""
-    @Published var data = [NewFunction]()
+    @Published var newFunctions = NewIRFunctions(myIRDevices:[],similarIRDevices:[])
+    @Published var myIRDevices = [NewFunction]()
+    @Published var similarIRDevices = [SimilarNewFunction]()
     
     func loadData(param: String) {
         guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/get_new_devices.php") else { return }
@@ -38,8 +61,11 @@ class LoadJSONNewFunctionData : ObservableObject {
             if let data = data {
                 do {
                     DispatchQueue.main.async {
-                        self.data = try! JSONDecoder().decode([NewFunction].self, from: data)
+                        self.newFunctions = try! JSONDecoder().decode(NewIRFunctions.self, from: data)
+                        self.myIRDevices = self.newFunctions.myIRDevices
+                        self.similarIRDevices = self.newFunctions.similarIRDevices
                         self.loading = false
+//                        print(self.similarIRDevices)
                     }
                 }
             }
@@ -48,7 +74,7 @@ class LoadJSONNewFunctionData : ObservableObject {
             }
         }.resume()
     }
-    func genericBackendUpdate(param : String){
+    func genericBackendUpdate(method: String = "POST",link: String = "" ,param : String){
         // Prepare URL
         let url = URL(string: "https://divine-languages.000webhostapp.com/get_new_devices.php")
         guard let requestUrl = url else { fatalError() }
@@ -78,12 +104,31 @@ class LoadJSONNewFunctionData : ObservableObject {
         }
         task.resume()
     }
-    func nameAndCreateFunction(newFunction: NewFunction){
-        let param = "id=\(newFunction.id)" +
+    func nameAndCreateMyFunction(newFunction: NewFunction){
+        let param = "creation_type=own" +
+            "&id=\(newFunction.id)" +
             "&vendor=\(newFunction.vendor ?? "")" +
             "&device_real_name=\(newFunction.deviceRealName ?? "")" +
             "&function_name=\(newFunction.functionName)"
         
+        self.genericBackendUpdate(param: param)
+    }
+    func nameAndCreateSimilarFunction(similarNewFunction: SimilarNewFunction, device: Device){
+        let param = "creation_type=similar" +
+            "&vendor=\(similarNewFunction.vendor )" +
+            "&device_real_name=\(similarNewFunction.deviceRealName )" +
+            "&function_name=\(device.device_name)" +
+            "&function_data_len=\(similarNewFunction.rawDataLen ?? "")" +
+            "&function_raw_data=\(similarNewFunction.rawData ?? "")"
+            + "&function_value=0.0"
+            + "&function_type=\(device.type)"
+            + "&function_device=\(similarNewFunction.deviceRealName)"
+            + "&function_glyph=\(device.glyph )"
+            + "&function_is_active=\(device.is_active)"
+            + "&function_max_value=\(device.max_level ?? 1)" //TODO: set max value.
+            + "&function_room=\(device.room )"
+            + "&function_resetable=\(device.reseting)"
+        print(param)
         self.genericBackendUpdate(param: param)
     }
 }

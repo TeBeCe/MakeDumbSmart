@@ -47,18 +47,21 @@ struct DevicesView: View {
                 HStack(alignment: .top){
                     Image(systemName: getGlyph(device: device))
                         .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                        .font(.system(size:30, weight: .semibold)).scaledToFit()
+                        .font(.system(size:30, weight: .semibold))
+                        .scaledToFit()
                         .frame(width: 30, height: 30)
                         .padding(.bottom,0.5)
                     Spacer()
-//                    if(device)
+                    if(device.processing != 0){
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
+                        .progressViewStyle(CircularProgressViewStyle()).padding(.vertical,2)
+                    
+                  }
                 }
                 
                 
                 Text(device.device_name)
-                    .fontWeight(.semibold)
+                    .fontWeight(.regular)
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                     .font(.system(size:17))
                 //.padding(.top,1)
@@ -79,10 +82,10 @@ struct DevicesView: View {
 struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3), rooms: [])
+            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3, room: 1, processing: 0), rooms: [])
                 .preferredColorScheme(.dark)
             
-            DevicesView(device: Device(id: 1, device_name: "Test name",device_custom_name: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Levels", value: Float(1.0), max_level: 3), rooms: [])
+            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Levels", value: Float(1.0), max_level: 3, room: 1, processing: 01), rooms: [])
             
         }.previewLayout(.fixed(width: 125, height: 125))
     }

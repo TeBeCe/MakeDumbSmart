@@ -35,17 +35,20 @@ struct SceneSettingsView: View {
                 List{
                     Section(){
                         HStack{
-                            Image(systemName: "lightbulb")
+                            NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphArray) ){EmptyView()}.hidden().frame(width:0)
+                            Image(systemName: scene.glyph )
                                 .font(.system(size:20, weight: .semibold))
-                                .padding(4)
+                                .padding()
+                                .frame(width:35,height:35)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 4)
+                                    RoundedRectangle(cornerRadius: 6)
                                         .stroke(Color(.systemOrange), lineWidth: 2)
-                                )
-                                .frame(width:25,height:25)
+                                ).onChange(of: scene.glyph){_ in
+                                    dvcObj.updateBackendScene(scenex: scene )
+                                }
                             TextField("Name", text: $scene.scene_name, onEditingChanged: { _ in
                                 print("changed")
-                                dvcObj.updateBackendScene(scene: scene)
+                                dvcObj.updateBackendScene(scenex: scene)
                             })
                                 .onChange(of: scene.scene_name){ _ in
                                     dvcObj.updateScene(scene: scene)
@@ -59,6 +62,7 @@ struct SceneSettingsView: View {
                                 ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
                                     let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
 //                                    DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
+                                    
                                     DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
                                         .onTapGesture{
                                             if(!dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active && dvcObj.scenes[arrr[0]].devices[arrr[1]].value == 0.0 ){
@@ -66,7 +70,7 @@ struct SceneSettingsView: View {
                                                 print("set to max")
                                             }
                                             dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active.toggle()
-                                            dvcObj.updateBackendScene(scene: dvcObj.scenes[arrr[0]])
+                                            dvcObj.updateBackendScene(scenex: dvcObj.scenes[arrr[0]])
                                             print(dvcObj.scenes[arrr[0]].devices[arrr[1]])
 //                                            self.selectedIndx = indx
                                             
@@ -90,7 +94,7 @@ struct SceneSettingsView: View {
                         }){
                             Text("Add/Remove Accesories").foregroundColor(Color(.systemOrange))
                         }.sheet(item: $selectedScene){ scene in
-                            SelectDeviceInSceneView(dvcObj: dvcObj, scene: scene, devicesInRoom: dvcObj.getDevicesInRooms())
+                            SelectDeviceInSceneView(dvcObj: dvcObj, scene: $scene, devicesInRoom: dvcObj.getDevicesInRooms())
                         }
                     }
                     Section(){
@@ -107,17 +111,24 @@ struct SceneSettingsView: View {
             }
             .navigationBarItems(leading:
                                     HStack{
-                                        Image(systemName: "lightbulb").font(.system(size:25, weight: .semibold))
+                                        Image(systemName: scene.glyph).font(.system(size:25, weight: .semibold))
                                         Text(scene.scene_name).font(.system(size:17, weight: .semibold))
                                     }, trailing: Button(action:{self.sc = nil}){Image(systemName: "xmark.circle.fill")
                                         .font(.system(size:25, weight: .bold)).accentColor(.gray)}).navigationBarTitleDisplayMode(.inline)
-        }
+        }.onAppear(perform:{
+                    print(scene)
+        })
+        .onDisappear(perform: {
+            dvcObj.updateScene(scene: scene)
+            print(scene)
+            dvcObj.updateBackendScene(scenex: scene)
+        })
     }
 }
 
 struct SceneDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneSettingsView(sc: .constant(nil),dvcObj: LoadJSONData(),scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: nil, is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
+        SceneSettingsView(sc: .constant(nil),dvcObj: LoadJSONData(),scene: Scene(scene_name: "Scene_name", id: 0, is_favorite: true, glyph: "lightbulb", is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
             .preferredColorScheme(.dark)
     }
 }

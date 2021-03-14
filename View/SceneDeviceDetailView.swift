@@ -62,6 +62,6 @@ struct SceneDeviceDetailView: View {
 
 struct SceneDeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneDeviceDetailView(sd: .constant(nil), dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device_custom_name: nil, reseting: false, glyph: nil , is_active: false, type: "Slider", value: Float(Int(1.0)), max_level: 3))
+        SceneDeviceDetailView(sd: .constant(nil), dvcObj: LoadJSONData(), device: Device(id: 0, device_name: "Test Name", device: nil, reseting: false, glyph: "lightbulb" , is_active: false, type: "Slider", value: Float(Int(1.0)), max_level: 3, room: 1, processing: 0))
     }
 }

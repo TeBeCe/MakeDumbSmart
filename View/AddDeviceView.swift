@@ -10,35 +10,30 @@ import SwiftUI
 
 struct AddDeviceView: View {
     @Binding var activeSheet: ActiveSheet?
-    @ObservedObject var newFunctions = LoadJSONNewFunctionData()
+    @ObservedObject var newIRFunctions = LoadJSONNewFunctionData()
     @ObservedObject var dvcObj:LoadJSONData
     
     var body: some View {
         NavigationView {
-            VStack{
-                if(newFunctions.loading){
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(3.5)
-                }
-                else{
-                    List(newFunctions.data){newFunction in
-                        NavigationLink(destination:NewFunctionDetailView(newFunction: newFunction, nf: newFunctions, dvcObj: dvcObj, activeSheet: $activeSheet)){
-                            HStack{
-                                Text(newFunction.functionName)
-                            }
-                        }
+            TabView {
+                AddMyFunctionsView(activeSheet: $activeSheet, newIRFunctions: newIRFunctions, dvcObj: dvcObj)
+                    .tabItem {
+                        Label("My Functions", systemImage: "list.dash")
                     }
-                }
-            }.navigationBarTitle(Text("Add New Device"), displayMode: .inline)
-            .navigationBarItems(trailing: Button(action:{self.activeSheet = nil}){Image(systemName: "xmark.circle.fill")
-                                    .font(.system(size:25, weight: .bold)).accentColor(.gray)})
-            //        Button(action: {activeSheet = nil}, label: {
-            //            /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-            //        })
-            //        TestingView2()
+                
+                AddSimilarFunctionView(activeSheet: $activeSheet, newIRFunctions: newIRFunctions, dvcObj: dvcObj)
+                    .tabItem {
+                        Label("Similar Functions", systemImage: "square.and.pencil")
+                    }
+            }
+
+            .navigationBarTitle(Text("Add New Device"), displayMode: .inline)
+            .navigationBarItems(trailing: Button(action:{self.activeSheet = nil}){
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size:25, weight: .bold)).accentColor(.gray)})
         }.onAppear(perform: {
-            newFunctions.loadData(param: "");
+            newIRFunctions.loadData(param: "");
+            print(newIRFunctions.similarIRDevices)
             dvcObj.continueRefresh = false
             print("appearing, disabling fetching")
         }).onDisappear(perform: {
@@ -47,6 +42,7 @@ struct AddDeviceView: View {
             print("disappearing, enabling fetching")
         })
     }
+    
 }
 
 struct AddDeviceView_Previews: PreviewProvider {
