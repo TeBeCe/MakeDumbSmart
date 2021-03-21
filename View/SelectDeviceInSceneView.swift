@@ -29,6 +29,7 @@ struct SelectDeviceInSceneView: View {
                                 CheckableDeviceView(device:device,checked:dvcObj.isDeviceInScene(scene: scene, device: device))
                                     .onTapGesture {
                                         scene = dvcObj.addOrRemoveDeviceToScene(scene: scene, device: device)
+                                        print(scene)
 //                                        dvcObj.addOrRemoveSceneDeviceToScene(scene: scene, device: device)
                                     }
                             }

@@ -27,6 +27,7 @@ struct SensorView: View {
                         .font(.system(size: 13))
                 }
                 .frame(width: 35, height: 33)
+                
 //                ZStack{
 //                    Circle()
 //                    Text("55°")
@@ -36,24 +37,27 @@ struct SensorView: View {
 //                }
 //                .frame(width: 35, height: 35)
 
-                Text(device.device_name)
+                VStack(alignment: .leading){  Text(device.device_name)
                     .fontWeight(.regular)
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                    .font(.system(size:17)).lineLimit(2)
+                    .font(.system(size:16))
+                    .lineLimit(2)
 //                    .padding(.top,1)
 //                    .multilineTextAlignment(.leading)
                 
                 Text(getRoomFrom(rooms: rooms, device: device))
                     .roomLabel()
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-
+                Text(" ")
+                    .roomLabel()
                 
 //                Text(DetermineValue(device: device))
-                Text("")
-
+                Text(" ")
                     .valueLabel()
-            }
-            .frame(width: 100,height: 100,alignment: .leading).padding(.top, -10)
+                }.offset(x: 0, y: -7.0)
+            }.padding(.top, 2)
+            .frame(width: 100,height: 100,alignment: .leading)
+//            .padding(.top, -10)
         }
     }
 }
@@ -61,9 +65,9 @@ struct SensorView: View {
 struct SensorView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            SensorView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "sensor_temperature", value: Float(19.0), max_level: 3, room: 1, processing: 0), rooms: [])
+            SensorView(device: Device(id: 1, device_name: "Test name sensor",device: "Cust name", reseting: false,glyph: "lightbulb", is_active: false, type: "sensor_temperature", value: Float(19.0), max_level: 3, room: 1, processing: 0), rooms: [Room(id: 1, room_name: "Bedroom")])
         
-            SensorView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "sensor_humidity", value: Float(78.0), max_level: 3, room: 1, processing: 0), rooms: [])
+            SensorView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "lightbulb", is_active: false, type: "sensor_humidity", value: Float(78.0), max_level: 3, room: 1, processing: 0), rooms: [Room(id: 1, room_name: "Bedroom")])
                 .preferredColorScheme(.dark)
     }
             .previewLayout(.fixed(width: 125, height: 125))

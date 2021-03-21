@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-var glyphArray = ["lightbulb","alarm","dial.min","flashlight.off.fill","drop","sun.min","moon","power","togglepower","escape"]
+var glyphSceneArray = ["lightbulb","alarm","dial.min","flashlight.off.fill","drop","sun.min","moon","power","togglepower","escape","lineweight","switch.2"]
 struct GlyphSelectionView: View {
     @Binding var selectedGlyph : String
     var glyphArray:[String]
@@ -33,6 +33,6 @@ struct GlyphSelectionView: View {
 
 struct GlyphSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        GlyphSelectionView(selectedGlyph: .constant("lightbulb"), glyphArray: glyphArray)
+        GlyphSelectionView(selectedGlyph: .constant("lightbulb"), glyphArray: glyphSceneArray)
     }
 }

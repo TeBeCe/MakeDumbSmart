@@ -22,12 +22,12 @@ struct HomeSettingsView: View {
                 Form {
                     //                    VStack(alignment: .leading) {
                     Section(header: Text("Home Name")) {
-                        TextField("Home Name", text: $home.home_name, onEditingChanged: { _ in
-                            print("changed")
-                            dvcObj.backendUpdateHome(param: "home_id=1&home_name=" + home.home_name);
-                        }).onChange(of: home.home_name){ _ in
-                            
-                        }}
+                        TextField("Home Name", text: $home.home_name, onEditingChanged: { editing in
+                                    if !editing{
+                                        dvcObj.backendUpdateHome(param: "home_id=1&home_name=" + home.home_name);
+                                    }
+                        }).disableAutocorrection(true)
+                    }
                     //                    }
                     Section(header: Text("Wallpaper")) {
                         ScrollView(.horizontal){
@@ -55,17 +55,30 @@ struct HomeSettingsView: View {
                         }
                         
                     }
+                    Section(header: Text("Modules Management")){
+                        NavigationLink(destination: ModuleManagementView(activeSheet: $activeSheet, dvcObj: dvcObj, home: $home)){
+                            HStack{
+                                Text("Modules")
+                                Spacer()
+                                Text("\(home.modules.count)")
+                            }
+                        }
+                        
+                    }
                     Section(header: Text("Update frequency")) {
                         HStack{
                             Text("Frequency")
                             Spacer()
-                            Text("\(String(format: "%.0f%", updateFreq))s")
+                            Text("\(String(format: "%.0f%", dvcObj.refreshFrequency)) sec.")
                         }
-                        Slider(value: $updateFreq,
+                        Slider(value: $dvcObj.refreshFrequency,
                                in: 6...60,
                                step:1.0,
-                               minimumValueLabel: Text("6"),
-                               maximumValueLabel: Text("60"),label:{
+                               onEditingChanged: { data in
+                                print(data)
+                               }, minimumValueLabel: Text("6"),
+                               maximumValueLabel: Text("60"),
+                               label:{
                                 //                            Text("\(String(format: "%.0f%", updateFreq))")
                                 Text("bla bla")
                                })
@@ -80,6 +93,6 @@ struct HomeSettingsView: View {
 
 struct HomeSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeSettingsView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), home: .constant(Home(home_name: "Test Name", id: 1, scenes: [], devices: [], rooms: [])))
+        HomeSettingsView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), home: .constant(Home(home_name: "Test Name", id: 1, scenes: [], devices: [], rooms: [], modules: [])))
     }
 }

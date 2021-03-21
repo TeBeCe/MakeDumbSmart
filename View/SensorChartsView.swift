@@ -11,19 +11,19 @@ import SwiftUI
 
 
 let dataxx: [Point] = [
-//    .init(x: 0, y: 5),
-//    .init(x: 1, y: 4),
-//    .init(x: 2, y: 24),
-//    .init(x: 3, y: 6),
-//    .init(x: 4, y: 9),
-//    .init(x: 5, y: 12),
-//    .init(x: 6, y: 14),
-//    .init(x: 7, y: 11)
+    //    .init(x: 0, y: 5),
+    //    .init(x: 1, y: 4),
+    //    .init(x: 2, y: 24),
+    //    .init(x: 3, y: 6),
+    //    .init(x: 4, y: 9),
+    //    .init(x: 5, y: 12),
+    //    .init(x: 6, y: 14),
+    //    .init(x: 7, y: 11)
     .init(timestamp: "10", y: 5),
     .init(timestamp: "16", y: 4),
     .init(timestamp: "16", y: 24),
     .init(timestamp: "16", y: 6)
-
+    
 ]
 
 struct SensorChartsView: View {
@@ -39,7 +39,7 @@ struct SensorChartsView: View {
     @State private var closestPoint: CGPoint = .zero
     @State private var currentDataNumber: CGFloat = 0
     @State private var showIndicator = false
-
+    
     private var maxYValue: CGFloat {
         data.max { $0.y < $1.y }?.y ?? 0
     }
@@ -88,15 +88,15 @@ struct SensorChartsView: View {
     var body: some View {
         ZStack {
             if(data.count > 1){
-            gridBody
-            chartBody
-            chartXLabel
+                gridBody
+                chartBody
+                chartXLabel
                 chartYLabel}
             if(showIndicator){
                 Circle().position(self.closestPoint).frame(width: 10, height: 10)
                 Text("\(String(format: "%.1f%", currentDataNumber))").position(CGPoint(x: 195 + self.closestPoint.x, y: (130 + self.closestPoint.y) > 125 ? (130 + self.closestPoint.y - 25) : (130 + self.closestPoint.y + 5)))
             }
-
+            
         }.frame(width: 400, height: 250)
     }
     
@@ -132,21 +132,21 @@ struct SensorChartsView: View {
                 pathProvider.closedPath(for: geometry)
                     .fill(
                         LinearGradient(gradient: Gradient(colors: device.type == "sensor_temperature" ?[Color.red.opacity(0.2), Color.red.opacity(0.7)]
-                            :[Color.blue.opacity(0.2), Color.blue.opacity(0.7)]),
+                                                            :[Color.blue.opacity(0.2), Color.blue.opacity(0.7)]),
                                        startPoint: .bottom,
                                        endPoint: .top)
                     )
                     .opacity(self.isPresentedClosedPath ? 1 : 0)
-
+                
                 pathProvider.path(for: geometry)
                     .trim(from: 0, to: self.isPresentedLine ? 1 : 0)
                     
-
+                    
                     .stroke(
                         device.type == "sensor_temperature" ? Color.red : Color.blue,
-//                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.blue]),
-//                                       startPoint: .leading,
-//                                       endPoint: .trailing),
+                        //                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.blue]),
+                        //                                       startPoint: .leading,
+                        //                                       endPoint: .trailing),
                         style: StrokeStyle(lineWidth: 3)
                     )
             }
@@ -172,18 +172,18 @@ struct SensorChartsView: View {
     
     func getClosestDataPoint(toPoint: CGPoint, width:CGFloat, height: CGFloat) -> CGPoint {
         let points = data
-            let stepWidth: CGFloat = width / CGFloat(points.count-1)
-            // let stepHeight: CGFloat = height / CGFloat(self.maxYValue)
-            let index:Int = Int(floor((toPoint.x)/stepWidth))
-            if (index >= 0 && index < points.count){
-                print("index: \(index)")
-                self.currentDataNumber = points[index].y
-                return CGPoint(x:-195 + CGFloat(index) * stepWidth , y: 130 - ( (CGFloat(points[index].y)-self.minYValue) / (self.maxYValue - self.minYValue)) * height)
-            }
+        let stepWidth: CGFloat = width / CGFloat(points.count-1)
+        // let stepHeight: CGFloat = height / CGFloat(self.maxYValue)
+        let index:Int = Int(floor((toPoint.x)/stepWidth))
+        if (index >= 0 && index < points.count){
+            print("index: \(index)")
+            self.currentDataNumber = points[index].y
+            return CGPoint(x:-195 + CGFloat(index) * stepWidth , y: 130 - ( (CGFloat(points[index].y)-self.minYValue) / (self.maxYValue - self.minYValue)) * height)
+        }
         self.showIndicator = false
         return CGPoint(x:-195,y:130 - ( (CGFloat(points[0].y)-self.minYValue) / (self.maxYValue - self.minYValue)) * height)
     }
-
+    
     private var chartXLabel: some View {
         VStack{
             Spacer()
@@ -216,17 +216,17 @@ struct LineChartProvider {
         data.max { $0.y < $1.y }?.y ?? 0
     }
     
-//    private var maxXValue: CGFloat {
-//        data.max { $0.x < $1.x }?.x ?? 0
-//    }
-//
+    //    private var maxXValue: CGFloat {
+    //        data.max { $0.x < $1.x }?.x ?? 0
+    //    }
+    //
     private var minYValue: CGFloat {
         data.min { $0.y < $1.y }?.y ?? 0
     }
     
-//    private var minXValue: CGFloat {
-//        data.min { $0.x < $1.x }?.x ?? 0
-//    }
+    //    private var minXValue: CGFloat {
+    //        data.min { $0.x < $1.x }?.x ?? 0
+    //    }
     
     private var yStepsCount: Int {
         let delta = self.maxYValue - self.minYValue
@@ -288,7 +288,7 @@ struct LineChartProvider {
         
         self.data.forEach { point in
             //  let x = (point.x / self.maxXValue) * size.width
-//            let x = CGFloat(idx) / self.maxXValue * size.width
+            //            let x = CGFloat(idx) / self.maxXValue * size.width
             let x = CGFloat(idx) / CGFloat(self.data.count - 1)  * size.width
             let y = (1 - normalize(value: point.y)) * size.height
             
@@ -303,10 +303,10 @@ struct LineChartProvider {
             idx+=1
         }
     }
-//    func getClosestPointOnPath(touchLocation: CGPoint, path:Path) -> CGPoint {
-//            let closest = path.point(to: touchLocation.x)
-//            return closest
-//    }
+    //    func getClosestPointOnPath(touchLocation: CGPoint, path:Path) -> CGPoint {
+    //            let closest = path.point(to: touchLocation.x)
+    //            return closest
+    //    }
     
 }
 

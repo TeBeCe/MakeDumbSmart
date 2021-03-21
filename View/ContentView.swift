@@ -42,18 +42,13 @@ struct ContentView: View {
         VStack(alignment: .leading){
             
             topMenu
-            
-//            Text(dvcObj.home.home_name)
-//                .font(.system(size: 45, weight: .bold))
-//                .fontWeight(.bold)
-//                .padding([.leading,.top], 20)
-//                .foregroundColor(Color(UIColor.init(named:"textColor")!))
+
             ScrollView(){
                 VStack(alignment: .leading){
                     Text(dvcObj.home.home_name)
                         .font(.system(size: 45, weight: .bold))
                         .fontWeight(.bold)
-                        .padding([.leading,.top,.bottom], 30)
+                        .padding([.leading,.top,.bottom], 20)
                         .foregroundColor(Color(UIColor.init(named:"textColor")!))
                     Text("Favorite scenes").padding(.leading, 20)
                     

@@ -8,19 +8,6 @@
 
 import SwiftUI
 
-func getGlyph(device:Device)->String{
-    switch(device.type){
-    case "Levels":
-        return "lineweight"
-    case "Slider":
-        return "lightbulb"
-    case "Switch":
-        return "switch.2"
-    default:
-        return "exclamationmark.octagon"
-    }
-}
-
 func getRoomFrom(rooms: [Room], device: Device) -> String{
     
     if let indx = rooms.firstIndex(where: {$0.id == device.room}){
@@ -30,10 +17,20 @@ func getRoomFrom(rooms: [Room], device: Device) -> String{
         return ""
     }
 }
+func getModuleNameFrom(modules: [Module], device: Device) -> String{
+    
+    if let indx = modules.firstIndex(where: {$0.id == device.module_id}){
+        return modules[indx].module_name
+    }
+    else{
+        return ""
+    }
+}
 
 struct DevicesView: View {
     var device : Device
     var rooms : [Room]
+    var showSpinner : Bool = true
     
     var body: some View {
         ZStack {
@@ -45,16 +42,16 @@ struct DevicesView: View {
             
             VStack(alignment: .leading){
                 HStack(alignment: .top){
-                    Image(systemName: getGlyph(device: device))
+                    Image(systemName: device.glyph)
                         .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                         .font(.system(size:30, weight: .semibold))
                         .scaledToFit()
                         .frame(width: 30, height: 30)
-                        .padding(.bottom,0.5)
+//                        .padding(.bottom,0.5)
                     Spacer()
-                    if(device.processing != 0){
+                    if(device.processing != 0 && showSpinner){
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle()).padding(.vertical,2)
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black)).padding(.vertical,2)
                     
                   }
                 }
@@ -63,10 +60,13 @@ struct DevicesView: View {
                 Text(device.device_name)
                     .fontWeight(.regular)
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                    .font(.system(size:17))
+                    .font(.system(size:16))
                 //.padding(.top,1)
                 //.multilineTextAlignment(.leading)
-                
+                Text(device.device ?? "nil")
+                    .roomLabel()
+                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
+
                 Text(getRoomFrom(rooms: rooms, device: device))
                     .roomLabel()
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
@@ -82,10 +82,10 @@ struct DevicesView: View {
 struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3, room: 1, processing: 0), rooms: [])
+            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cooler", reseting: false,glyph: "lightbulb", is_active: false, type: "Switch", value: Float(1.0), max_level: 3, room: 1, processing: 0), rooms: [Room(id: 1, room_name: "Bedroom")])
                 .preferredColorScheme(.dark)
             
-            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Levels", value: Float(1.0), max_level: 3, room: 1, processing: 01), rooms: [])
+            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cooler", reseting: false,glyph: "lightbulb", is_active: false, type: "Levels", value: Float(1.0), max_level: 3, room: 1, processing: 01), rooms: [Room(id: 1, room_name: "Bedroom")])
             
         }.previewLayout(.fixed(width: 125, height: 125))
     }

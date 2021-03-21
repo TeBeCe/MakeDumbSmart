@@ -12,23 +12,43 @@ struct DeviceSettingsView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
     @State var roomIndex = 0
+    @State var moduleIndex = 0
     @State var isFavorite : Bool = false
     @State private var sceneIndex = 0
     @State var showInState : Bool = false
     @State var showPicker : Bool = false
+    @State var showModulePicker : Bool = false
     @Binding var sd : Device?
     
     var body: some View {
         VStack{
             Form{
-                Section(){
-                    TextField("Name", text: $device.device_name, onEditingChanged: { _ in
-                        print("changed")
-                        dvcObj.updateBackendDevice(device: device)
-                    })
+                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen")) {
+                    HStack{
+                        NavigationLink(destination: GlyphSelectionView(selectedGlyph: $device.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
+                        Image(systemName: device.glyph )
+                            .font(.system(size:17, weight: .semibold))
+                            .padding(4)
+                            .frame(width:30,height:30)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 6)
+                                    .stroke(Color(.systemOrange), lineWidth: 2)
+                            ).onChange(of: device.glyph){_ in
+                                dvcObj.updateBackendDevice(device: device)
+                            }
+                        
+                        //                        }
+                        TextField("Name", text: $device.device_name, onEditingChanged: { isStarted in
+                            print("isStarted: \(isStarted)")
+                            if(!isStarted){
+                                dvcObj.updateBackendDevice(device: device)
+                            }
+                        })
                         .onChange(of: device.device_name){ _ in
                             dvcObj.updateDevice(device: device)
                         }
+                        .disableAutocorrection(true)
+                    }.padding(.leading,-20)
                 }
                 Section(){
                     HStack{
@@ -39,9 +59,9 @@ struct DeviceSettingsView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture(perform: {
-//                        withAnimation(.linear(duration:0.2)){
-                            self.showPicker.toggle()
-//                        }
+                        //                        withAnimation(.linear(duration:0.2)){
+                        self.showPicker.toggle()
+                        //                        }
                     })
                     if self.showPicker {
                         Picker(selection: $roomIndex, label: Text("Room")) {
@@ -51,6 +71,7 @@ struct DeviceSettingsView: View {
                         }.onChange(of: roomIndex){ _ in
                             print("picker changed")
                             device.room = dvcObj.rooms[roomIndex-1].id
+                            dvcObj.changeRoomInSceneDevices(device: device, toId: dvcObj.rooms[roomIndex-1].id)
                             dvcObj.updateDevice(device: device)
                             dvcObj.updateBackendDevice(device: device)
                         }
@@ -58,6 +79,34 @@ struct DeviceSettingsView: View {
                     }
                     Toggle(isOn: $isFavorite) {
                         Text("Add to Favorite")
+                    }
+                }
+                Section(){
+                    HStack{
+                        Text("Module")
+                        Spacer()
+                        Text(getModuleNameFrom(modules: dvcObj.modules, device: device))
+                            .foregroundColor(.orange)
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture(perform: {
+                        //                        withAnimation(.linear(duration:0.2)){
+                        self.showModulePicker.toggle()
+                        //                        }
+                    })
+                    if self.showModulePicker {
+                        Picker(selection: $moduleIndex, label: Text("Module")) {
+                            ForEach(dvcObj.modules,id: \.id){
+                                Text($0.module_name).tag($0.id)
+                            }
+                        }.onChange(of: moduleIndex){ _ in
+                            print("picker changed")
+                            device.module_id = dvcObj.modules[moduleIndex-1].id
+                            dvcObj.changeModuleInSceneDevices(device: device, toId: dvcObj.modules[moduleIndex-1].id)
+                            dvcObj.updateDevice(device: device)
+                            dvcObj.updateBackendDevice(device: device)
+                        }
+                        .pickerStyle(InlinePickerStyle())
                     }
                 }
                 Section(){
@@ -75,7 +124,7 @@ struct DeviceSettingsView: View {
                     dvcObj.deleteDevice(device: device)
                     dvcObj.removeDevicesFromScene(device: device)
                     self.sd = nil
-//                    dvcObj.loadData()
+                    //                    dvcObj.loadData()
                 }){
                     Text("Delete device").foregroundColor(Color(.systemRed))
                 }

@@ -35,7 +35,7 @@ struct SceneSettingsView: View {
                 List{
                     Section(){
                         HStack{
-                            NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphArray) ){EmptyView()}.hidden().frame(width:0)
+                            NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                             Image(systemName: scene.glyph )
                                 .font(.system(size:20, weight: .semibold))
                                 .padding()
@@ -44,15 +44,19 @@ struct SceneSettingsView: View {
                                     RoundedRectangle(cornerRadius: 6)
                                         .stroke(Color(.systemOrange), lineWidth: 2)
                                 ).onChange(of: scene.glyph){_ in
+                                    
                                     dvcObj.updateBackendScene(scenex: scene )
                                 }
-                            TextField("Name", text: $scene.scene_name, onEditingChanged: { _ in
+                            TextField("Name", text: $scene.scene_name, onEditingChanged: {isStarted in
                                 print("changed")
-                                dvcObj.updateBackendScene(scenex: scene)
+                                if(!isStarted){
+                                    dvcObj.updateBackendScene(scenex: scene)
+                                }
                             })
                                 .onChange(of: scene.scene_name){ _ in
                                     dvcObj.updateScene(scene: scene)
                                 }
+                            .disableAutocorrection(true)
                         }.padding(.leading, -10)
                     }
 //                    TODO: Rework variables
@@ -63,7 +67,7 @@ struct SceneSettingsView: View {
                                     let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
 //                                    DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
                                     
-                                    DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
+                                    DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms, showSpinner: false)
                                         .onTapGesture{
                                             if(!dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active && dvcObj.scenes[arrr[0]].devices[arrr[1]].value == 0.0 ){
                                                 dvcObj.scenes[arrr[0]].devices[arrr[1]].value = Float(dvcObj.scenes[arrr[0]].devices[arrr[1]].max_level ?? 1)
@@ -119,8 +123,8 @@ struct SceneSettingsView: View {
                     print(scene)
         })
         .onDisappear(perform: {
-            dvcObj.updateScene(scene: scene)
-            print(scene)
+//            scene = dvcObj.updateScene(scene: scene)
+//            print(scene)
             dvcObj.updateBackendScene(scenex: scene)
         })
     }

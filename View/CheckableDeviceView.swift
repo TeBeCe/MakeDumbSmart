@@ -22,12 +22,12 @@ struct CheckableDeviceView: View {
             
             VStack(alignment: .leading,spacing: 1){
                 HStack(alignment: .top){
-                    Image(systemName: getGlyph(device: device))
+                    Image(systemName: device.glyph)
 //                        .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                         .foregroundColor(Color(.black))
                         .font(.system(size:30, weight: .semibold)).scaledToFit()
                         .frame(width: 30, height: 30)
-                        .padding(.bottom,0.5)
+//                        .padding(.bottom,0.5)
                     Spacer()
                     Image(systemName: self.checked ? "checkmark.circle.fill" : "circle")
                         .foregroundColor(self.checked ? .orange : .gray)
@@ -35,16 +35,16 @@ struct CheckableDeviceView: View {
                 }
                 
                 Text(device.device_name)
-                    .fontWeight(.semibold)
-//                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
-                    .foregroundColor(Color(.black))
-                    .font(.system(size:17))
-//                Text(getRoomFrom(rooms: rooms, device: device))
-                    Text(" ")
-                    .fontWeight(.semibold)
+                    .fontWeight(.regular)
 //                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                     .foregroundColor(Color(.black))
                     .font(.system(size:16))
+//                Text(getRoomFrom(rooms: rooms, device: device))
+                Text(device.device ?? "nil")
+                    .fontWeight(.regular)
+//                    .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
+                    .foregroundColor(Color(.black))
+                    .font(.system(size:15))
                 
                 Text(DetermineValue(device: device))
                     .fontWeight(.semibold)
@@ -60,8 +60,8 @@ struct CheckableDeviceView: View {
 struct CheckableDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Switch", value: Float(1.0), max_level: 3, room: 1, processing: 0), checked: false/*, rooms: []*/)
-            CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "glyph", is_active: false, type: "Slider", value: Float(1.0), max_level: 3, room: 1, processing: 0), checked: true/*, rooms: []*/).preferredColorScheme(.dark)
+            CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "lightbulb", is_active: false, type: "Switch", value: Float(1.0), max_level: 3, room: 1, processing: 0), checked: false/*, rooms: []*/)
+            CheckableDeviceView(device: Device(id: 1, device_name: "Test name",device: "Cust name", reseting: false,glyph: "lightbulb", is_active: false, type: "Slider", value: Float(1.0), max_level: 3, room: 1, processing: 0), checked: true/*, rooms: []*/).preferredColorScheme(.dark)
         }.previewLayout(.fixed(width: 125, height: 125))
     }
 }

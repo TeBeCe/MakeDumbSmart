@@ -121,6 +121,7 @@ class LoadJSONNewFunctionData : ObservableObject {
             "&function_data_len=\(similarNewFunction.rawDataLen ?? "")" +
             "&function_raw_data=\(similarNewFunction.rawData ?? "")"
             + "&function_value=0.0"
+            + "&function_module=\(device.module_id ?? 1)"
             + "&function_type=\(device.type)"
             + "&function_device=\(similarNewFunction.deviceRealName)"
             + "&function_glyph=\(device.glyph )"

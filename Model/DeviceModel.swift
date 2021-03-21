@@ -14,14 +14,16 @@ struct Home: Codable, Identifiable {
     var scenes: [Scene]
     var devices: [Device]
     var rooms: [Room]
+    var modules: [Module]
 }
 
 struct Device:  Codable, Identifiable {
     let id: Int
     var device_name: String
+    var module_id : Int?
     let device: String?
     var reseting: Bool
-    let glyph : String
+    var glyph : String
     var is_active: Bool
     let type: String
     var value: Float
@@ -30,7 +32,7 @@ struct Device:  Codable, Identifiable {
     var processing:Int
     
 }
-struct Scene: Codable,Identifiable {
+struct Scene: Codable, Identifiable {
     var scene_name: String
     let id: Int
     var is_favorite: Bool
@@ -41,8 +43,13 @@ struct Scene: Codable,Identifiable {
 }
 
 struct Room: Codable, Identifiable {
-    var room_name: String
     let id: Int
+    var room_name: String
+}
+
+struct Module: Codable, Identifiable {
+    let id: Int
+    var module_name: String
 }
 
 struct SceneDevice: Codable, Identifiable{
@@ -50,6 +57,7 @@ struct SceneDevice: Codable, Identifiable{
     var value: Float
     var is_active: Bool
 }
+
 enum FunctionEnum {
     case switchFunc
     case sliderFunc
@@ -58,12 +66,14 @@ enum FunctionEnum {
 
 class LoadJSONData : ObservableObject {
     
-    @Published var home = Home(home_name: "" ,id: 0 ,scenes: [] ,devices: [], rooms: [])
+    @Published var home = Home(home_name: "Test" ,id: 0 ,scenes: [] ,devices: [], rooms: [], modules: [])
     @Published var devices = [Device]()
     @Published var scenes = [Scene]()
     @Published var rooms = [Room]()
+    @Published var modules = [Module]()
     @Published var devices_in_room = [TestData]()
-//    @Published var isWaitingForResponse = false
+    
+    @Published var refreshFrequency = 15.0
     var continueRefresh = true
     
     func loadData() {
@@ -81,6 +91,7 @@ class LoadJSONData : ObservableObject {
                         self.devices = self.home.devices
                         self.scenes = self.home.scenes
                         self.rooms = self.home.rooms
+                        self.modules = self.home.modules
                         self.findAndActivateScene()
                         print("loadedData")
                         //print(self.home)
@@ -94,8 +105,9 @@ class LoadJSONData : ObservableObject {
                 print(error!)
             }
         }.resume()
-        DispatchQueue.main.asyncAfter(deadline: .now()+15.0){[self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + refreshFrequency){[self] in
             if(continueRefresh){
+                print(refreshFrequency)
                 self.loadData()
             }
 //            print("fetching")
@@ -114,10 +126,12 @@ class LoadJSONData : ObservableObject {
         for roomx in self.rooms
         {
             devicesAssignedToRoom = []
-            for devicex in devices where devicex.room == roomx.id {
+            for devicex in devices where devicex.room == roomx.id && !devicex.type.contains("sensor") {
                 devicesAssignedToRoom.append(devicex)
             }
-            returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
+            if(devicesAssignedToRoom.count > 0){
+                returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
+            }
         }
         return returnData
     }
@@ -125,6 +139,13 @@ class LoadJSONData : ObservableObject {
     func getRoomName(index: Int)->String {
         if let idx = self.rooms.firstIndex(where: {$0.id == index}){
             return self.rooms[idx].room_name
+        }
+        return ""
+    }
+    
+    func getModuleName(index: Int)->String {
+        if let idx = self.modules.firstIndex(where: {$0.id == index}){
+            return self.modules[idx].module_name
         }
         return ""
     }
@@ -153,6 +174,7 @@ class LoadJSONData : ObservableObject {
                         let deviceToUpdate = self.devices[dvc]
                         params.append("device_idk=update"
                                         + "&device_id=\(deviceToUpdate.id)"
+                                        + "&device_module=\(device.module_id ?? 1)"
                                         + "&device_name=\(deviceToUpdate.device_name)"
                                         + "&device_value=\(deviceToUpdate.value)"
                                         + "&device_type=\(deviceToUpdate.type)"
@@ -191,6 +213,123 @@ class LoadJSONData : ObservableObject {
             "&room_name=\(room.room_name)"
         genericBackendUpdate(param: param)
     }
+    
+    func changeRoomInSceneDevices(device: Device, toId: Int){
+        var params:[String] = []
+        for i in 0..<self.scenes.count {
+            for j in 0..<self.scenes[i].devices.count{
+                if(self.scenes[i].devices[j].id == device.id){
+                    print("changin old room id from scene device \(self.scenes[i].devices[j].device_name)")
+                    self.scenes[i].devices[j].room = toId
+                    let sceneToUpdate = self.scenes[i]
+                    let encoder = JSONEncoder()
+
+                    let scene_devices = try! encoder.encode(sceneToUpdate.devices)
+
+                    params.append("scene_idk=update"
+                                    + "&scene_id=\(sceneToUpdate.id)"
+                                    + "&scene_name=\(sceneToUpdate.scene_name)"
+                                    + "&scene_is_favorite=\(sceneToUpdate.is_favorite)"
+                                    + "&scene_glyph=\(sceneToUpdate.glyph)"
+                                    + "&scene_devices=\(String(data: scene_devices, encoding: .utf8)!)")
+                }
+            }
+        }
+        
+        genericRecBackendUpdate(params: params)
+
+    }
+    
+    func createModule(module: Module){
+        self.modules.append(module)
+        print(module)
+    }
+    
+    func createBackendModule(module: Module){
+        let param = "module_idk=create"
+            + "&module_name=\(module.module_name)"
+        genericBackendUpdate(param: param)
+    }
+    
+    func deleteModule(module: Module){
+        var params:[String] = []
+        if let indx = self.modules.firstIndex(where: {$0.id == module.id}) {
+            self.modules.remove(at: indx)
+            //check all devices and devices in scene
+            for device in self.devices {
+                if(device.module_id == module.id){
+                    if let dvc = self.devices.firstIndex(where: {$0.id == device.id}) {
+                        print("removing old module if from device \(self.devices[dvc].device_name)")
+                        self.devices[dvc].module_id = modules[0].id
+                        let deviceToUpdate = self.devices[dvc]
+                        params.append("device_idk=update"
+                                        + "&device_id=\(deviceToUpdate.id)"
+                                        + "&device_module=\(device.module_id ?? 1)"
+                                        + "&device_name=\(deviceToUpdate.device_name)"
+                                        + "&device_value=\(deviceToUpdate.value)"
+                                        + "&device_type=\(deviceToUpdate.type)"
+                                        + "&device_glyph=\(deviceToUpdate.glyph)"
+                                        + "&device_is_active=\(deviceToUpdate.is_active)"
+                                        + "&device_room=\(deviceToUpdate.room)")
+                    }
+                }
+            }
+            for i in 0..<self.scenes.count {
+                for j in 0..<self.scenes[i].devices.count{
+                    if(self.scenes[i].devices[j].module_id == module.id){
+                        print("removing old module id from scene device \(self.scenes[i].devices[j].device_name)")
+                        self.scenes[i].devices[j].module_id = modules[0].id
+                        let sceneToUpdate = self.scenes[i]
+                        let encoder = JSONEncoder()
+
+                        let scene_devices = try! encoder.encode(sceneToUpdate.devices)
+
+                        params.append("scene_idk=update"
+                                        + "&scene_id=\(sceneToUpdate.id)"
+                                        + "&scene_name=\(sceneToUpdate.scene_name)"
+                                        + "&scene_is_favorite=\(sceneToUpdate.is_favorite)"
+                                        + "&scene_glyph=\(sceneToUpdate.glyph)"
+                                        + "&scene_devices=\(String(data: scene_devices, encoding: .utf8)!)")
+                    }
+                }
+            }
+        }
+        genericRecBackendUpdate(params: params)
+    }
+    
+    func deleteBackendModule(module: Module){
+        let param = "module_idk=delete" +
+            "&module_id=\(module.id)" +
+            "&module_name=\(module.module_name)"
+        genericBackendUpdate(param: param)
+    }
+    
+    func changeModuleInSceneDevices(device: Device, toId: Int){
+        var params:[String] = []
+        for i in 0..<self.scenes.count {
+            for j in 0..<self.scenes[i].devices.count{
+                if(self.scenes[i].devices[j].id == device.id){
+                    print("changin old module id from scene device \(self.scenes[i].devices[j].device_name)")
+                    self.scenes[i].devices[j].module_id = toId
+                    let sceneToUpdate = self.scenes[i]
+                    let encoder = JSONEncoder()
+
+                    let scene_devices = try! encoder.encode(sceneToUpdate.devices)
+
+                    params.append("scene_idk=update"
+                                    + "&scene_id=\(sceneToUpdate.id)"
+                                    + "&scene_name=\(sceneToUpdate.scene_name)"
+                                    + "&scene_is_favorite=\(sceneToUpdate.is_favorite)"
+                                    + "&scene_glyph=\(sceneToUpdate.glyph)"
+                                    + "&scene_devices=\(String(data: scene_devices, encoding: .utf8)!)")
+                }
+            }
+        }
+        
+        genericRecBackendUpdate(params: params)
+
+    }
+
     
     func getDevicesInScene(scene: Scene)->[TestData]{
         //        print(scene)
@@ -316,27 +455,6 @@ class LoadJSONData : ObservableObject {
         }
         return [0,0]
     }
-    //
-    // Probably could be deleted
-    //
-    func internalDetermineValue(device: Device)-> String {
-        
-        switch device.type{
-        case "Switch" :
-            return !device.is_active || device.value == 0.0 ? "Vyp." : "Zap."
-        case "Slider" :
-            return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.1f%", device.value))%"
-        case "Levels" :
-            return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.0f%", device.value))"
-        case "sensor_temperature":
-            return "\(String(device.value))°"
-        case "sensor_humidity":
-            return "\(String(format: "%.0f%", device.value))%"
-            
-        default:
-            return "Unknown device type/state"
-        }
-    }
     
     func activateScene(scene: Scene){
         if let indSc = scenes.firstIndex(where:{ $0.id == scene.id}){
@@ -366,7 +484,7 @@ class LoadJSONData : ObservableObject {
                             multiplier = Int(xDevice.value) - actual
                         }
                         else if(actual > Int(xDevice.value)){
-                            multiplier = Int(xDevice.max_level ?? 1) - actual + Int(xDevice.value)
+                            multiplier = Int(xDevice.max_level ?? 1) - actual + Int(xDevice.value) + 1
                         }
                         else if(actual == Int(xDevice.value)){
                             multiplier = 0
@@ -384,6 +502,7 @@ class LoadJSONData : ObservableObject {
                     //                }
                     params.append("device_idk=activate"
                                     + "&device_id=\(device.id)"
+                                    + "&device_module=\(device.module_id ?? 1)"
                                     + "&device_name=\(device.device_name)"
                                     + "&device_value=\(device.value)"
                                     + "&device_type=\(device.type)"
@@ -398,9 +517,57 @@ class LoadJSONData : ObservableObject {
         }
     }
     
+    func activateDevice(device: Device){
+        var params: [String] = []
+        if(device.reseting){
+//            let test = self.devices.filter($0.device == device.device)
+            for var dvc in self.devices {
+                if(dvc.device == device.device && dvc.id != device.id && device.value == 0.0){
+                    if let indDv = devices.firstIndex(where: {$0.id == device.id}){
+                        print("updating device to value 0 : \(dvc.device_name)")
+                        self.devices[indDv].value = 0.0
+                        self.devices[indDv].is_active = false
+                        dvc.value = 0.0
+                        dvc.is_active = false
+                        params.append("device_idk=update"
+                                        + "&device_id=\(dvc.id)"
+                                        + "&device_module=\(dvc.module_id ?? 1)"
+                                        + "&device_name=\(dvc.device_name)"
+                                        + "&device_value=\(dvc.value)"
+                                        + "&device_type=\(dvc.type)"
+                                        + "&device_glyph=\(dvc.glyph)"
+                                        + "&device_is_active=\(dvc.is_active)"
+                                        + "&device_room=\(dvc.room)")
+                    }
+                }
+            }
+        }
+        if let indDv = devices.firstIndex(where: {$0.id == device.id}){
+            var multiplier = 0
+            let actual = Int(devices[indDv].value)
+            if(actual < Int(device.value)  ){
+                multiplier = Int(device.value) - actual
+            }
+            else if(actual > Int(device.value)){
+                multiplier = Int(device.max_level ?? 1) - actual + Int(device.value) + 1
+            }
+            else if(actual == Int(device.value)){
+                multiplier = 0
+            }
+            
+            print("actual val: \(actual) new:\(device.value) multip:\(multiplier)")
+            devices[indDv] = device
+            print("\(devices[indDv].value)")
+            activateBackendDevice(device: device, multiplier: multiplier)
+            genericRecBackendUpdate(params: params)
+
+        }
+    }
+    
     func activateBackendDevice(device: Device,multiplier: Int){
         let param = "device_idk=activate"
             + "&device_id=\(device.id)"
+            + "&device_module=\(device.module_id ?? 1)"
             + "&device_name=\(device.device_name)"
             + "&device_value=\(device.value)"
             + "&device_type=\(device.type)"
@@ -408,7 +575,7 @@ class LoadJSONData : ObservableObject {
             + "&device_is_active=\(device.is_active)"
             + "&device_room=\(device.room)"
             + "&device_repeat=\(multiplier)"
-        print(param)
+//        print(param)
         genericBackendUpdate(param: param)
     }
     
@@ -423,6 +590,12 @@ class LoadJSONData : ObservableObject {
             if let indxDv = scenes[indxSc].devices.firstIndex(where: {$0.id == device.id}){
                 scenes[indxSc].devices[indxDv] = device
             }
+//            updateBackendScene(scenex: scenes[indxSc])
+        }
+    }
+    
+    func updateBackendDeviceInScene(scene:Scene){
+        if let indxSc = scenes.firstIndex(where: {$0.id == scene.id}){
             updateBackendScene(scenex: scenes[indxSc])
         }
     }
@@ -496,7 +669,7 @@ class LoadJSONData : ObservableObject {
         //
         //        }
         //        task.resume()
-        URLSession.shared.dataTask(with: request){data, response,error in
+        URLSession.shared.dataTask(with: request){data, response, error in
             if let data = data {
                 do {
                     DispatchQueue.main.async {
@@ -575,6 +748,7 @@ class LoadJSONData : ObservableObject {
     func updateBackendDevice(device : Device){
         let param = "device_idk=update"
             + "&device_id=\(device.id)"
+            + "&device_module=\(device.module_id ?? 1)"
             + "&device_name=\(device.device_name)"
             + "&device_value=\(device.value)"
             + "&device_type=\(device.type)"
@@ -589,6 +763,7 @@ class LoadJSONData : ObservableObject {
         let param = "device_idk=create"
             + "&ir_device_id=\(function.id)"
             + "&device_name=\(function.functionName)"
+            + "&device_module=\(device.module_id ?? 1)"
             + "&device_value=0.0"
             + "&device_type=\(device.type)"
             + "&device_device=\(device.device ?? "")"

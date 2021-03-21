@@ -14,7 +14,7 @@ struct AddSceneView: View {
     @State var scene : Scene = Scene(scene_name: "", id: 0, is_favorite: false, glyph: "lightbulb", is_active: false, devices: [],scene_devices: [])
     @State var selectedScene : Scene? = nil
     @State var devicesInRoom : [TestData]
-    @State var enabledButton : Bool = false
+//    @State var enabledButton : Bool = false
     @State var selectedDevice : Device? = nil
 
     
@@ -30,7 +30,7 @@ struct AddSceneView: View {
                 List{
                     Section(){
                         HStack{
-                            NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphArray) ){EmptyView()}.hidden().frame(width:0)
+                            NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                             Image(systemName: scene.glyph )
                                 .font(.system(size:20, weight: .semibold))
                                 .padding()
@@ -45,12 +45,13 @@ struct AddSceneView: View {
                                     dvcObj.updateScene(scene: scene)
                                     if(scene.scene_name.count > 0){
 //                                        dvcObj.createScene(scene: scene)
-                                        self.enabledButton = true
+//                                        self.enabledButton = true
                                     }
                                     else{
-                                        self.enabledButton = false
+//                                        self.enabledButton = false
                                     }
                                 }
+                                .disableAutocorrection(true)
                         }.padding(.leading, -10)
                     }
                     
@@ -61,7 +62,7 @@ struct AddSceneView: View {
                                 ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
                                     let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
                                     //DevicesView(device:dvcInRoom.devices[indx], rooms:dvcObj.rooms)
-                                    DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms)
+                                    DevicesView(device:dvcObj.scenes[arrr[0]].devices[arrr[1]], rooms:dvcObj.rooms, showSpinner: false)
                                         .onTapGesture{
                                             dvcObj.scenes[arrr[0]].devices[arrr[1]].is_active.toggle()
                                             print(dvcObj.scenes[arrr[0]].devices[arrr[1]])
@@ -83,8 +84,8 @@ struct AddSceneView: View {
                             print(scene)
                         }){
                             Text("Add or remove Accesories")
-                                .foregroundColor(self.enabledButton ? Color(.systemOrange) : Color(.gray))
-                        }.disabled(!self.enabledButton)
+                                .foregroundColor(scene.scene_name != "" ? Color(.systemOrange) : Color(.gray))
+                        }.disabled(scene.scene_name == "")
                         .sheet(item: $selectedScene){ scene in
                             SelectDeviceInSceneView(dvcObj: dvcObj, scene: $scene, devicesInRoom: dvcObj.getDevicesInRooms())
                         }
@@ -99,7 +100,7 @@ struct AddSceneView: View {
                             activeSheet = nil
                         }){
                             Text("Create scene")
-                        }.disabled(!self.enabledButton)
+                        }.disabled(scene.scene_name == "")
                     }
                 }.sheet(item: $selectedDevice){ device in
                     SceneDeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device, scene: scene)

@@ -30,13 +30,15 @@ struct DeviceFunctionSwitchView: View {
                         let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                                     impactHeavy.impactOccurred()
                         if(scene == nil){
-                            dvcObj.updateDevice(device: device)
+//                            dvcObj.updateDevice(device: device)
                             //dvcObj.updateBackendDevice(device: device)
-                            dvcObj.activateBackendDevice(device: device, multiplier: 1)
+                            dvcObj.activateDevice(device: device)//WIP
+//                            dvcObj.activateBackendDevice(device: device, multiplier: 1)
                             dvcObj.findAndActivateScene()
                         }
                         else{
                             dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                            dvcObj.updateBackendDeviceInScene(scene: scene!)
                         }
                     }){
                 RoundedRectangle(cornerRadius:20, style: .continuous)

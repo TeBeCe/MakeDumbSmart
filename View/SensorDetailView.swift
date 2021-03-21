@@ -47,7 +47,8 @@ struct SensorDetailView: View {
             }
                 .navigationBarItems(leading:
                                     HStack(){
-                                        Image(systemName:getGlyph(device: device)).foregroundColor(Color(UIColor.systemGray2))
+                                        Image(systemName:device.glyph)
+                                            .foregroundColor(Color(UIColor.systemGray2))
                                             .font(.system(size:35, weight: .semibold))
 
                                         VStack(alignment: .leading){

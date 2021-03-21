@@ -28,7 +28,7 @@ struct AddMyFunctionsView: View {
                         HStack{
                             Text(newFunction.functionName)
                             Spacer()
-                            Image(systemName: newFunction.deviceRealName != "" ? "checkmark.circle.fill" : "circle").foregroundColor(.green)
+                            Image(systemName: newFunction.deviceRealName != nil ? "checkmark.circle.fill" : "circle").foregroundColor(.green)
                         }
                     }
                 }}else{

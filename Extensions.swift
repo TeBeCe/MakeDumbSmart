@@ -19,7 +19,7 @@ extension Text {
     func roomLabel() -> some View {
         self
             .fontWeight(.regular)
-            .font(.system(size:16))
+            .font(.system(size:15))
             .multilineTextAlignment(.leading)
         
     }

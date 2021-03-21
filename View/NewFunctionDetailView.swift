@@ -20,10 +20,12 @@ struct NewFunctionDetailView: View {
     @State var deviceRealName: String = ""
     @State var functionName: String = ""
     @State var isResetable: Bool = false
+    @State var showModulePicker: Bool = false
     @State var showRoomPicker: Bool = false
     @State var showTypePicker: Bool = false
     @State var deviceType : String = "Switch"
     @State var roomIndex : Int = 1
+    @State var moduleIndex : Int = 1
     @State var maxValue : Double = 1
     @State var maxPossibleValue : Double = 10
     
@@ -32,7 +34,7 @@ struct NewFunctionDetailView: View {
             Form{
                 Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen")) {
                     HStack{
-                        NavigationLink(destination: GlyphSelectionView(selectedGlyph: $selectedGlyph, glyphArray: glyphArray) ){EmptyView()}.hidden().frame(width:0)
+                        NavigationLink(destination: GlyphSelectionView(selectedGlyph: $selectedGlyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                         Image(systemName: selectedGlyph )
                             .font(.system(size:17, weight: .semibold))
                             .padding(4)
@@ -56,6 +58,7 @@ struct NewFunctionDetailView: View {
                     TextField("e.g. AppleTV 4K ", text: $deviceRealName)
                         .disableAutocorrection(true)
                 }
+                moduleSectionView
                 
                 roomSectionView
                 
@@ -72,13 +75,37 @@ struct NewFunctionDetailView: View {
                     self.activeSheet = nil
                     let createdFunction = NewFunction(id: newFunction.id, vendor: vendor, deviceRealName: deviceRealName, functionName: functionName, rawData: newFunction.rawData, rawDataLen: newFunction.rawDataLen)
                     
-                    let createdDevice = Device(id: 0, device_name: functionName, device: deviceRealName, reseting: isResetable, glyph: selectedGlyph, is_active: false, type: deviceType, value: 0.0, max_level: 1, room: roomIndex, processing: 0)
+                    let createdDevice = Device(id: 0, device_name: functionName,module_id: moduleIndex, device: deviceRealName, reseting: isResetable, glyph: selectedGlyph, is_active: false, type: deviceType, value: 0.0, max_level: 1, room: roomIndex, processing: 0)
                     nf.nameAndCreateMyFunction(newFunction: createdFunction)
                     dvcObj.createBackendDevice(function: createdFunction,device: createdDevice, restParam: "")
                 }){
                     Text("Add to devices")
                     
                 }.disabled(!(self.functionName != "" && self.deviceRealName != "" && self.vendor != ""))
+            }
+        }
+    }
+    var moduleSectionView : some View {
+        Section(header: Text("Module")){
+            HStack{
+                Text("Module")
+                Spacer()
+                Text(dvcObj.getModuleName(index: roomIndex))
+                    .foregroundColor(.orange)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture(perform: {
+                // withAnimation(.linear(duration:0.2)){
+                self.showModulePicker.toggle()
+                //}
+            })
+            if self.showModulePicker {
+                Picker(selection: $moduleIndex, label: Text("Module")) {
+                    ForEach(dvcObj.modules,id: \.id){
+                        Text($0.module_name).tag($0.id)
+                    }
+                }
+                .pickerStyle(InlinePickerStyle())
             }
         }
     }

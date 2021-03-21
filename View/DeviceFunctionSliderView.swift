@@ -27,7 +27,6 @@ struct DeviceFunctionSliderView: View {
             .cornerRadius(30)
             .gesture(DragGesture(minimumDistance: 0)
                         .onChanged({ value in
-//                            TODO: update api once 1% changed
 //                            self.device.value = Float(Int(100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)))
                             self.device.value = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
                             self.device.is_active = self.device.value == 0.0 ? false : true
@@ -37,7 +36,18 @@ struct DeviceFunctionSliderView: View {
                             else{
                                 dvcObj.updateDeviceInScene(scene: scene!, device: device)
                             }
-                        }).onEnded({_ in print("end")}))
+                        }).onEnded({_ in
+                            if(scene == nil){
+                                dvcObj.activateDevice(device: device)//WIP
+                                dvcObj.updateBackendDevice(device: device)
+                                dvcObj.findAndActivateScene()
+                            }
+                            else{
+                                dvcObj.updateBackendDeviceInScene(scene: scene!)
+                            }
+                        }
+                    )
+            )
         }
     }
 }
