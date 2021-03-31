@@ -50,8 +50,9 @@ struct DevicesView: View {
 //                        .padding(.bottom,0.5)
                     Spacer()
                     if(device.processing != 0 && showSpinner){
+                        let spinnerCollor = device.is_active ? Color.black : Color(UIColor.init(named:"textColor")!)
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .black)).padding(.vertical,2)
+                        .progressViewStyle(CircularProgressViewStyle(tint: spinnerCollor)).padding(.vertical,2)
                     
                   }
                 }

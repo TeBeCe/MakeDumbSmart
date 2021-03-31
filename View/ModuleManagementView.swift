@@ -44,8 +44,6 @@ struct ModuleManagementView: View {
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            
-            
         }
         .navigationTitle(Text("Module Management")).navigationBarTitleDisplayMode(.large)
     }

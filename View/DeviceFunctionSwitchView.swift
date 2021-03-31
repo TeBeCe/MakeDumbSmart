@@ -38,7 +38,9 @@ struct DeviceFunctionSwitchView: View {
                         }
                         else{
                             dvcObj.updateDeviceInScene(scene: scene!, device: device)
-                            dvcObj.updateBackendDeviceInScene(scene: scene!)
+                            if(scene?.id != 0){
+                                dvcObj.updateBackendDeviceInScene(scene: scene!)
+                            }
                         }
                     }){
                 RoundedRectangle(cornerRadius:20, style: .continuous)

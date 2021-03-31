@@ -7,7 +7,9 @@
 //
 
 import SwiftUI
+
 var glyphSceneArray = ["lightbulb","alarm","dial.min","flashlight.off.fill","drop","sun.min","moon","power","togglepower","escape","lineweight","switch.2"]
+
 struct GlyphSelectionView: View {
     @Binding var selectedGlyph : String
     var glyphArray:[String]

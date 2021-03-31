@@ -7,13 +7,19 @@
 //
 
 import SwiftUI
-var images : [String] = ["Image","Image2","image3"]
+var images : [String] = ["Image","Image1","Image2","Image3","Image4","Image5","Image6"]
 struct HomeSettingsView: View {
+    @AppStorage("logged_status") var validated = true
+    @AppStorage("use_biometrics") var useBiometrics = true
+    @AppStorage("update_frequency") var updateFreq = 15.0
+    @AppStorage("wallpaper") var wallpaper = images[0]
+    
+    @AppStorage("ask_biometrics") var askBiomOnLogIn = false
+
     @Binding var activeSheet: ActiveSheet?
     @ObservedObject var dvcObj: LoadJSONData
     @Binding var home: Home
-    @State var updateFreq: Double = 15.0
-    @State var wallpaper : String = UserDefaults.standard.string(forKey: "Wallpaper") ?? images[0]
+//    @State var wallpaper : String = UserDefaults.standard.string(forKey: "Wallpaper") ?? images[0]
     var test : Bool = false
     
     var body: some View {
@@ -24,7 +30,7 @@ struct HomeSettingsView: View {
                     Section(header: Text("Home Name")) {
                         TextField("Home Name", text: $home.home_name, onEditingChanged: { editing in
                                     if !editing{
-                                        dvcObj.backendUpdateHome(param: "home_id=1&home_name=" + home.home_name);
+                                        dvcObj.genericBackendUpdate(param: "home_id=1&home_name=" + home.home_name);
                                     }
                         }).disableAutocorrection(true)
                     }
@@ -33,14 +39,12 @@ struct HomeSettingsView: View {
                         ScrollView(.horizontal){
                             HStack(spacing: 10){
                                 ForEach(images , id: \.self){ i in
-                                    Image(i)
+                                    Image(decorative: i)
                                         .resizable()
                                         .scaledToFit()
                                         .onTapGesture {
-                                            UserDefaults.standard.set(i, forKey: "Wallpaper")
                                             wallpaper = i
                                         }.border(Color.orange, width: wallpaper == i ? 2 : 0)
-                                    //                                    .border(Color.orange,width: (UserDefaults.standard.string(forKey: "Wallpaper") ?? images[0] == i) ? ( 1 ): (0))
                                 }
                             }
                         }.frame(height: 200)
@@ -69,9 +73,9 @@ struct HomeSettingsView: View {
                         HStack{
                             Text("Frequency")
                             Spacer()
-                            Text("\(String(format: "%.0f%", dvcObj.refreshFrequency)) sec.")
+                            Text("\(String(format: "%.0f%", updateFreq)) sec.")
                         }
-                        Slider(value: $dvcObj.refreshFrequency,
+                        Slider(value: $updateFreq,
                                in: 6...60,
                                step:1.0,
                                onEditingChanged: { data in
@@ -82,8 +86,19 @@ struct HomeSettingsView: View {
                                 //                            Text("\(String(format: "%.0f%", updateFreq))")
                                 Text("bla bla")
                                })
-                    }//TODO: do
-                    
+                    }
+                    Section(header: Text("Use biometrics"),footer: Text("Lock app after closing app without logging out")){
+                        Toggle(isOn: $useBiometrics) {
+                            Text("Use Biometrics")
+                        }
+                    }
+                    Button(action: {
+                        validated = false
+                        askBiomOnLogIn = false
+                    }){
+                        Text("Log Out")
+                            .foregroundColor(.red)
+                    }
                 }
                 
             }.navigationBarTitle(Text("Home Settings"), displayMode: .inline)

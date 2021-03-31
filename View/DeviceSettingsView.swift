@@ -69,7 +69,7 @@ struct DeviceSettingsView: View {
                                 Text($0.room_name).tag($0.id)
                             }
                         }.onChange(of: roomIndex){ _ in
-                            print("picker changed")
+                            print("picker changed index: \(roomIndex)")
                             device.room = dvcObj.rooms[roomIndex-1].id
                             dvcObj.changeRoomInSceneDevices(device: device, toId: dvcObj.rooms[roomIndex-1].id)
                             dvcObj.updateDevice(device: device)

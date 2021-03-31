@@ -43,7 +43,9 @@ struct DeviceFunctionSliderView: View {
                                 dvcObj.findAndActivateScene()
                             }
                             else{
-                                dvcObj.updateBackendDeviceInScene(scene: scene!)
+                                if(scene?.id != 0){
+                                    dvcObj.updateBackendDeviceInScene(scene: scene!)
+                                }
                             }
                         }
                     )

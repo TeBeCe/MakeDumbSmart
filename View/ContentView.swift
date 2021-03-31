@@ -17,6 +17,8 @@ enum ActiveSheet: Identifiable {
 }
 
 struct ContentView: View {
+    @AppStorage("wallpaper") var wallpaper = images[0]
+    
     @State private var selectedDevice : Device? = nil
     @State private var selectedScene : Scene? = nil
     @ObservedObject var dvcObj = LoadJSONData()
@@ -28,27 +30,24 @@ struct ContentView: View {
     let animationDuration = 0.1
     
     let columns = [
-//        GridItem(.flexible()),
-//        GridItem(.flexible()),
-//        GridItem(.flexible())
-        GridItem(.adaptive(minimum: 120, maximum: 120))]
+        GridItem(.adaptive(minimum: 100, maximum: 120))]
     let rows = [
         GridItem(.fixed(60)),
         GridItem(.fixed(60))
     ]
     
     var body: some View {
-//        NavigationView{
+        //        NavigationView{
         VStack(alignment: .leading){
             
             topMenu
-
+            
             ScrollView(){
                 VStack(alignment: .leading){
                     Text(dvcObj.home.home_name)
                         .font(.system(size: 45, weight: .bold))
                         .fontWeight(.bold)
-                        .padding([.leading,.top,.bottom], 20)
+                        .padding([.leading,.bottom], 20)
                         .foregroundColor(Color(UIColor.init(named:"textColor")!))
                     Text("Favorite scenes").padding(.leading, 20)
                     
@@ -60,7 +59,6 @@ struct ContentView: View {
                                 {
                                     SceneView(scene: self.dvcObj.scenes[indx])
                                         .onTapGesture{
-//                                            print(dvcObj.scenes[indx])
                                             self.selectedIndx = indx
                                             let animation = Animation.linear(duration: animationDuration).repeatCount(1, autoreverses: true)
                                             withAnimation(animation){
@@ -92,7 +90,7 @@ struct ContentView: View {
                     }.sheet(item: $selectedScene){ scene in
                         SceneSettingsView(sc: $selectedScene, dvcObj: dvcObj,scene: scene,devicesInRoom: dvcObj.getDevicesInScene(scene: scene))
                     }.padding(.leading, 0.0)
-                   
+                    
                 }.padding(.bottom, 10)
                 
                 VStack(alignment: .leading){
@@ -115,9 +113,9 @@ struct ContentView: View {
                         }
                     }.sheet(item: $selectedDevice){ device in
                         if(["sensor_temperature","sensor_humidity"].contains(device.type)){
-//                              SensorChartsView(device: device)
+                            //                              SensorChartsView(device: device)
                             SensorDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device)
-
+                            
                         }
                         else {
                             DeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device)
@@ -132,13 +130,16 @@ struct ContentView: View {
         .onAppear(perform: {
             self.dvcObj.loadData()
         })
-//        .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9695343375, green: 0.5495890379, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.9504212737, green: 0.8822066784, blue: 0.2864913642, alpha: 1))]), startPoint: .top, endPoint: .bottom))
-        .background(Image(UserDefaults.standard.string(forKey: "Wallpaper") ?? images[0])
+        .onDisappear(perform: {
+            print("ContetnView dissapear")
+            dvcObj.continueRefresh = false
+        })
+        .background(Image(decorative: wallpaper)
                         .resizable())
         .navigationTitle(dvcObj.home.home_name)
-        .edgesIgnoringSafeArea(.top)
+        .edgesIgnoringSafeArea(.all)
         
-//        }
+        //        }
     }
     var topMenu: some View {
         HStack{
@@ -194,5 +195,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+//            .previewDevice("iPhone 11")
+
     }
 }

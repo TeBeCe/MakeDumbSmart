@@ -38,6 +38,11 @@
 		BCA4BDF625FB680B008CECB9 /* SimilarFunctionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA4BDF525FB680B008CECB9 /* SimilarFunctionDetailView.swift */; };
 		BCA4BDFB25FD5B88008CECB9 /* RoomsManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA4BDFA25FD5B88008CECB9 /* RoomsManagementView.swift */; };
 		BCA4BE032605723A008CECB9 /* ModuleManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA4BE022605723A008CECB9 /* ModuleManagementView.swift */; };
+		BCAF6CC92607EB2C00EBD65F /* FirstRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CC82607EB2C00EBD65F /* FirstRunView.swift */; };
+		BCAF6CCC260A8E3500EBD65F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CCB260A8E3500EBD65F /* LoginView.swift */; };
+		BCAF6CCF260A924200EBD65F /* CrossroadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CCE260A924200EBD65F /* CrossroadView.swift */; };
+		BCAF6CD5260BA79900EBD65F /* LoginManagmenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CD4260BA79900EBD65F /* LoginManagmenViewModel.swift */; };
+		BCAF6CD8260F85A100EBD65F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CD7260F85A100EBD65F /* RegisterView.swift */; };
 		BCB7B012256D7EF000CB0F5B /* SelectDeviceInSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */; };
 		BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */; };
 		BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */; };
@@ -83,6 +88,11 @@
 		BCA4BDF525FB680B008CECB9 /* SimilarFunctionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarFunctionDetailView.swift; sourceTree = "<group>"; };
 		BCA4BDFA25FD5B88008CECB9 /* RoomsManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsManagementView.swift; sourceTree = "<group>"; };
 		BCA4BE022605723A008CECB9 /* ModuleManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleManagementView.swift; sourceTree = "<group>"; };
+		BCAF6CC82607EB2C00EBD65F /* FirstRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunView.swift; sourceTree = "<group>"; };
+		BCAF6CCB260A8E3500EBD65F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BCAF6CCE260A924200EBD65F /* CrossroadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossroadView.swift; sourceTree = "<group>"; };
+		BCAF6CD4260BA79900EBD65F /* LoginManagmenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManagmenViewModel.swift; sourceTree = "<group>"; };
+		BCAF6CD7260F85A100EBD65F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDeviceInSceneView.swift; sourceTree = "<group>"; };
 		BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableDeviceView.swift; sourceTree = "<group>"; };
 		BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
@@ -161,6 +171,7 @@
 		BC88EFD125014331009821D7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BCAF6CD2260B966300EBD65F /* LoginRegisterProcess */,
 				BCA4BDF825FD549E008CECB9 /* Home */,
 				BC88EFC1250141DA009821D7 /* ContentView.swift */,
 				BCB7B019256DB57900CB0F5B /* DeviceViews */,
@@ -181,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFD225014356009821D7 /* DeviceViewModel.swift */,
+				BCAF6CD4260BA79900EBD65F /* LoginManagmenViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -203,6 +215,17 @@
 				BCA4BE022605723A008CECB9 /* ModuleManagementView.swift */,
 			);
 			name = Home;
+			sourceTree = "<group>";
+		};
+		BCAF6CD2260B966300EBD65F /* LoginRegisterProcess */ = {
+			isa = PBXGroup;
+			children = (
+				BCAF6CCE260A924200EBD65F /* CrossroadView.swift */,
+				BCAF6CC82607EB2C00EBD65F /* FirstRunView.swift */,
+				BCAF6CCB260A8E3500EBD65F /* LoginView.swift */,
+				BCAF6CD7260F85A100EBD65F /* RegisterView.swift */,
+			);
+			name = LoginRegisterProcess;
 			sourceTree = "<group>";
 		};
 		BCB7B018256DB56200CB0F5B /* SceneViews */ = {
@@ -315,13 +338,16 @@
 				BC3B311725BEF19000CFF544 /* SensorModel.swift in Sources */,
 				BCC6FCD9257E933E00481D44 /* SceneListItemView.swift in Sources */,
 				BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */,
+				BCAF6CD8260F85A100EBD65F /* RegisterView.swift in Sources */,
 				BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */,
 				BC9D907B257BBD4000A2CFCD /* SceneDeviceDetailView.swift in Sources */,
 				BC9D9078257596C300A2CFCD /* HomeSettingsView.swift in Sources */,
 				BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */,
 				BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */,
 				BCA4BDFB25FD5B88008CECB9 /* RoomsManagementView.swift in Sources */,
+				BCAF6CCF260A924200EBD65F /* CrossroadView.swift in Sources */,
 				BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */,
+				BCAF6CD5260BA79900EBD65F /* LoginManagmenViewModel.swift in Sources */,
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
 				BCC6FCD6257E8E8A00481D44 /* DeviceInSceneView.swift in Sources */,
 				BCC6FCD3257E5D9000481D44 /* SensorView.swift in Sources */,
@@ -329,6 +355,7 @@
 				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
 				BC15F8BB25C5F06500754439 /* TestingView2.swift in Sources */,
 				BC15F8BE25C60C5A00754439 /* SensorChartsView.swift in Sources */,
+				BCAF6CC92607EB2C00EBD65F /* FirstRunView.swift in Sources */,
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
 				BC16346F25C6E48A00ACAF78 /* SensorDetailView.swift in Sources */,
 				BCE609C12569693800B9405C /* TestingView.swift in Sources */,
@@ -347,6 +374,7 @@
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */,
 				BCE609C4256994F800B9405C /* SceneSettingsView.swift in Sources */,
+				BCAF6CCC260A8E3500EBD65F /* LoginView.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
 				BCA4BE032605723A008CECB9 /* ModuleManagementView.swift in Sources */,
 			);

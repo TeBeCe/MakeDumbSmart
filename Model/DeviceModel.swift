@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Home: Codable, Identifiable {
     var home_name: String
@@ -66,22 +67,30 @@ enum FunctionEnum {
 
 class LoadJSONData : ObservableObject {
     
-    @Published var home = Home(home_name: "Test" ,id: 0 ,scenes: [] ,devices: [], rooms: [], modules: [])
+    @Published var home = Home(home_name: "Loading..." ,id: 0 ,scenes: [] ,devices: [], rooms: [], modules: [])
     @Published var devices = [Device]()
     @Published var scenes = [Scene]()
     @Published var rooms = [Room]()
     @Published var modules = [Module]()
     @Published var devices_in_room = [TestData]()
     
-    @Published var refreshFrequency = 15.0
+    @AppStorage("update_frequency") var updateFreq = 15.0
+    @AppStorage("logged_user_id") var userId = 0
+
     var continueRefresh = true
     
     func loadData() {
-        //        guard let urlx = URL(string: "https://my.api.mockaroo.com/test_dp_3.json?key=c7a70460") else { return }
-        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php") else { return }
+        guard let url = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php") else { return }
         
-        let request = URLRequest(url: urlx)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
         
+        // HTTP Request Parameters which will be sent in HTTP Request Body
+        //        let postString = "home_id=1&home_name=" + self.home.home_name;
+        let postString = "user_id=\(userId)"
+                print(postString)
+        // Set HTTP Request Body
+        request.httpBody = postString.data(using: String.Encoding.utf8);
         URLSession.shared.dataTask(with: request){data, response,error in
             if let data = data {
                 do {
@@ -105,9 +114,9 @@ class LoadJSONData : ObservableObject {
                 print(error!)
             }
         }.resume()
-        DispatchQueue.main.asyncAfter(deadline: .now() + refreshFrequency){[self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + updateFreq){[self] in
             if(continueRefresh){
-                print(refreshFrequency)
+                print(updateFreq)
                 self.loadData()
             }
 //            print("fetching")
@@ -117,6 +126,12 @@ class LoadJSONData : ObservableObject {
     func updateDevice(device: Device){
         if let indx = devices.firstIndex(where: {$0.id == device.id}){
             devices[indx] = device
+        }
+    }
+    
+    func updateSceneGlyph(scene: Scene){
+        if let ind = scenes.firstIndex(where: {$0.id == scene.id}){
+            scenes[ind].glyph = scene.glyph
         }
     }
     
@@ -329,7 +344,6 @@ class LoadJSONData : ObservableObject {
         genericRecBackendUpdate(params: params)
 
     }
-
     
     func getDevicesInScene(scene: Scene)->[TestData]{
         //        print(scene)
@@ -523,7 +537,7 @@ class LoadJSONData : ObservableObject {
 //            let test = self.devices.filter($0.device == device.device)
             for var dvc in self.devices {
                 if(dvc.device == device.device && dvc.id != device.id && device.value == 0.0){
-                    if let indDv = devices.firstIndex(where: {$0.id == device.id}){
+                    if let indDv = devices.firstIndex(where: {$0.id == dvc.id}){
                         print("updating device to value 0 : \(dvc.device_name)")
                         self.devices[indDv].value = 0.0
                         self.devices[indDv].is_active = false
@@ -544,6 +558,7 @@ class LoadJSONData : ObservableObject {
         }
         if let indDv = devices.firstIndex(where: {$0.id == device.id}){
             var multiplier = 0
+            print(devices[indDv])
             let actual = Int(devices[indDv].value)
             if(actual < Int(device.value)  ){
                 multiplier = Int(device.value) - actual
@@ -610,34 +625,34 @@ class LoadJSONData : ObservableObject {
         return toReturnScenes
     }
     
-    func backendUpdateHome(param : String){
-        // Prepare URL
-        let url = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php")
-        guard let requestUrl = url else { fatalError() }
-        // Prepare URL Request Object
-        var request = URLRequest(url: requestUrl)
-        request.httpMethod = "POST"
-        
-        // HTTP Request Parameters which will be sent in HTTP Request Body
-        let postString = param
-        // Set HTTP Request Body
-        request.httpBody = postString.data(using: String.Encoding.utf8);
-        // Perform HTTP Request
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            // Check for Error
-            if let error = error {
-                print("Error took place \(error)")
-                return
-            }
-            
-            // Convert HTTP Response Data to a String
-            if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                print("Response data string:\n \(dataString)")
-            }
-        }
-        task.resume()
-    }
+//    func backendUpdateHome(param : String){
+//        // Prepare URL
+//        let url = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php")
+//        guard let requestUrl = url else { fatalError() }
+//        // Prepare URL Request Object
+//        var request = URLRequest(url: requestUrl)
+//        request.httpMethod = "POST"
+//
+//        // HTTP Request Parameters which will be sent in HTTP Request Body
+//        let postString = param
+//        // Set HTTP Request Body
+//        request.httpBody = postString.data(using: String.Encoding.utf8);
+//        // Perform HTTP Request
+//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//
+//            // Check for Error
+//            if let error = error {
+//                print("Error took place \(error)")
+//                return
+//            }
+//
+//            // Convert HTTP Response Data to a String
+//            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                print("Response data string:\n \(dataString)")
+//            }
+//        }
+//        task.resume()
+//    }
     
     func genericBackendUpdate(param : String){
         // Prepare URL
@@ -649,8 +664,8 @@ class LoadJSONData : ObservableObject {
         
         // HTTP Request Parameters which will be sent in HTTP Request Body
         //        let postString = "home_id=1&home_name=" + self.home.home_name;
-        let postString = param
-                print(param)
+        let postString = "user_id=\(userId)&" + param
+                print(postString)
         // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);
         // Perform HTTP Request
@@ -706,7 +721,7 @@ class LoadJSONData : ObservableObject {
         if(params.count == 0){
             return
         }
-        let postString = params[0]
+        let postString = "user_id=\(userId)&" + params[0]
         //        print(param)
         // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);

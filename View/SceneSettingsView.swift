@@ -24,9 +24,11 @@ struct SceneSettingsView: View {
     var arr:[Int] = []
     
     let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
+//        GridItem(.flexible()),
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+        GridItem(.adaptive(minimum: 110, maximum: 120))
+
     ]
     
     var body: some View {
@@ -44,7 +46,7 @@ struct SceneSettingsView: View {
                                     RoundedRectangle(cornerRadius: 6)
                                         .stroke(Color(.systemOrange), lineWidth: 2)
                                 ).onChange(of: scene.glyph){_ in
-                                    
+                                    dvcObj.updateSceneGlyph(scene: scene )
                                     dvcObj.updateBackendScene(scenex: scene )
                                 }
                             TextField("Name", text: $scene.scene_name, onEditingChanged: {isStarted in
