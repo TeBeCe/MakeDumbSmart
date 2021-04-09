@@ -25,7 +25,11 @@ struct DeviceSettingsView: View {
             Form{
                 Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen")) {
                     HStack{
-                        NavigationLink(destination: GlyphSelectionView(selectedGlyph: $device.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
+                        NavigationLink(destination: GlyphSelectionView(selectedGlyph: $device.glyph, glyphArray: glyphSceneArray) ){
+                            EmptyView()
+                        }
+                        .hidden()
+                        .frame(width:0)
                         Image(systemName: device.glyph )
                             .font(.system(size:17, weight: .semibold))
                             .padding(4)
@@ -70,8 +74,10 @@ struct DeviceSettingsView: View {
                             }
                         }.onChange(of: roomIndex){ _ in
                             print("picker changed index: \(roomIndex)")
-                            device.room = dvcObj.rooms[roomIndex-1].id
-                            dvcObj.changeRoomInSceneDevices(device: device, toId: dvcObj.rooms[roomIndex-1].id)
+                            device.room = roomIndex
+                            print(device.room)
+//                            device.room = dvcObj.rooms[roomIndex-1].id
+                            dvcObj.changeRoomInSceneDevices(device: device, toId: roomIndex)
                             dvcObj.updateDevice(device: device)
                             dvcObj.updateBackendDevice(device: device)
                         }

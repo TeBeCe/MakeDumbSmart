@@ -9,55 +9,53 @@
 import SwiftUI
 
 struct TestingView2: View {
-    
-//         @GestureState var isDetectingLongPress = false
-//
-//         var longPress: some Gesture {
-//             LongPressGesture(minimumDuration: 2)
-//                 .updating($isDetectingLongPress) { currentstate, gestureState, transaction in
-//                     gestureState = currentstate
-//                    print("curr state:")
-//                    print(currentstate)
-//                    print("gest state:")
-//                    print(gestureState)
-//                    print("trans:")
-//                    print(transaction)
-//                 }
-//         }
-//
+    var days : [String] = ["mon","tue","wen","thu","fri","sat","sun"]
+    @State var selectedDays : [Bool] = [true,false,true,true,true,true,true]
+    @State private var birthdate = Date()
          var body: some View {
-             NavigationView{
+            VStack{
+                DatePicker("Date of Birth", selection: $birthdate, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(CompactDatePickerStyle())
+                HStack(){
+                    ForEach(0..<7){ind in
+                        ZStack{
+                            Circle()
+                                .foregroundColor(selectedDays[ind] ? .orange : .black )
+    //                            .size(CGSize(width: 50, height: 50))
+                                .onTapGesture {
+                                    selectedDays[ind].toggle()
+                                }
+                            Text(days[ind]).foregroundColor(.white)
+                        }
+                        .frame(height: 50)
+                    }
+                }.padding(.horizontal,10)
+            }
+//             NavigationView{
 //                VStack{
 //                    Text("blbl")
-                ScrollView{
-                    VStack{
-                    ForEach(0..<50){_ in
+//                ScrollView{
+//                    VStack{
+//                    ForEach(0..<50){_ in
 //                        HStack{
-                            Text("bla")
+//                            Text("bla")
 //                            Spacer()
-                    }
-                    }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .background(Color.red)
-                    .navigationBarTitle(Text("Title"))
+//                    }
+//                    }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+//                    .background(Color.red)
+//                    .navigationBarTitle(Text("Title"))
                     
                     
-                }
+//                }
 //                }
                 
                     
 //                }
 //                .background(Color.red)
-                .edgesIgnoringSafeArea(.top)
+//                .edgesIgnoringSafeArea(.top)
 //                .navigationBarTitle(Text("Test"))
-                
-                
-                
-            
-//                Circle()
-//                 .fill(self.isDetectingLongPress ? Color.red : Color.green)
-//                 .frame(width: 100, height: 100, alignment: .center)
-//                 .gesture(longPress)
-             }
+
+//             }
          }
      }
 

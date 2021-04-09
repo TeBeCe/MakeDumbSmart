@@ -8,23 +8,15 @@
 
 import SwiftUI
 
-func CalculateLevels(levels: Int) -> [Float]{
-    var result: [Float] = []
-    for i in 0..<levels {
-        let left = 100.0 / Float(levels)
-        let right = levels-i-1
-        result.append(left * Float(right))
-    }
-    return result
-}
-
 struct DeviceFunctionLevelView: View {
-    @State var percentage : Float = 0
-    @State var selectedLevel: Int = 0
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
     @State var scene : Scene?
+    @State var automatization : Automatization?
+    
     @State var levelArr : [Float] = []
+    @State var percentage : Float = 0
+    @State var selectedLevel: Int = 0
     
     var body: some View {
         GeometryReader { geometry in
@@ -67,24 +59,33 @@ struct DeviceFunctionLevelView: View {
                             if(self.device.value != Float(self.selectedLevel)){
                                 self.device.is_active = self.selectedLevel == 0 ? false : true
                                 self.device.value = Float(self.selectedLevel)
-                                if (scene == nil){
-//                                    dvcObj.updateDevice(device: device)
-                                }
-                                else{
+                                
+                                if (scene != nil && automatization == nil){
                                     dvcObj.updateDeviceInScene(scene: scene!, device: device)
                                     print("changed in scene")
                                 }
+                                else if(automatization != nil && scene == nil){
+                                    dvcObj.updateDeviceInAutomatization(automatization: automatization!, device: device)
+                                }
+                                else{
+                                    //dvcObj.updateDevice(device: device)
+                                }
                             }
                         }).onEnded({_ in
-                            if(scene == nil){
-                                dvcObj.activateDevice(device: device)//WIP
-                                dvcObj.updateBackendDevice(device: device)
-                                dvcObj.findAndActivateScene()
-                            }
-                            else{
+                            if(scene != nil && automatization == nil){
                                 if(scene?.id != 0){
                                     dvcObj.updateBackendDeviceInScene(scene: scene!)
                                 }
+                            }
+                            else if(automatization != nil && scene == nil){
+                                if(automatization?.id != 0){
+                                    print("nula")
+                                }
+                            }
+                            else{
+                                dvcObj.activateDevice(device: device)//WIP
+                                dvcObj.updateBackendDevice(device: device)
+                                dvcObj.findAndActivateScene()
                             }
                         })
             )

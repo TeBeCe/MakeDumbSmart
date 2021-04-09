@@ -55,6 +55,6 @@ struct RoomsManagementView: View {
 
 struct RoomsManagementView_Previews: PreviewProvider {
     static var previews: some View {
-        RoomsManagementView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), home: .constant(Home(home_name: "Test Name", id: 1, scenes: [], devices: [], rooms: [Room(id: 1, room_name: "nice room")], modules: [])))
+        RoomsManagementView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), home: .constant(Home(home_name: "Test Name", id: 1, scenes: [], devices: [], rooms: [Room(id: 1, room_name: "nice room")], modules: [], automatizations: [])))
     }
 }

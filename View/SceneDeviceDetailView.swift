@@ -13,6 +13,7 @@ struct SceneDeviceDetailView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @State var device : Device
     @State var scene : Scene?
+    @State var automatization: Automatization?
     var body: some View {
         NavigationView(){
             VStack{
@@ -20,17 +21,17 @@ struct SceneDeviceDetailView: View {
                 
                 switch device.type{
                 case "Switch":
-                    DeviceFunctionSwitchView(dvcObj: dvcObj, device: $device, scene: scene)
+                    DeviceFunctionSwitchView(dvcObj: dvcObj, device: $device, scene: scene, automatization: automatization)
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     
                 case "Slider":
-                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, scene: scene)
+                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, scene: scene, automatization: automatization)
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     
                 case "Levels":
-                    DeviceFunctionLevelView(dvcObj: dvcObj, device: $device,scene: scene, levelArr: CalculateLevels(levels: device.max_level!))
+                    DeviceFunctionLevelView(dvcObj: dvcObj, device: $device,scene: scene, automatization: automatization, levelArr: CalculateLevels(levels: device.max_level!))
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     

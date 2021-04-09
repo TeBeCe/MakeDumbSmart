@@ -16,6 +16,7 @@ struct Home: Codable, Identifiable {
     var devices: [Device]
     var rooms: [Room]
     var modules: [Module]
+    var automatizations: [Automatization]
 }
 
 struct Device:  Codable, Identifiable {
@@ -31,8 +32,8 @@ struct Device:  Codable, Identifiable {
     let max_level: Int?
     var room: Int
     var processing:Int
-    
 }
+
 struct Scene: Codable, Identifiable {
     var scene_name: String
     let id: Int
@@ -59,20 +60,26 @@ struct SceneDevice: Codable, Identifiable{
     var is_active: Bool
 }
 
-enum FunctionEnum {
-    case switchFunc
-    case sliderFunc
-    case levelsFunc
+struct Automatization: Codable, Identifiable {
+    let id : Int
+    var devices : [Device]
+    var scenes : [Scene]
+    var time : String?
+    var days : [Bool]?
+    var sensor_id : Int?
+    var sensor_value : Float?
+    var sensor_condition : Bool?//false = less, true = more
 }
 
 class LoadJSONData : ObservableObject {
     
-    @Published var home = Home(home_name: "Loading..." ,id: 0 ,scenes: [] ,devices: [], rooms: [], modules: [])
+    @Published var home = Home(home_name: "Loading..." ,id: 0 ,scenes: [] ,devices: [], rooms: [], modules: [], automatizations: [])
     @Published var devices = [Device]()
     @Published var scenes = [Scene]()
     @Published var rooms = [Room]()
     @Published var modules = [Module]()
     @Published var devices_in_room = [TestData]()
+    @Published var automatizations = [Automatization]()
     
     @AppStorage("update_frequency") var updateFreq = 15.0
     @AppStorage("logged_user_id") var userId = 0
@@ -95,12 +102,17 @@ class LoadJSONData : ObservableObject {
             if let data = data {
                 do {
                     DispatchQueue.main.async {
+//                        let dcd = JSONDecoder()
+//                        let dateFormatter = DateFormatter()
+//                        dateFormatter.timeStyle = .medium
+//                        dcd.dateDecodingStrategy = .formatted(dateFormatter)
                         //print(data)
                         self.home = try! JSONDecoder().decode(Home.self, from: data)
                         self.devices = self.home.devices
                         self.scenes = self.home.scenes
                         self.rooms = self.home.rooms
                         self.modules = self.home.modules
+                        self.automatizations = self.home.automatizations
                         self.findAndActivateScene()
                         print("loadedData")
                         //print(self.home)
@@ -119,8 +131,15 @@ class LoadJSONData : ObservableObject {
                 print(updateFreq)
                 self.loadData()
             }
-//            print("fetching")
+            print("fetching")
         }
+//        Timer.scheduledTimer(withTimeInterval: updateFreq, repeats: false){[weak self] timer in
+//            if((self?.continueRefresh) != nil){
+//                            print(updateFreq)
+//               self?.loadData()
+//                        }
+//          print("fetching")
+//        }
     }
     
     func updateDevice(device: Device){
@@ -145,7 +164,23 @@ class LoadJSONData : ObservableObject {
                 devicesAssignedToRoom.append(devicex)
             }
             if(devicesAssignedToRoom.count > 0){
-                returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
+                returnData.append(TestData(id: roomx.id,roomName: roomx.room_name ,devices: devicesAssignedToRoom))
+            }
+        }
+        return returnData
+    }
+    
+    func getSensorsInRooms()->[TestData]{
+        var returnData : [TestData] = []
+        var devicesAssignedToRoom : [Device] = []
+        for roomx in self.rooms
+        {
+            devicesAssignedToRoom = []
+            for devicex in devices where devicex.room == roomx.id && devicex.type.contains("sensor") {
+                devicesAssignedToRoom.append(devicex)
+            }
+            if(devicesAssignedToRoom.count > 0){
+                returnData.append(TestData(id: roomx.id,roomName: roomx.room_name ,devices: devicesAssignedToRoom))
             }
         }
         return returnData
@@ -359,7 +394,7 @@ class LoadJSONData : ObservableObject {
                     }}
             }
             if(devicesAssignedToRoom.count != 0){
-                returnData.append(TestData(id: roomx.id,devices: devicesAssignedToRoom))
+                returnData.append(TestData(id: roomx.id, roomName: roomx.room_name,devices: devicesAssignedToRoom))
             }
         }
         return returnData
@@ -692,6 +727,8 @@ class LoadJSONData : ObservableObject {
                         self.devices = self.home.devices
                         self.scenes = self.home.scenes
                         self.rooms = self.home.rooms
+                        self.automatizations = self.home.automatizations
+
                         self.findAndActivateScene()
 //                        print(self.home)
                     }
@@ -736,6 +773,8 @@ class LoadJSONData : ObservableObject {
                             self.devices = self.home.devices
                             self.scenes = self.home.scenes
                             self.rooms = self.home.rooms
+                            self.automatizations = self.home.automatizations
+
                             self.findAndActivateScene()
                         }
                         if(params.count>0){
@@ -881,4 +920,158 @@ class LoadJSONData : ObservableObject {
             }
         }
     }
+    
+    func createAutomatization(automatization: Automatization){
+        self.automatizations.append(automatization)
+        print("createdScene: \(automatization.id)")
+        for automatizationx in self.automatizations {
+            print("\(automatizationx.id) x")
+        }
+    }
+    
+    func getDevicesInAutomatization(automatization: Automatization)->[TestData]{
+        //        print(scene)
+        var returnData : [TestData] = []
+        var devicesAssignedToRoom : [Device] = []
+        for roomx in self.rooms
+        {
+            devicesAssignedToRoom = []
+            for devicex in devices where devicex.room == roomx.id {
+                if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){
+                    if let _ =  automatizations[indxAu].devices.firstIndex(where: {$0.id == devicex.id}){
+                        devicesAssignedToRoom.append(devicex)
+                    }}
+            }
+            if(devicesAssignedToRoom.count != 0){
+                returnData.append(TestData(id: roomx.id, roomName: roomx.room_name,devices: devicesAssignedToRoom))
+            }
+        }
+        return returnData
+    }
+    func addOrRemoveDeviceToAutomatization(automatization: Automatization, device: Device) -> Automatization{
+        if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            if let indxDv =  automatizations[indxAu].devices.firstIndex(where: {$0.id == device.id}){
+                automatizations[indxAu].devices.remove(at: indxDv)
+            }
+            else{
+                automatizations[indxAu].devices.append(device)
+                automatizations[indxAu].devices.sort(by: {$0.reseting && !$1.reseting})
+                automatizations[indxAu].devices.sort(by: {$0.device ?? "" > $1.device ?? "" })
+                print(automatizations[indxAu].devices)
+            }
+            if(automatization.id != 0){
+                print(automatizations[indxAu])
+//                updateBackendScene(scenex: scenes[indxSc])
+            }
+            return automatizations[indxAu]
+        }
+        else{
+            return automatization
+        }
+    }
+    
+    func isDeviceInAutomatization(automatization: Automatization, device:Device)->Bool{
+        if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            if let _ =  automatizations[indxAu].devices.firstIndex(where: {$0.id == device.id}){
+                return true
+            }
+            else{
+                return false
+            }
+        }
+        else{
+//            for automatizationx in self.automatizations {
+//                print("\(automatizationx.id) x")
+//            }
+            print("something wrong")
+            return false
+        }
+    }
+    func modifyDeviceInAutomatization(automatization:Automatization, device:Device)->[Int]{
+        if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            if let indxDv = automatizations[indxAu].devices.firstIndex(where: {$0.id == device.id}){
+                return [indxAu,indxDv]
+            }
+        }
+        return [0,0]
+    }
+    
+    func updateDeviceInAutomatization(automatization:Automatization, device: Device){
+        if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            if let indxDv = automatizations[indxAu].devices.firstIndex(where: {$0.id == device.id}){
+                automatizations[indxAu].devices[indxDv] = device
+            }
+        }
+    }
+    
+    func updateBackendDeviceInAutomatization(automatization: Automatization){
+        if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            updateBackendAutomatization(automatizationx: automatizations[indxAu])
+        }
+    }
+    
+    func createBackendAutomatization(automatization : Automatization){
+        let encoder = JSONEncoder()
+        let aut_devices = try! encoder.encode(automatization.devices)
+        let aut_scenes = try! encoder.encode(automatization.scenes)
+        let aut_days = try! encoder.encode(automatization.days)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .medium
+        
+        var param = "automatization_idk=create"
+            + "&automatization_id=\(automatization.id)"
+            + "&automatization_devices=\(String(data: aut_devices, encoding: .utf8)!)"
+            + "&automatization_scenes=\(String(data: aut_scenes, encoding: .utf8)!)"
+        if(automatization.time != nil){
+            param += "&automatization_time=\(automatization.time ?? "null")"
+            + "&automatization_days=\(String(data: aut_days, encoding: .utf8)!)"
+        }
+        else{
+            param += "&automatization_value=\(automatization.sensor_value!)"
+                + "&automatization_condition=\(automatization.sensor_condition!)"
+                + "&automatization_sensor=\((automatization.sensor_id)!)"
+        }
+        self.genericBackendUpdate(param: param)
+    }
+    func deleteBackendAutomatization(automatization : Automatization){
+        let param = "automatization_idk=delete"
+            + "&automatization_id=\(automatization.id)"
+        self.genericBackendUpdate(param: param)
+    }
+    func updateBackendAutomatization(automatizationx : Automatization){
+        if let indaux = scenes.firstIndex(where: {$0.id == automatizationx.id}){
+            let automatization = self.automatizations[indaux]
+            let encoder = JSONEncoder()
+            let aut_devices = try! encoder.encode(automatization.devices)
+            let aut_scenes = try! encoder.encode(automatization.scenes)
+            let aut_days = try! encoder.encode(automatization.days)
+            
+            var param = "automatization_idk=update"
+                + "&automatization_id=\(automatization.id)"
+                + "&automatization_devices=\(String(data: aut_devices, encoding: .utf8)!)"
+                + "&automatization_scenes=\(String(data: aut_scenes, encoding: .utf8)!)"
+            if(automatization.time != nil){
+                param += "&automatization_time=\(automatization.time ?? "null")"
+                + "&automatization_days=\(String(data: aut_days, encoding: .utf8)!)"
+            }
+            else{
+                param += "&automatization_value=\(automatization.sensor_value!)"
+                    + "&automatization_condition=\(automatization.sensor_condition!)"
+                    + "&automatization_sensor=\((automatization.sensor_id)!)"
+            }
+            
+            genericBackendUpdate(param: param)
+        }
+        
+    }
+    
+    func getSensor(id: Int) -> Device?{
+        if let indDv = devices.firstIndex(where: {$0.id == id}){
+            return devices[indDv]
+        }
+        else{
+            return nil
+        }
+    }
+
 }

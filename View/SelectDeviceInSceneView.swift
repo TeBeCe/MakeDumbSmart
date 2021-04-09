@@ -22,10 +22,10 @@ struct SelectDeviceInSceneView: View {
     var body: some View {
         NavigationView{
             List{
-                ForEach(devicesInRoom){ xx in
-                    Section(header: Text(dvcObj.rooms[xx.id-1].room_name)){
+                ForEach(devicesInRoom){ dvcInRoom in
+                    Section(header: Text(dvcInRoom.roomName)){
                         LazyVGrid(columns: columns,spacing: 10){
-                            ForEach(xx.devices){device in
+                            ForEach(dvcInRoom.devices){device in
                                 CheckableDeviceView(device:device,checked:dvcObj.isDeviceInScene(scene: scene, device: device))
                                     .onTapGesture {
                                         scene = dvcObj.addOrRemoveDeviceToScene(scene: scene, device: device)

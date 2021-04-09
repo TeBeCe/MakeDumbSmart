@@ -21,6 +21,12 @@
 		BC4360BC25C20B4800EA459D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4360BB25C20B4800EA459D /* Extensions.swift */; };
 		BC490C4125EEDB5C00F76661 /* NewFunctionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */; };
 		BC56EBF025F7C96700201DAD /* GlyphSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56EBEF25F7C96700201DAD /* GlyphSelectionView.swift */; };
+		BC589C28261E323500FF8DB1 /* AddTimeAutomatizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C27261E323500FF8DB1 /* AddTimeAutomatizationView.swift */; };
+		BC589C2C261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C2B261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift */; };
+		BC589C4F261E618200FF8DB1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC589C51261E618200FF8DB1 /* Localizable.strings */; };
+		BC589C58261EFBF400FF8DB1 /* CheckableSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C57261EFBF400FF8DB1 /* CheckableSensorView.swift */; };
+		BC589C5C2620CFB300FF8DB1 /* ModifyTimeAutomatization.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C5B2620CFB300FF8DB1 /* ModifyTimeAutomatization.swift */; };
+		BC589C5F2620CFC800FF8DB1 /* ModifySensorAutomatization.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C5E2620CFC800FF8DB1 /* ModifySensorAutomatization.swift */; };
 		BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBD250141DA009821D7 /* AppDelegate.swift */; };
 		BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFBF250141DA009821D7 /* SceneDelegate.swift */; };
 		BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC88EFC1250141DA009821D7 /* ContentView.swift */; };
@@ -43,6 +49,10 @@
 		BCAF6CCF260A924200EBD65F /* CrossroadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CCE260A924200EBD65F /* CrossroadView.swift */; };
 		BCAF6CD5260BA79900EBD65F /* LoginManagmenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CD4260BA79900EBD65F /* LoginManagmenViewModel.swift */; };
 		BCAF6CD8260F85A100EBD65F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAF6CD7260F85A100EBD65F /* RegisterView.swift */; };
+		BCB2ABE9261A8E53000E6A42 /* AutomatizationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2ABE8261A8E53000E6A42 /* AutomatizationsView.swift */; };
+		BCB2ABED261A8EC5000E6A42 /* SelectDevicesAndScenesAutomatizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2ABEC261A8EC5000E6A42 /* SelectDevicesAndScenesAutomatizationView.swift */; };
+		BCB2ABF1261B10E1000E6A42 /* HelperVarsAndFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2ABF0261B10E1000E6A42 /* HelperVarsAndFuncs.swift */; };
+		BCB2ABF4261B918B000E6A42 /* AssignDevicesToAutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2ABF3261B918B000E6A42 /* AssignDevicesToAutomationView.swift */; };
 		BCB7B012256D7EF000CB0F5B /* SelectDeviceInSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */; };
 		BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */; };
 		BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */; };
@@ -69,6 +79,13 @@
 		BC4360BB25C20B4800EA459D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFunctionDetailView.swift; sourceTree = "<group>"; };
 		BC56EBEF25F7C96700201DAD /* GlyphSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphSelectionView.swift; sourceTree = "<group>"; };
+		BC589C27261E323500FF8DB1 /* AddTimeAutomatizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeAutomatizationView.swift; sourceTree = "<group>"; };
+		BC589C2B261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorBasedAutomatizationView.swift; sourceTree = "<group>"; };
+		BC589C50261E618200FF8DB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC589C54261E632200FF8DB1 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC589C57261EFBF400FF8DB1 /* CheckableSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableSensorView.swift; sourceTree = "<group>"; };
+		BC589C5B2620CFB300FF8DB1 /* ModifyTimeAutomatization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTimeAutomatization.swift; sourceTree = "<group>"; };
+		BC589C5E2620CFC800FF8DB1 /* ModifySensorAutomatization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifySensorAutomatization.swift; sourceTree = "<group>"; };
 		BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeDumbSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC88EFBD250141DA009821D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC88EFBF250141DA009821D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +110,10 @@
 		BCAF6CCE260A924200EBD65F /* CrossroadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossroadView.swift; sourceTree = "<group>"; };
 		BCAF6CD4260BA79900EBD65F /* LoginManagmenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManagmenViewModel.swift; sourceTree = "<group>"; };
 		BCAF6CD7260F85A100EBD65F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		BCB2ABE8261A8E53000E6A42 /* AutomatizationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomatizationsView.swift; sourceTree = "<group>"; };
+		BCB2ABEC261A8EC5000E6A42 /* SelectDevicesAndScenesAutomatizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDevicesAndScenesAutomatizationView.swift; sourceTree = "<group>"; };
+		BCB2ABF0261B10E1000E6A42 /* HelperVarsAndFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperVarsAndFuncs.swift; sourceTree = "<group>"; };
+		BCB2ABF3261B918B000E6A42 /* AssignDevicesToAutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignDevicesToAutomationView.swift; sourceTree = "<group>"; };
 		BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDeviceInSceneView.swift; sourceTree = "<group>"; };
 		BCB7B014256D816300CB0F5B /* CheckableDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableDeviceView.swift; sourceTree = "<group>"; };
 		BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
@@ -118,9 +139,9 @@
 		BC0D27BB2561361E005F5E46 /* FunctionControls */ = {
 			isa = PBXGroup;
 			children = (
-				BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */,
-				BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */,
 				BC0D27BF256137DF005F5E46 /* DeviceFunctionLevelView.swift */,
+				BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */,
+				BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */,
 			);
 			name = FunctionControls;
 			sourceTree = "<group>";
@@ -131,6 +152,7 @@
 				BCA4BDEF25FAC0BB008CECB9 /* AddSimilarFunctionView.swift */,
 				BCA4BDF225FAD1D1008CECB9 /* AddMyFunctionsView.swift */,
 				BC4360BB25C20B4800EA459D /* Extensions.swift */,
+				BCB2ABEF261B10AF000E6A42 /* Misc */,
 				BC88EFD52501436C009821D7 /* Model */,
 				BC88EFD425014360009821D7 /* ViewModel */,
 				BC88EFD125014331009821D7 /* View */,
@@ -156,6 +178,7 @@
 				BC88EFC8250141DB009821D7 /* LaunchScreen.storyboard */,
 				BC88EFCB250141DB009821D7 /* Info.plist */,
 				BC88EFC5250141DB009821D7 /* Preview Content */,
+				BC589C51261E618200FF8DB1 /* Localizable.strings */,
 			);
 			path = MakeDumbSmart;
 			sourceTree = "<group>";
@@ -171,9 +194,10 @@
 		BC88EFD125014331009821D7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BCAF6CD2260B966300EBD65F /* LoginRegisterProcess */,
-				BCA4BDF825FD549E008CECB9 /* Home */,
 				BC88EFC1250141DA009821D7 /* ContentView.swift */,
+				BCB2ABE62619CF0D000E6A42 /* AutomatizationViews */,
+				BCAF6CD2260B966300EBD65F /* LoginRegisterProcessViews */,
+				BCA4BDF825FD549E008CECB9 /* Home */,
 				BCB7B019256DB57900CB0F5B /* DeviceViews */,
 				BCC6FCDB257E98B800481D44 /* SensorViews */,
 				BCB7B018256DB56200CB0F5B /* SceneViews */,
@@ -184,6 +208,7 @@
 				BCC6FCD5257E8E8A00481D44 /* DeviceInSceneView.swift */,
 				BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */,
 				BC56EBEF25F7C96700201DAD /* GlyphSelectionView.swift */,
+				BC589C57261EFBF400FF8DB1 /* CheckableSensorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,13 +236,13 @@
 			isa = PBXGroup;
 			children = (
 				BC9D9077257596C300A2CFCD /* HomeSettingsView.swift */,
-				BCA4BDFA25FD5B88008CECB9 /* RoomsManagementView.swift */,
 				BCA4BE022605723A008CECB9 /* ModuleManagementView.swift */,
+				BCA4BDFA25FD5B88008CECB9 /* RoomsManagementView.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
 		};
-		BCAF6CD2260B966300EBD65F /* LoginRegisterProcess */ = {
+		BCAF6CD2260B966300EBD65F /* LoginRegisterProcessViews */ = {
 			isa = PBXGroup;
 			children = (
 				BCAF6CCE260A924200EBD65F /* CrossroadView.swift */,
@@ -225,16 +250,38 @@
 				BCAF6CCB260A8E3500EBD65F /* LoginView.swift */,
 				BCAF6CD7260F85A100EBD65F /* RegisterView.swift */,
 			);
-			name = LoginRegisterProcess;
+			name = LoginRegisterProcessViews;
+			sourceTree = "<group>";
+		};
+		BCB2ABE62619CF0D000E6A42 /* AutomatizationViews */ = {
+			isa = PBXGroup;
+			children = (
+				BCB2ABE8261A8E53000E6A42 /* AutomatizationsView.swift */,
+				BC589C27261E323500FF8DB1 /* AddTimeAutomatizationView.swift */,
+				BC589C2B261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift */,
+				BCB2ABF3261B918B000E6A42 /* AssignDevicesToAutomationView.swift */,
+				BC589C5B2620CFB300FF8DB1 /* ModifyTimeAutomatization.swift */,
+				BC589C5E2620CFC800FF8DB1 /* ModifySensorAutomatization.swift */,
+				BCB2ABEC261A8EC5000E6A42 /* SelectDevicesAndScenesAutomatizationView.swift */,
+			);
+			name = AutomatizationViews;
+			sourceTree = "<group>";
+		};
+		BCB2ABEF261B10AF000E6A42 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				BCB2ABF0261B10E1000E6A42 /* HelperVarsAndFuncs.swift */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 		BCB7B018256DB56200CB0F5B /* SceneViews */ = {
 			isa = PBXGroup;
 			children = (
 				BC88EFDA2501A04D009821D7 /* SceneView.swift */,
+				BC4102F82572DD3D001258BF /* AddSceneView.swift */,
 				BCE609C3256994F800B9405C /* SceneSettingsView.swift */,
 				BCB7B011256D7EEF00CB0F5B /* SelectDeviceInSceneView.swift */,
-				BC4102F82572DD3D001258BF /* AddSceneView.swift */,
 				BC9D907A257BBD4000A2CFCD /* SceneDeviceDetailView.swift */,
 			);
 			name = SceneViews;
@@ -244,9 +291,9 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
+				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
 				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
 				BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */,
-				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
 				BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */,
 				BCA4BDF525FB680B008CECB9 /* SimilarFunctionDetailView.swift */,
 			);
@@ -306,6 +353,7 @@
 			knownRegions = (
 				en,
 				Base,
+				sk,
 			);
 			mainGroup = BC88EFB1250141DA009821D7;
 			productRefGroup = BC88EFBB250141DA009821D7 /* Products */;
@@ -323,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC88EFCA250141DB009821D7 /* LaunchScreen.storyboard in Resources */,
+				BC589C4F261E618200FF8DB1 /* Localizable.strings in Resources */,
 				BC88EFC7250141DB009821D7 /* Preview Assets.xcassets in Resources */,
 				BC88EFC4250141DB009821D7 /* Assets.xcassets in Resources */,
 			);
@@ -342,6 +391,7 @@
 				BCB7B015256D816300CB0F5B /* CheckableDeviceView.swift in Sources */,
 				BC9D907B257BBD4000A2CFCD /* SceneDeviceDetailView.swift in Sources */,
 				BC9D9078257596C300A2CFCD /* HomeSettingsView.swift in Sources */,
+				BC589C2C261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift in Sources */,
 				BC88EFD325014356009821D7 /* DeviceViewModel.swift in Sources */,
 				BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */,
 				BCA4BDFB25FD5B88008CECB9 /* RoomsManagementView.swift in Sources */,
@@ -352,11 +402,16 @@
 				BCC6FCD6257E8E8A00481D44 /* DeviceInSceneView.swift in Sources */,
 				BCC6FCD3257E5D9000481D44 /* SensorView.swift in Sources */,
 				BCB7B012256D7EF000CB0F5B /* SelectDeviceInSceneView.swift in Sources */,
+				BC589C5F2620CFC800FF8DB1 /* ModifySensorAutomatization.swift in Sources */,
 				BC88EFD9250149FC009821D7 /* DevicesView.swift in Sources */,
 				BC15F8BB25C5F06500754439 /* TestingView2.swift in Sources */,
 				BC15F8BE25C60C5A00754439 /* SensorChartsView.swift in Sources */,
+				BC589C5C2620CFB300FF8DB1 /* ModifyTimeAutomatization.swift in Sources */,
 				BCAF6CC92607EB2C00EBD65F /* FirstRunView.swift in Sources */,
 				BC88EFDB2501A04D009821D7 /* SceneView.swift in Sources */,
+				BC589C28261E323500FF8DB1 /* AddTimeAutomatizationView.swift in Sources */,
+				BCB2ABED261A8EC5000E6A42 /* SelectDevicesAndScenesAutomatizationView.swift in Sources */,
+				BCB2ABF1261B10E1000E6A42 /* HelperVarsAndFuncs.swift in Sources */,
 				BC16346F25C6E48A00ACAF78 /* SensorDetailView.swift in Sources */,
 				BCE609C12569693800B9405C /* TestingView.swift in Sources */,
 				BCA4BDF625FB680B008CECB9 /* SimilarFunctionDetailView.swift in Sources */,
@@ -373,6 +428,9 @@
 				BC4360BC25C20B4800EA459D /* Extensions.swift in Sources */,
 				BC88EFC0250141DA009821D7 /* SceneDelegate.swift in Sources */,
 				BC0D27AF255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift in Sources */,
+				BCB2ABF4261B918B000E6A42 /* AssignDevicesToAutomationView.swift in Sources */,
+				BCB2ABE9261A8E53000E6A42 /* AutomatizationsView.swift in Sources */,
+				BC589C58261EFBF400FF8DB1 /* CheckableSensorView.swift in Sources */,
 				BCE609C4256994F800B9405C /* SceneSettingsView.swift in Sources */,
 				BCAF6CCC260A8E3500EBD65F /* LoginView.swift in Sources */,
 				BC88EFC2250141DA009821D7 /* ContentView.swift in Sources */,
@@ -383,6 +441,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		BC589C51261E618200FF8DB1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC589C50261E618200FF8DB1 /* en */,
+				BC589C54261E632200FF8DB1 /* sk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		BC88EFC8250141DB009821D7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -398,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -459,6 +527,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

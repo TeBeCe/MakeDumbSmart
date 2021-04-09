@@ -1,0 +1,347 @@
+/* 
+  Localizable.strings
+  MakeDumbSmart
+
+  Created by Martin Bachraty on 07/04/2021.
+  Copyright © 2021 Martin Bachratý. All rights reserved.
+*/
+
+/* No comment provided by engineer. */
+" " = " ";
+
+/* No comment provided by engineer. */
+"%@" = "%@";
+
+/* No comment provided by engineer. */
+"%@ %@" = "%1$@ %2$@";
+
+/* No comment provided by engineer. */
+"%@ sec." = "%@ sec.";
+
+/* No comment provided by engineer. */
+"%@ value %@ than %@" = "%1$@ value %2$@ than %3$@";
+
+/* No comment provided by engineer. */
+"1" = "1";
+
+/* No comment provided by engineer. */
+"55°" = "55°";
+
+/* No comment provided by engineer. */
+"6" = "6";
+
+/* No comment provided by engineer. */
+"60" = "60";
+
+/* No comment provided by engineer. */
+"Activation Time" = "Activation Time";
+
+/* No comment provided by engineer. */
+"Add" = "Add";
+
+/* No comment provided by engineer. */
+"Add / Remove Accesory" = "Add / Remove Accesory";
+
+/* No comment provided by engineer. */
+"Add Automatization" = "Add Automatization";
+
+/* No comment provided by engineer. */
+"Add Device" = "Add Device";
+
+/* No comment provided by engineer. */
+"Add Modules" = "Add Modules";
+
+/* No comment provided by engineer. */
+"Add New Automatization" = "Add New Automatization";
+
+/* No comment provided by engineer. */
+"Add New Device" = "Add New Device";
+
+/* No comment provided by engineer. */
+"Add or remove Accesories" = "Add or remove Accesories";
+
+/* No comment provided by engineer. */
+"Add Scene" = "Add Scene";
+
+/* No comment provided by engineer. */
+"Add Sensors" = "Add Sensors";
+
+/* No comment provided by engineer. */
+"Add senzor based automatization" = "Add senzor based automatization";
+
+/* No comment provided by engineer. */
+"Add time based automatization" = "Add time based automatization";
+
+/* No comment provided by engineer. */
+"Add to devices" = "Add to devices";
+
+/* No comment provided by engineer. */
+"Add to Favorite" = "Add to Favorite";
+
+/* No comment provided by engineer. */
+"Add/Remove Accesories" = "Add/Remove Accesories";
+
+/* No comment provided by engineer. */
+"Ahoj AHOJ AHOJ" = "Ahoj AHOJ AHOJ";
+
+/* No comment provided by engineer. */
+"Allow your devices to react based on time or senor values." = "Allow your devices to react based on time or senor values.";
+
+/* No comment provided by engineer. */
+"Arduino Pin" = "Arduino Pin";
+
+/* No comment provided by engineer. */
+"Assign to module" = "Assign to module";
+
+/* No comment provided by engineer. */
+"Automatizations" = "Automatizations";
+
+/* No comment provided by engineer. */
+"Back to login" = "Back to login";
+
+/* No comment provided by engineer. */
+"bla" = "bla";
+
+/* No comment provided by engineer. */
+"bla bla" = "bla bla";
+
+/* No comment provided by engineer. */
+"blbl" = "blbl";
+
+/* No comment provided by engineer. */
+"Configure devices in scene %@ by pushing or holding devices" = "Configure devices in scene %@ by pushing or holding devices";
+
+/* No comment provided by engineer. */
+"Correct vendor will help other people setting similar devices" = "Correct vendor will help other people setting similar devices";
+
+/* No comment provided by engineer. */
+"Create Automatization" = "Create Automatization";
+
+/* No comment provided by engineer. */
+"Create Module" = "Create Module";
+
+/* No comment provided by engineer. */
+"Create new Home" = "Create new Home";
+
+/* No comment provided by engineer. */
+"Create Room" = "Create Room";
+
+/* No comment provided by engineer. */
+"Create scene" = "Create scene";
+
+/* No comment provided by engineer. */
+"Create Sensor" = "Create Sensor";
+
+/* No comment provided by engineer. */
+"Delete device" = "Delete device";
+
+/* No comment provided by engineer. */
+"Delete Scene" = "Delete Scene";
+
+/* No comment provided by engineer. */
+"Device Name" = "Device Name";
+
+/* No comment provided by engineer. */
+"Device Vendor" = "Device Vendor";
+
+/* No comment provided by engineer. */
+"Devices" = "Devices";
+
+/* No comment provided by engineer. */
+"E.g Bedroom" = "E.g Bedroom";
+
+/* No comment provided by engineer. */
+"e.g. Apple" = "e.g. Apple";
+
+/* No comment provided by engineer. */
+"e.g. AppleTV 4K " = "e.g. AppleTV 4K ";
+
+/* No comment provided by engineer. */
+"E.g. Sweet Home" = "E.g. Sweet Home";
+
+/* No comment provided by engineer. */
+"e.g. Switch off" = "e.g. Switch off";
+
+/* No comment provided by engineer. */
+"Email" = "Email";
+
+/* No comment provided by engineer. */
+"Entitled function name will appear in main screen" = "Entitled function name will appear in main screen";
+
+/* No comment provided by engineer. */
+"Favorite Functions" = "Favorite Functions";
+
+/* No comment provided by engineer. */
+"Favorite scenes" = "Favorite scenes";
+
+/* No comment provided by engineer. */
+"First" = "First";
+
+/* No comment provided by engineer. */
+"First Run Configuration" = "First Run Configuration";
+
+/* No comment provided by engineer. */
+"Fourth" = "Fourth";
+
+/* No comment provided by engineer. */
+"Frequency" = "Frequency";
+
+/* No comment provided by engineer. */
+"Function Name" = "Function Name";
+
+/* No comment provided by engineer. */
+"Function Type" = "Function Type";
+
+/* No comment provided by engineer. */
+"Functions maximum value" = "Functions maximum value";
+
+/* No comment provided by engineer. */
+"Hello, World!" = "Hello, World!";
+
+/* No comment provided by engineer. */
+"Help Content" = "Help Content";
+
+/* No comment provided by engineer. */
+"Home Name" = "Home Name";
+
+/* No comment provided by engineer. */
+"Home Settings" = "Home Settings";
+
+/* No comment provided by engineer. */
+"I" = "I";
+
+/* No comment provided by engineer. */
+"If function is resetable, all same device functions will reset when changing state" = "If function is resetable, all same device functions will reset when changing state";
+
+/* No comment provided by engineer. */
+"level: %@" = "level: %@";
+
+/* No comment provided by engineer. */
+"Lock app after closing app without logging out" = "Lock app after closing app without logging out";
+
+/* No comment provided by engineer. */
+"Log Out" = "Log Out";
+
+/* No comment provided by engineer. */
+"LogIn" = "LogIn";
+
+/* No comment provided by engineer. */
+"MakeDumbSmart" = "MakeDumbSmart";
+
+/* No comment provided by engineer. */
+"Maximum Value" = "Maximum Value";
+
+/* No comment provided by engineer. */
+"Module" = "Module";
+
+/* No comment provided by engineer. */
+"Module Management" = "Module Management";
+
+/* No comment provided by engineer. */
+"Module Name" = "Module Name";
+
+/* No comment provided by engineer. */
+"Modules" = "Modules";
+
+/* No comment provided by engineer. */
+"Modules Management" = "Modules Management";
+
+/* No comment provided by engineer. */
+"Name" = "Name";
+
+/* No comment provided by engineer. */
+"nil" = "nil";
+
+/* No comment provided by engineer. */
+"O" = "O";
+
+/* No comment provided by engineer. */
+"Pin" = "Pin";
+
+/* No comment provided by engineer. */
+"Please set correct device name: \n • toggle \"Resetable\" applies to same Device Name\n • help other people setup similar functions" = "Please set correct device name: \n • toggle \"Resetable\" applies to same Device Name\n • help other people setup similar functions";
+
+/* No comment provided by engineer. */
+"Register" = "Register";
+
+/* No comment provided by engineer. */
+"Repeating" = "Repeating";
+
+/* No comment provided by engineer. */
+"Resetable" = "Resetable";
+
+/* No comment provided by engineer. */
+"Room" = "Room";
+
+/* No comment provided by engineer. */
+"Room Name" = "Room Name";
+
+/* No comment provided by engineer. */
+"Rooms" = "Rooms";
+
+/* No comment provided by engineer. */
+"Rooms Management" = "Rooms Management";
+
+/* No comment provided by engineer. */
+"Scene Name" = "Scene Name";
+
+/* No comment provided by engineer. */
+"Scenes" = "Scenes";
+
+/* No comment provided by engineer. */
+"Second" = "Second";
+
+/* No comment provided by engineer. */
+"Select Glyph" = "Select Glyph";
+
+/* No comment provided by engineer. */
+"Sensor" = "Sensor";
+
+/* No comment provided by engineer. */
+"Sensor Name" = "Sensor Name";
+
+/* No comment provided by engineer. */
+"Sensor Type" = "Sensor Type";
+
+/* No comment provided by engineer. */
+"Set Defaul Room Name" = "Set Defaul Room Name";
+
+/* No comment provided by engineer. */
+"Set Home Name" = "Set Home Name";
+
+/* No comment provided by engineer. */
+"Setting correct device type will help other people setting similar devices" = "Setting correct device type will help other people setting similar devices";
+
+/* No comment provided by engineer. */
+"Some functions may have many levels, please select correct amount" = "Some functions may have many levels, please select correct amount";
+
+/* No comment provided by engineer. */
+"Test" = "Test";
+
+/* No comment provided by engineer. */
+"Third" = "Third";
+
+/* No comment provided by engineer. */
+"Time" = "Time";
+
+/* No comment provided by engineer. */
+"Title" = "Title";
+
+/* No comment provided by engineer. */
+"Type" = "Type";
+
+/* No comment provided by engineer. */
+"unlock" = "unlock";
+
+/* No comment provided by engineer. */
+"Update frequency" = "Update frequency";
+
+/* No comment provided by engineer. */
+"Use Biometrics" = "Use Biometrics";
+
+/* No comment provided by engineer. */
+"Use biometrics" = "Use biometrics";
+
+/* No comment provided by engineer. */
+"Wallpaper" = "Wallpaper";
+

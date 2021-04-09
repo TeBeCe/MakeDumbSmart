@@ -9,17 +9,17 @@
 import SwiftUI
 
 struct DeviceFunctionSwitchView: View {
-//    @State var offsetY:CGFloat = -100.0
+    //    @State var offsetY:CGFloat = -100.0
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
     @State var scene: Scene?
+    @State var automatization: Automatization?
     
     var body: some View {
         
         ZStack {
             
             RoundedRectangle(cornerRadius:20, style: .continuous)
-                //  .fill(Color(UIColor.init(named:"mainColor") ?? UIColor.systemGray))
                 .fill(Color(UIColor.gray ))
                 .opacity(0.8)
             
@@ -28,19 +28,25 @@ struct DeviceFunctionSwitchView: View {
                         self.device.is_active.toggle()
                         device.value = self.device.is_active == true ? 1.0 : 0.0
                         let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                                    impactHeavy.impactOccurred()
-                        if(scene == nil){
-//                            dvcObj.updateDevice(device: device)
-                            //dvcObj.updateBackendDevice(device: device)
-                            dvcObj.activateDevice(device: device)//WIP
-//                            dvcObj.activateBackendDevice(device: device, multiplier: 1)
-                            dvcObj.findAndActivateScene()
-                        }
-                        else{
+                        impactHeavy.impactOccurred()
+                        if(scene != nil && automatization == nil){
                             dvcObj.updateDeviceInScene(scene: scene!, device: device)
                             if(scene?.id != 0){
                                 dvcObj.updateBackendDeviceInScene(scene: scene!)
                             }
+                        }
+                        else if(automatization != nil && scene == nil ){
+                            dvcObj.updateDeviceInAutomatization(automatization: automatization!, device: device)
+                            if(automatization?.id != 0){
+                                print("nula")
+                            }
+                        }
+                        else{
+                            //dvcObj.updateDevice(device: device)
+                            //dvcObj.updateBackendDevice(device: device)
+                            dvcObj.activateDevice(device: device)//WIP
+                            //dvcObj.activateBackendDevice(device: device, multiplier: 1)
+                            dvcObj.findAndActivateScene()
                         }
                     }){
                 RoundedRectangle(cornerRadius:20, style: .continuous)

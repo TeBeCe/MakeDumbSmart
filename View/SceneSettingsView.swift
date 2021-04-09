@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TestData: Identifiable {
     var id : Int
+    var roomName: String
     var devices: [Device]
 }
 
@@ -35,7 +36,11 @@ struct SceneSettingsView: View {
         NavigationView {
             VStack{
                 List{
-                    Section(){
+                    Section(footer:
+                                VStack(alignment: .leading){
+                                    Text("Devices").font(.system(size:25, weight: .semibold))
+                                    Text("Configure devices in scene \(scene.scene_name) by pushing or holding devices")
+                                }){
                         HStack{
                             NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                             Image(systemName: scene.glyph )
@@ -61,9 +66,10 @@ struct SceneSettingsView: View {
                             .disableAutocorrection(true)
                         }.padding(.leading, -10)
                     }
+
 //                    TODO: Rework variables
                     ForEach(dvcObj.getDevicesInScene(scene: scene)){ dvcsInRoom in
-                        Section(header: Text(dvcObj.rooms[dvcsInRoom.id-1].room_name)){
+                        Section(header: Text(dvcsInRoom.roomName)){
                             LazyVGrid(columns: columns,spacing: 10){
                                 ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
                                     let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
@@ -85,16 +91,11 @@ struct SceneSettingsView: View {
                                             print("long")
                                             self.selectedDevice = dvcObj.scenes[arrr[0]].devices[arrr[1]]
                                         }
-                                    
-                                    
                                 }
                             }.padding(.leading,-20).padding(.trailing,-20)
                         }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
                     }
                     Section(){
-                        Button(action: {print("testing scene// not implemented")}){
-                            Text("Test Scene// not implemented").foregroundColor(Color(.systemOrange))
-                        }
                         Button(action: {
                             self.selectedScene = scene
                         }){

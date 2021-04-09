@@ -108,6 +108,6 @@ struct HomeSettingsView: View {
 
 struct HomeSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeSettingsView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), home: .constant(Home(home_name: "Test Name", id: 1, scenes: [], devices: [], rooms: [], modules: [])))
+        HomeSettingsView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), home: .constant(Home(home_name: "Test Name", id: 1, scenes: [], devices: [], rooms: [], modules: [], automatizations: [])))
     }
 }

@@ -12,7 +12,10 @@ struct DeviceFunctionSliderView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
     @State var scene : Scene?
+    @State var automatization : Automatization?
+    
     var tempValue : Float = 0
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
@@ -30,22 +33,30 @@ struct DeviceFunctionSliderView: View {
 //                            self.device.value = Float(Int(100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)))
                             self.device.value = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
                             self.device.is_active = self.device.value == 0.0 ? false : true
-                            if(scene == nil){
-                                dvcObj.updateDevice(device: device)
-                            }
-                            else{
+                            if(scene != nil && automatization == nil){
                                 dvcObj.updateDeviceInScene(scene: scene!, device: device)
                             }
-                        }).onEnded({_ in
-                            if(scene == nil){
-                                dvcObj.activateDevice(device: device)//WIP
-                                dvcObj.updateBackendDevice(device: device)
-                                dvcObj.findAndActivateScene()
+                            else if(automatization != nil && scene == nil){
+                                dvcObj.updateDeviceInAutomatization(automatization: automatization!, device: device)
                             }
                             else{
+                                //dvcObj.updateDevice(device: device)
+                            }
+                        }).onEnded({_ in
+                            if(scene != nil && automatization == nil){
                                 if(scene?.id != 0){
                                     dvcObj.updateBackendDeviceInScene(scene: scene!)
                                 }
+                            }
+                            else if(automatization != nil && scene == nil){
+                                if(automatization?.id != 0){
+                                    print("nula")
+                                }
+                            }
+                            else{
+                                dvcObj.activateDevice(device: device)//WIP
+                                dvcObj.updateBackendDevice(device: device)
+                                dvcObj.findAndActivateScene()
                             }
                         }
                     )

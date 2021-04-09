@@ -86,7 +86,7 @@ struct DeviceView_Previews: PreviewProvider {
             DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cooler", reseting: false,glyph: "lightbulb", is_active: false, type: "Switch", value: Float(1.0), max_level: 3, room: 1, processing: 0), rooms: [Room(id: 1, room_name: "Bedroom")])
                 .preferredColorScheme(.dark)
             
-            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cooler", reseting: false,glyph: "lightbulb", is_active: false, type: "Levels", value: Float(1.0), max_level: 3, room: 1, processing: 01), rooms: [Room(id: 1, room_name: "Bedroom")])
+            DevicesView(device: Device(id: 1, device_name: "Test name",device: "Cooler", reseting: false,glyph: "lightbulb", is_active: false, type: "Levels", value: Float(1.0), max_level: 3, room: 1, processing: 1), rooms: [Room(id: 1, room_name: "Bedroom")])
             
         }.previewLayout(.fixed(width: 125, height: 125))
     }

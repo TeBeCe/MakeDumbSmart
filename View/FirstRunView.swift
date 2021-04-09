@@ -54,6 +54,7 @@ struct FirstRunView: View {
     var body: some View {
         //        TabView {
         Form {
+//            Label("Test")
 //            Text("First Run Configuration").font(.system(size: 20, weight: .semibold))
             //                    VStack(alignment: .leading) {
             Section(header: Text("Set Home Name")) {

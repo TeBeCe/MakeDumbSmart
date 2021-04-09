@@ -17,12 +17,35 @@ struct CrossroadView: View {
     @AppStorage("logged_status") var validated = false
     @AppStorage("use_biometrics") var useBiometrics = false
     @AppStorage("first_run_done") var firstRunDone = false
+    
+    @StateObject var dvcObj: LoadJSONData = LoadJSONData()
 
     var body: some View {
         if(validated){
             if(firstRunDone){
                 if(isUnlocked){
-                    ContentView()
+//                    TabView {
+                        ContentView()
+//                            .tabItem {
+//                            Label("Home", systemImage: "house.fill")
+//                        }
+//                            .environmentObject(dvcObj)
+//
+//                        Text("Room").tabItem{
+//                            Label("Rooms", systemImage: "list.dash")
+//                        }.environmentObject(dvcObj)
+//
+//                        AutomatizationsView(/*dvcObj: dvcObj, */activeSheet: .constant(nil)).tabItem {
+//                            Label("Automatizations", systemImage: "list.dash")
+//                        }.environmentObject(dvcObj)
+                        
+//                    }
+//                .onAppear(perform: {
+//                        dvcObj.loadData()
+//                    }).onDisappear(perform: {
+//                        print("ContetnView dissapear")
+//                        dvcObj.continueRefresh = false
+//                    })
                 }
                 else{
                     Text("unlock").onAppear(perform: {
@@ -77,6 +100,7 @@ struct CrossroadView: View {
 struct CrossroadView_Previews: PreviewProvider {
     static var previews: some View {
         CrossroadView()
+//            .environmentObject(LoadJSONData())
 //            .previewDevice("iPad Pro (12.9-inch) (4th generation)")
 
     }

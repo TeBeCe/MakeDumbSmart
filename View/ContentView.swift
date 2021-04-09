@@ -8,20 +8,13 @@
 
 import SwiftUI
 
-enum ActiveSheet: Identifiable {
-    case first, second, third
-    
-    var id: Int {
-        hashValue
-    }
-}
-
 struct ContentView: View {
     @AppStorage("wallpaper") var wallpaper = images[0]
     
+    @ObservedObject var dvcObj = LoadJSONData()
+
     @State private var selectedDevice : Device? = nil
     @State private var selectedScene : Scene? = nil
-    @ObservedObject var dvcObj = LoadJSONData()
     @State var selectedIndx :Int = 0
     @State private var islong: Bool = false
     @State private var didScale: Bool = false
@@ -32,8 +25,8 @@ struct ContentView: View {
     let columns = [
         GridItem(.adaptive(minimum: 100, maximum: 120))]
     let rows = [
-        GridItem(.fixed(60)),
-        GridItem(.fixed(60))
+        GridItem(.fixed(55)),
+        GridItem(.fixed(55))
     ]
     
     var body: some View {
@@ -47,14 +40,14 @@ struct ContentView: View {
                     Text(dvcObj.home.home_name)
                         .font(.system(size: 45, weight: .bold))
                         .fontWeight(.bold)
-                        .padding([.leading,.bottom], 20)
+                        .padding(.leading, 20).padding(.bottom,10)
                         .foregroundColor(Color(UIColor.init(named:"textColor")!))
                     Text("Favorite scenes").padding(.leading, 20)
                     
                     ScrollView(.horizontal,showsIndicators: false){
                         LazyHGrid(rows: rows,alignment: .center, spacing: 10)
                         {
-                            ForEach(dvcObj.scenes.indices,id: \.self){ indx in
+                            ForEach(dvcObj.scenes.filter({$0.id != 0}).indices,id: \.self){ indx in
                                 Button(action: {})
                                 {
                                     SceneView(scene: self.dvcObj.scenes[indx])
@@ -156,6 +149,12 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     }
                 })
+                Button(action: {self.activeSheet = .fourth}, label: {
+                    HStack{
+                        Text("Add Automatization")
+                        Image(systemName: "plus")
+                    }
+                })
             } label: {
                 Label(title: { Text("Add") }, icon: {
                     Image(systemName: "plus")
@@ -184,10 +183,13 @@ struct ContentView: View {
             case .first:
                 AddDeviceView(activeSheet: $activeSheet, dvcObj: dvcObj)
             case .second:
-                AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj, devicesInRoom: [])
+                AddSceneView(activeSheet: $activeSheet, dvcObj: dvcObj/*, devicesInRoom: []*/)
             case .third:
                 HomeSettingsView(activeSheet: $activeSheet, dvcObj: dvcObj, home: $dvcObj.home)
+            case .fourth:
+                AutomatizationsView(dvcObj: dvcObj, activeSheet: $activeSheet)
             }
+            
         }
     }
 }
@@ -195,6 +197,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environment(\.locale, Locale(identifier: "sk"))
 //            .previewDevice("iPhone 11")
 
     }

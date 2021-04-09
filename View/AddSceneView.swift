@@ -13,7 +13,7 @@ struct AddSceneView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @State var scene : Scene = Scene(scene_name: "", id: 0, is_favorite: false, glyph: "lightbulb", is_active: false, devices: [],scene_devices: [])
     @State var selectedScene : Scene? = nil
-    @State var devicesInRoom : [TestData]
+//    @State var devicesInRoom : [TestData]
 //    @State var enabledButton : Bool = false
     @State var selectedDevice : Device? = nil
 
@@ -57,7 +57,7 @@ struct AddSceneView: View {
                     
 //                    TODO: Rework variables
                     ForEach(dvcObj.getDevicesInScene(scene: scene)){ dvcsInRoom in
-                        Section(header: Text(dvcObj.rooms[dvcsInRoom.id-1].room_name)){
+                        Section(header: Text(dvcsInRoom.roomName)){
                             LazyVGrid(columns: columns,spacing: 10){
                                 ForEach(dvcsInRoom.devices.indices,id: \.self){ indx in
                                     let arrr = dvcObj.modifyDeviceInScene(scene: scene, device: dvcsInRoom.devices[indx])
@@ -73,7 +73,6 @@ struct AddSceneView: View {
                                             //print("long")
                                             self.selectedDevice = dvcObj.scenes[arrr[0]].devices[arrr[1]]
                                         }
-                                    
                                 }
                             }.padding(.leading,-20).padding(.trailing,-20)
                         }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
@@ -122,6 +121,6 @@ struct AddSceneView: View {
 
 struct AddSceneView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSceneView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), scene: Scene(scene_name: "xx", id: 0, is_favorite: true, glyph: "lightbulb", is_active: true, devices: [], scene_devices: []), devicesInRoom: [])
+        AddSceneView(activeSheet: .constant(nil), dvcObj: LoadJSONData(), scene: Scene(scene_name: "xx", id: 0, is_favorite: true, glyph: "lightbulb", is_active: true, devices: [], scene_devices: [])/*, devicesInRoom: []*/)
     }
 }

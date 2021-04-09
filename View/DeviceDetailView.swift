@@ -8,25 +8,6 @@
 
 import SwiftUI
 
-func DetermineValue(device: Device)-> String {
-    
-    switch device.type{
-    case "Switch" :
-        return !device.is_active || device.value == 0.0 ? "Vyp." : "Zap."
-    case "Slider" :
-        return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.1f%", device.value))%"
-    case "Levels" :
-        return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.0f%", device.value))"
-    case "sensor_temperature":
-        return "\(String(device.value))°"
-    case "sensor_humidity":
-        return "\(String(format: "%.0f%", device.value))%"
-        
-    default:
-        return "Unknown device type/state"
-    }
-}
-
 struct DeviceDetailView: View {
     @Binding var sd : Device?
     @ObservedObject var dvcObj : LoadJSONData

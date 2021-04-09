@@ -36,7 +36,7 @@ struct AddMyFunctionsView: View {
                     //TODO: ak nie su
                 }
             }
-        }.navigationTitle(Text("test"))
+        }
     }
 }
 

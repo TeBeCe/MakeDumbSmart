@@ -17,7 +17,7 @@ struct SceneView: View {
 //                .fill(scene.is_active ? Color(UIColor.white) : Color(UIColor.init(named:"mainColor")!))
                 .fill(scene.is_active ? Color(UIColor.white) : Color(.systemGray5))
                 .opacity(scene.is_active ? 1 : 0.7)
-                .frame(width: 250, height: 60)
+                .frame(width: 250, height: 55)
                 
             HStack(alignment: .center){
                 Image(systemName: scene.glyph)
@@ -35,7 +35,7 @@ struct SceneView: View {
                 
                 Spacer()
             }
-            .frame(width: 250,height: 60)
+            .frame(width: 250,height: 55)
         }
     }
 }
