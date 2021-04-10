@@ -28,7 +28,6 @@ struct AssignDevicesToAutomationView: View {
                         LazyVGrid(columns: columns,spacing: 10){
                             ForEach(roomDev.devices){device in
                                 CheckableDeviceView(device:device,checked:dvcObj.isDeviceInAutomatization(automatization: automatization, device: device))
-//                                CheckableDeviceView(device:device,checked:true)
                                     .onTapGesture {
                                         automatization = dvcObj.addOrRemoveDeviceToAutomatization(automatization: automatization, device: device)
                                     }
@@ -39,7 +38,6 @@ struct AssignDevicesToAutomationView: View {
                 }
             }
             .navigationBarTitle(Text("Add / Remove Accesory"), displayMode: .inline)
-            
         }
     }
 }

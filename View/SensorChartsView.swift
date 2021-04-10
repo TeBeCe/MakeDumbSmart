@@ -86,6 +86,7 @@ struct SensorChartsView: View {
     }
     
     var body: some View {
+//        GeometryReader { geo in
         ZStack {
             if(data.count > 1){
                 gridBody
@@ -94,10 +95,20 @@ struct SensorChartsView: View {
                 chartYLabel}
             if(showIndicator){
                 Circle().position(self.closestPoint).frame(width: 10, height: 10)
-                Text("\(String(format: "%.1f%", currentDataNumber))").position(CGPoint(x: 195 + self.closestPoint.x, y: (130 + self.closestPoint.y) > 125 ? (130 + self.closestPoint.y - 25) : (130 + self.closestPoint.y + 5)))
+                Text("\(String(format: "%.1f%", currentDataNumber))")
+                    .position(CGPoint(x: 195 + self.closestPoint.x,
+                                      y: (130 + self.closestPoint.y) > 125
+                                        ? (130 + self.closestPoint.y - 25)
+                                        : (130 + self.closestPoint.y + 5))
+                    )
             }
             
-        }.frame(width: 400, height: 250)
+        }
+//        .frame(width: geo.size.width * 0.95,height: 250)
+        .frame(width:400, height:250)
+        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+            
+//        }
     }
     
     private var gridBody: some View {
@@ -313,5 +324,6 @@ struct LineChartProvider {
 struct SensorChartsView_Previews: PreviewProvider {
     static var previews: some View {
         SensorChartsView(device: Device(id: 0, device_name: "xxx", device: nil, reseting: false, glyph: "lightbulb", is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1, processing: 0))
+            .previewDevice("iPad Pro (12.9-inch) (4th generation)")
     }
 }

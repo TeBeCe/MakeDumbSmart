@@ -38,7 +38,7 @@ struct DeviceFunctionSwitchView: View {
                         else if(automatization != nil && scene == nil ){
                             dvcObj.updateDeviceInAutomatization(automatization: automatization!, device: device)
                             if(automatization?.id != 0){
-                                print("nula")
+                                dvcObj.updateBackendAutomatization(automatizationx: automatization!)
                             }
                         }
                         else{

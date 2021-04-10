@@ -89,11 +89,26 @@ func footerDaysRepeat(selectedDays:[Bool], footerDayType: footerDayType) -> Stri
     return returnDays
 }
 
-func getHourFromDate(date: Date)->String{
+func getStringFromDate(date: Date) -> String{
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    let dateString = formatter.string(from: date)
+    return dateString
+}
+
+func getHourFromDate(date: Date) -> String {
+    
     let formatter = DateFormatter()
     formatter.timeStyle = .short
-    let dateString = formatter.string(from: Date())
-    return dateString
+    let timeString = formatter.string(from: date)
+    return timeString
+}
+
+func getDateFromTimeString(dateString: String)-> Date?{
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    let date = formatter.date(from: dateString)
+    return date
 }
 
 func getSceneAndDeviceLabel(automatization: Automatization) -> String{

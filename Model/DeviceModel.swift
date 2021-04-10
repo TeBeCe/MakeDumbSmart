@@ -929,6 +929,12 @@ class LoadJSONData : ObservableObject {
         }
     }
     
+    func updateAutomatization(automatization: Automatization){
+        if let indx = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            automatizations[indx] = automatization
+        }
+    }
+    
     func getDevicesInAutomatization(automatization: Automatization)->[TestData]{
         //        print(scene)
         var returnData : [TestData] = []
@@ -961,7 +967,7 @@ class LoadJSONData : ObservableObject {
             }
             if(automatization.id != 0){
                 print(automatizations[indxAu])
-//                updateBackendScene(scenex: scenes[indxSc])
+                updateBackendAutomatization(automatizationx: automatizations[indxAu])
             }
             return automatizations[indxAu]
         }
@@ -1033,13 +1039,15 @@ class LoadJSONData : ObservableObject {
         }
         self.genericBackendUpdate(param: param)
     }
+    
     func deleteBackendAutomatization(automatization : Automatization){
         let param = "automatization_idk=delete"
             + "&automatization_id=\(automatization.id)"
         self.genericBackendUpdate(param: param)
     }
+    
     func updateBackendAutomatization(automatizationx : Automatization){
-        if let indaux = scenes.firstIndex(where: {$0.id == automatizationx.id}){
+        if let indaux = automatizations.firstIndex(where: {$0.id == automatizationx.id}){
             let automatization = self.automatizations[indaux]
             let encoder = JSONEncoder()
             let aut_devices = try! encoder.encode(automatization.devices)

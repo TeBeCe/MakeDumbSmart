@@ -72,7 +72,8 @@ struct DeviceSettingsView: View {
                             ForEach(dvcObj.rooms,id: \.id){
                                 Text($0.room_name).tag($0.id)
                             }
-                        }.onChange(of: roomIndex){ _ in
+                        }.onChange(of: roomIndex){ end in
+                            print(end)
                             print("picker changed index: \(roomIndex)")
                             device.room = roomIndex
                             print(device.room)

@@ -79,7 +79,7 @@ struct DeviceFunctionLevelView: View {
                             }
                             else if(automatization != nil && scene == nil){
                                 if(automatization?.id != 0){
-                                    print("nula")
+                                    dvcObj.updateBackendAutomatization(automatizationx: automatization!)
                                 }
                             }
                             else{

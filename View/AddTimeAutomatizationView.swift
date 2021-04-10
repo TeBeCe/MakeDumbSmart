@@ -13,12 +13,11 @@ struct AddTimeAutomatizationView: View {
     @Binding var addAutType: automatizationType?
     @State var sheetAutomatization: Automatization? = nil
     var days : [String] = ["mo","tu","we","th","fr","sa","su"]
-    @State var automatization = Automatization(id: 0,devices:[],scenes: [],time: getHourFromDate(date: Date()))
+    @State var automatization = Automatization(id: 0,devices:[],scenes: [],time: getStringFromDate(date: Date()))
     @State var selectedDays : [Bool] = Array.init(repeating: true, count: 7)
     @State var time = Date()
     @State var selectedDevice : Device? = nil
     @Binding var showSelf : Bool
-//    @Environment(\.presentationMode) var presentation
 
     let columns = [
         //        GridItem(.flexible()),
@@ -39,7 +38,7 @@ struct AddTimeAutomatizationView: View {
                     }
                 }
                 .padding(.top, 10)
-                Section(header: Text("Repeating"),footer: Text(footerDaysRepeat(selectedDays: selectedDays, footerDayType: .long))){
+                Section(header: Text("Repeating"), footer: footerDevices){
                     HStack(){
                         ForEach(0..<7){ind in
                             ZStack{
@@ -89,7 +88,7 @@ struct AddTimeAutomatizationView: View {
                     
                     Button(action: {
                         self.automatization.days = selectedDays
-                        self.automatization.time = getHourFromDate(date: time)
+                        self.automatization.time = getStringFromDate(date: time)
                         dvcObj.createBackendAutomatization(automatization: automatization)
                         self.addAutType = nil
 //                        self.presentation.wrappedValue.dismiss()
@@ -116,6 +115,23 @@ struct AddTimeAutomatizationView: View {
         })
     }
     
+    private var footerDevices : some View {
+           VStack(alignment: .leading){
+            Text(footerDaysRepeat(selectedDays: selectedDays, footerDayType: .long))
+            if(automatization.devices.count > 0){
+                Text("Devices")
+                    .textCase(nil)
+                    .font(.system(size:25, weight: .semibold))
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+                Text("Configure devices in automatization by taping or holding devices")
+                    .textCase(nil)
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+            }
+            else{
+                Text("")
+            }
+        }
+    }
 }
 
 struct AddTimeAutomatizationView_Previews: PreviewProvider {

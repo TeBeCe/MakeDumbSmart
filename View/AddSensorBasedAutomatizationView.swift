@@ -20,7 +20,9 @@ struct AddSensorBasedAutomatizationView: View {
     @State var minValue : Double = 0
     @State var maxValue : Double = 100
     @State var activationValue: Double = 0
-//    @Environment(\.presentationMode) var presentation
+    
+    @Binding var showSelf : Bool
+
     var settings = ["Less", "More"]
     
     let columns = [
@@ -33,7 +35,7 @@ struct AddSensorBasedAutomatizationView: View {
     var body: some View {
         NavigationView {
             List{
-                Section(header: Text("Select Sensor")){
+                Section(header: Text("Select Sensor"), footer: footerDevices){
                     ScrollView(.horizontal){
                         HStack{
                             ForEach(dvcObj.devices.filter({$0.type.contains("sensor")})){dvc in
@@ -70,7 +72,7 @@ struct AddSensorBasedAutomatizationView: View {
                     HStack{
                         Text("Activation Value:")
                         Spacer()
-                        Text("\(String(format: "%.0f%", activationValue))")
+                        Text("\(String(format: "%.0f%", activationValue))") + Text("\(selectedSensor?.type == "sensor_temperature" ? "°C" : "%")")
                     }
                     Slider(value: $activationValue,
                            in: minValue...maxValue,
@@ -133,6 +135,7 @@ struct AddSensorBasedAutomatizationView: View {
                         self.automatization.sensor_value = Float(activationValue)
                         dvcObj.createBackendAutomatization(automatization: automatization)
                         self.addAutType = nil
+                        self.showSelf = false
                         
                     }){
                         Text("Create Automatization")
@@ -142,22 +145,42 @@ struct AddSensorBasedAutomatizationView: View {
                 SceneDeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device, automatization: automatization)
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationBarTitle(Text("Sensor Based Automatization"), displayMode: .inline)
-            .navigationBarItems(trailing: Button(action:{
-                self.addAutType = nil
-            }){
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size:25, weight: .bold)).accentColor(.gray)})
+            .navigationBarHidden(true)
+
+//            .navigationBarTitle(Text("Sensor Based Automatization"), displayMode: .inline)
+//            .navigationBarItems(trailing: Button(action:{
+//                self.addAutType = nil
+//            }){
+//                Image(systemName: "xmark.circle.fill")
+//                    .font(.system(size:25, weight: .bold)).accentColor(.gray)})
         }.onAppear(perform: {
             dvcObj.createAutomatization(automatization: automatization)
             dvcObj.continueRefresh = false
         })
         
     }
+    private var footerDevices : some View {
+        
+           VStack(alignment: .leading){
+            if(automatization.devices.count > 0){
+                Text("Devices")
+                    .textCase(nil)
+                    .font(.system(size:25, weight: .semibold))
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+                Text("Configure devices in automatization by taping or holding devices")
+                    .textCase(nil)
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+            }
+            else{
+                Text("")
+            }
+        }
+       
+    }
 }
 
 struct AddSensorBasedAutomatizationView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSensorBasedAutomatizationView(dvcObj: LoadJSONData(), addAutType: .constant(nil))
+        AddSensorBasedAutomatizationView(dvcObj: LoadJSONData(), addAutType: .constant(nil), showSelf: .constant(true))
     }
 }

@@ -12,9 +12,10 @@ struct AutomatizationViewSummaryItem: View {
     @ObservedObject var dvcObj : LoadJSONData
     var automatization : Automatization
     @State var addAutType : automatizationType? = nil
-    @State var showing :Bool =  false
+    @State var showingTimeAut :Bool =  false
+    @State var showingSensAut :Bool =  false
 
-
+    
     var body: some View {
         VStack(alignment: .leading){
             HStack{
@@ -34,12 +35,14 @@ struct AutomatizationViewSummaryItem: View {
             }.font(.system(size:23))
             HStack{
                 if(automatization.time != nil){
-                    NavigationLink(destination: ModifyTimeAutomatization(dvcObj: dvcObj, addAutType: $addAutType, automatization: automatization, showSelf: $showing) ){
-                        Text("\(automatization.time ?? "") \(footerDaysRepeat(selectedDays: automatization.days ?? [], footerDayType: .short))")}
+                    NavigationLink(destination: ModifyTimeAutomatization(dvcObj: dvcObj, addAutType: $addAutType, automatization: automatization, showSelf: $showingTimeAut), isActive: $showingTimeAut ){
+                        Text("\(getHourFromDate(date: getDateFromTimeString(dateString: automatization.time ?? "")!)) \(footerDaysRepeat(selectedDays: automatization.days ?? [], footerDayType: .short))")}
                 }
                 else {
                     let sensor = dvcObj.getSensor(id: automatization.sensor_id!)
-                    Text("\(sensor?.device_name ?? "null") value \(automatization.sensor_condition! ? "more" : "less") than \(String(format: "%.0f%",automatization.sensor_value!)) ") + Text("\(sensor != nil && sensor!.type.contains("temperature") ? "°C" : "%" )")
+                    NavigationLink(destination: ModifySensorAutomatization(dvcObj: dvcObj, addAutType: $addAutType, automatization: automatization, showSelf: $showingSensAut), isActive: $showingSensAut ){
+                        Text("\(sensor?.device_name ?? "null") value \(automatization.sensor_condition! ? "more" : "less") than \(String(format: "%.0f%",automatization.sensor_value!)) ") + Text("\(sensor != nil && sensor!.type.contains("temperature") ? "°C" : "%" )")
+                    }
                 }
             }
             HStack{
@@ -54,7 +57,8 @@ struct AutomatizationsView: View {
     @Binding var activeSheet: ActiveSheet?
     @State var automatization: Automatization? = nil
     @State var addAutType : automatizationType? = nil
-    @State var showing :Bool =  false
+    @State var showingTimeAut :Bool =  false
+    @State var showingSensAut :Bool =  false
     //    var aut : [Automatization] = [
     //        Automatization(id: 1,devices: exampleDeviceArray,scenes: [], days: [true,true,true,true,true,true,true], sensor: Device(id: 1, device_name: "Sensor name",device: "Cust name", reseting: false,glyph: "lightbulb", is_active: false, type: "sensor_temperature", value: Float(19.0), max_level: 3, room: 1, processing: 0),value: 27.0,condition: true),
     //        Automatization(id: 2,devices: [],scenes: [], time: Date.init(), days: [true,true,false,true,true,true,true])]
@@ -86,35 +90,35 @@ struct AutomatizationsView: View {
                         //                }
                         //                .listStyle(InsetGroupedListStyle())
                     }
-                    NavigationLink(destination: AddTimeAutomatizationView(dvcObj: dvcObj,addAutType: $addAutType, showSelf: $showing), isActive: $showing ){
-                                            Button(action:{}){
-                                                Text("Add time based automatization")
-                                            }
-                                        }
-//                                        NavigationLink(destination: AddSensorBasedAutomatizationView(dvcObj: dvcObj)){
-//                                            Button(action:{}){
-//                                                Text("Add sensor based automatization")
-//                                            }
-//                                        }
-                    Button(action:{
-                        addAutType = .time
-                    }){
-                        Text("Add time based automatization")
+                    NavigationLink(destination: AddTimeAutomatizationView(dvcObj: dvcObj, addAutType: $addAutType, showSelf: $showingTimeAut), isActive: $showingTimeAut){
+                        Button(action:{}){
+                            Text("Add time based automatization")
+                        }
                     }
-                    Button(action:{
-                        addAutType = .sensor
-                    }){
-                        Text("Add sensor based automatization")
+                    NavigationLink(destination: AddSensorBasedAutomatizationView(dvcObj: dvcObj, addAutType: $addAutType, showSelf: $showingSensAut), isActive: $showingSensAut){
+                        Button(action:{}){
+                            Text("Add sensor based automatization")
+                        }
                     }
+//                    Button(action:{
+//                        addAutType = .time
+//                    }){
+//                        Text("Add time based automatization")
+//                    }
+//                    Button(action:{
+//                        addAutType = .sensor
+//                    }){
+//                        Text("Add sensor based automatization")
+//                    }
                 }
-                .sheet(item: $addAutType){ item in
-                    switch item {
-                    case .time:
-                        AddTimeAutomatizationView(dvcObj: dvcObj, addAutType: $addAutType, showSelf: $showing)
-                    case .sensor:
-                        AddSensorBasedAutomatizationView(dvcObj: dvcObj, addAutType: $addAutType)
-                    }
-                }
+//                .sheet(item: $addAutType){ item in
+//                    switch item {
+//                    case .time:
+//                        AddTimeAutomatizationView(dvcObj: dvcObj, addAutType: $addAutType, showSelf: $showing)
+//                    case .sensor:
+//                        AddSensorBasedAutomatizationView(dvcObj: dvcObj, addAutType: $addAutType, showSelf: $showing)
+//                    }
+//                }
             }
             .navigationBarTitle(Text("Add New Automatization"), displayMode: .inline)
             .navigationBarItems(trailing: Button(action:{self.activeSheet = nil}){
