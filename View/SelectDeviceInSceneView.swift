@@ -38,7 +38,7 @@ struct SelectDeviceInSceneView: View {
                     }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
                 }
             }.navigationBarTitle(Text("Add / Remove Accesory"), displayMode: .inline)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

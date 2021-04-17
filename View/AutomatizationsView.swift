@@ -120,11 +120,12 @@ struct AutomatizationsView: View {
 //                    }
 //                }
             }
-            .navigationBarTitle(Text("Add New Automatization"), displayMode: .inline)
+            .navigationBarTitle(Text("Manage Automatizations"), displayMode: .inline)
             .navigationBarItems(trailing: Button(action:{self.activeSheet = nil}){
                                     Image(systemName: "xmark.circle.fill")
                                         .font(.system(size:25, weight: .bold)).accentColor(.gray)})
-        }.onAppear(perform: {
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: {
             dvcObj.continueRefresh = false
         })
         .onDisappear(perform: {

@@ -46,6 +46,7 @@ struct AddTimeAutomatizationView: View {
                                     .foregroundColor(selectedDays[ind] ? .orange : .gray)
                                     .onTapGesture {
                                         selectedDays[ind].toggle()
+                                        selectionFeedbackGenerator.selectionChanged()
                                     }
                                     .frame(height: 50)
                                 Text(days[ind]).foregroundColor(.white)
@@ -109,9 +110,13 @@ struct AddTimeAutomatizationView: View {
 //            }){
 //                Image(systemName: "xmark.circle.fill")
 //                    .font(.system(size:25, weight: .bold)).accentColor(.gray)})
-        }.onAppear(perform: {
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: {
             dvcObj.createAutomatization(automatization: automatization)
             dvcObj.continueRefresh = false
+        })
+        .onDisappear(perform: {
+            dvcObj.validateAutomatizations()
         })
     }
     

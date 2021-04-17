@@ -20,8 +20,10 @@ struct AddSensorBasedAutomatizationView: View {
     @State var minValue : Double = 0
     @State var maxValue : Double = 100
     @State var activationValue: Double = 0
-    
     @Binding var showSelf : Bool
+    @State var sliderIcons : [String] = ["thermometer.snowflake","thermometer.sun.fill"]
+    
+    @State var percentage: Float = 50.0 // or some value binded
 
     var settings = ["Less", "More"]
     
@@ -29,7 +31,7 @@ struct AddSensorBasedAutomatizationView: View {
         //        GridItem(.flexible()),
         //        GridItem(.flexible()),
         //        GridItem(.flexible())
-        GridItem(.adaptive(minimum: 110, maximum: 120))
+        GridItem(.adaptive(minimum: 120, maximum: 120))
         
     ]
     var body: some View {
@@ -41,6 +43,7 @@ struct AddSensorBasedAutomatizationView: View {
                             ForEach(dvcObj.devices.filter({$0.type.contains("sensor")})){dvc in
                                 CheckableSensorView(device: dvc,rooms:dvcObj.rooms,checked: dvc.id == selectedSensorID)
                                     .onTapGesture{
+                                        selectionFeedbackGenerator.selectionChanged()
                                         if(selectedSensorID != dvc.id){
                                             selectedSensorID = dvc.id
                                             selectedSensor = dvc
@@ -51,47 +54,48 @@ struct AddSensorBasedAutomatizationView: View {
                                         }
                                         if(selectedSensor?.type == "sensor_temperature"){
                                             minValue = -100
+                                            let correctedStartVal = Double(activationValue ) - minValue
+                                            self.percentage = Float((correctedStartVal * 100) / (100 - minValue))
+                                            self.sliderIcons = ["thermometer.snowflake","thermometer.sun.fill"]
                                         }
                                         else{
                                             minValue = 0
                                             if(activationValue < 0){
                                                 activationValue = 0
                                             }
+                                            let correctedStartVal = Double(activationValue ) - minValue
+                                            self.percentage = Float((correctedStartVal * 100) / (100 - minValue))
+                                            self.sliderIcons = ["drop","drop.fill"]
                                         }
                                     }
                             }
                         }
                     }
-                    Picker("Options", selection: $condition) {
-                        ForEach(0 ..< settings.count) { index in
-                            Text(self.settings[index])
-                                .tag(index)
-                        }
-                        
-                    }.pickerStyle(SegmentedPickerStyle())
                     HStack{
-                        Text("Activation Value:")
-                        Spacer()
-                        Text("\(String(format: "%.0f%", activationValue))") + Text("\(selectedSensor?.type == "sensor_temperature" ? "°C" : "%")")
+                        Text("Condition:")
+                        Picker("Options", selection: $condition) {
+                            ForEach(0 ..< settings.count) { index in
+                                Text(self.settings[index])
+                                    .tag(index)
+                            }
+                        }
+                        .onChange(of: condition){ end in
+                            selectionFeedbackGenerator.selectionChanged()
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
                     }
-                    Slider(value: $activationValue,
-                           in: minValue...maxValue,
-                           step:1,
-                           minimumValueLabel: Text("\(String(format: "%.0f%",minValue))"),
-                           maximumValueLabel: Text("\(String(format: "%.0f%",maxValue))"),label:{Text("\(String(format: "%.0f%", activationValue))")})
+//                    HStack{
+//                        Text("Activation Value:")
+//                        Spacer()
+//                        Text("\(String(format: "%.0f%", activationValue))") + Text("\(selectedSensor?.type == "sensor_temperature" ? "°C" : "%")")
+//                    }
+//                    Slider(value: $activationValue,
+//                           in: minValue...maxValue,
+//                           step:1,
+//                           minimumValueLabel: Text("\(String(format: "%.0f%",minValue))"),
+//                           maximumValueLabel: Text("\(String(format: "%.0f%",maxValue))"),label:{Text("\(String(format: "%.0f%", activationValue))")})
+                    slider
                     
-                }
-                if(automatization.devices.count > 0){
-                VStack(alignment: .leading){
-                    Text("Automatizations")
-                        .textCase(nil)
-                        .font(.system(size:25, weight: .semibold))
-                        .foregroundColor(Color(UIColor.init(named:"textColor")!))
-                    Text("Allow your devices to react based on time or sensor values.")
-                        .textCase(nil)
-                        .foregroundColor(Color(UIColor.init(named:"textColor")!))
-                    
-                }.listRowBackground(Color(UIColor.init(named:"bgColor")!))
                 }
                 ForEach(dvcObj.getDevicesInAutomatization(automatization: automatization)){ dvcsInRoom in
                     Section(header: Text(dvcsInRoom.roomName)){
@@ -153,9 +157,13 @@ struct AddSensorBasedAutomatizationView: View {
 //            }){
 //                Image(systemName: "xmark.circle.fill")
 //                    .font(.system(size:25, weight: .bold)).accentColor(.gray)})
-        }.onAppear(perform: {
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: {
             dvcObj.createAutomatization(automatization: automatization)
             dvcObj.continueRefresh = false
+        })
+        .onDisappear(perform: {
+            dvcObj.validateAutomatizations()
         })
         
     }
@@ -175,7 +183,44 @@ struct AddSensorBasedAutomatizationView: View {
                 Text("")
             }
         }
-       
+    }
+    
+    var slider: some View {
+        GeometryReader { geometry in
+            // TODO: - there might be a need for horizontal and vertical alignments
+            ZStack(alignment: .leading) {
+                
+                Rectangle()
+                    //                        .foregroundColor(.gray)
+                    .foregroundColor(Color(UIColor(.init(.systemGray3))))
+                
+                Rectangle()
+                    //                        .foregroundColor(.accentColor)
+                    .foregroundColor(Color(UIColor(.init(.systemGray))))
+                    
+                    .frame(width: geometry.size.width * CGFloat(self.percentage / 100))
+                    .animation(.linear(duration: 0.1))
+                
+                HStack{
+                    Image(systemName: sliderIcons[0])
+                    Spacer()
+                    Text("\(String(format: "%.0f%",activationValue))") + Text("\(selectedSensor?.type == "sensor_temperature" ? "°C" : "%")")
+                    Spacer()
+                    Image(systemName: sliderIcons[1])
+                    
+                }.padding(.horizontal,5)
+            }
+            .cornerRadius(12)
+            .gesture(DragGesture(minimumDistance: 0)
+                        .onChanged({ value in
+                            self.percentage = min(max(0, Float(value.location.x / geometry.size.width * 100)), 100)
+                            self.activationValue =  ((100 - minValue) * (Double(percentage)/100) + minValue).rounded()
+                        }).onEnded({_ in
+                            automatization.sensor_value = Float(activationValue)
+                            dvcObj.updateAutomatization(automatization: automatization)
+                        })
+            )
+        }
     }
 }
 

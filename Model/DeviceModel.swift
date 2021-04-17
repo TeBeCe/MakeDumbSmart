@@ -123,7 +123,7 @@ class LoadJSONData : ObservableObject {
 //                }
             }
             else{
-                print(error!)
+                print(error!.localizedDescription)
             }
         }.resume()
         DispatchQueue.main.asyncAfter(deadline: .now() + updateFreq){[self] in
@@ -1080,6 +1080,10 @@ class LoadJSONData : ObservableObject {
         else{
             return nil
         }
+    }
+    
+    func validateAutomatizations(){
+        automatizations.removeAll(where: {$0.id == 0})
     }
 
 }

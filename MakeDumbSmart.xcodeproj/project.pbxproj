@@ -208,7 +208,6 @@
 				BCC6FCD5257E8E8A00481D44 /* DeviceInSceneView.swift */,
 				BCC6FCD8257E933E00481D44 /* SceneListItemView.swift */,
 				BC56EBEF25F7C96700201DAD /* GlyphSelectionView.swift */,
-				BC589C57261EFBF400FF8DB1 /* CheckableSensorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -307,6 +306,7 @@
 				BC3B311225BB375A00CFF544 /* SensorChartView.swift */,
 				BC15F8BD25C60C5A00754439 /* SensorChartsView.swift */,
 				BC16346E25C6E48A00ACAF78 /* SensorDetailView.swift */,
+				BC589C57261EFBF400FF8DB1 /* CheckableSensorView.swift */,
 			);
 			name = SensorViews;
 			sourceTree = "<group>";

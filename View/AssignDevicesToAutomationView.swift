@@ -38,7 +38,7 @@ struct AssignDevicesToAutomationView: View {
                 }
             }
             .navigationBarTitle(Text("Add / Remove Accesory"), displayMode: .inline)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

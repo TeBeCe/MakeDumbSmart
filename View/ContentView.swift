@@ -23,7 +23,8 @@ struct ContentView: View {
     let animationDuration = 0.1
     
     let columns = [
-        GridItem(.adaptive(minimum: 100, maximum: 120))]
+        GridItem(.adaptive(minimum: 120, maximum: 120))]
+//        GridItem(.flexible(minimum: 120, maximum: 120))]
     let rows = [
         GridItem(.fixed(55)),
         GridItem(.fixed(55))
@@ -89,7 +90,7 @@ struct ContentView: View {
                 VStack(alignment: .leading){
                     Text("Favorite Functions").padding(.leading, 20)
                     
-                    LazyVGrid(columns: columns, spacing: 10){
+                    LazyVGrid(columns: columns,alignment: .leading, spacing: 10){
                         ForEach(dvcObj.devices.indices,id: \.self ) { indx in
                             Button(action: {
                                 self.selectedDevice = self.dvcObj.devices[indx]
@@ -149,10 +150,11 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     }
                 })
+                Divider()
                 Button(action: {self.activeSheet = .fourth}, label: {
                     HStack{
-                        Text("Add Automatization")
-                        Image(systemName: "plus")
+                        Text("Manage Automatization")
+                        Image(systemName: "deskclock.fill")
                     }
                 })
             } label: {
@@ -197,7 +199,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environment(\.locale, Locale(identifier: "sk"))
+//            .environment(\.locale, Locale(identifier: "sk"))
 //            .previewDevice("iPhone 11")
 
     }

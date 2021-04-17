@@ -28,7 +28,7 @@ struct AddSceneView: View {
         NavigationView {
             VStack{
                 List{
-                    Section(){
+                    Section(footer: footerDevices){
                         HStack{
                             NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                             Image(systemName: scene.glyph )
@@ -108,7 +108,8 @@ struct AddSceneView: View {
             }
             .navigationBarTitle(Text("Add Scene"), displayMode: .inline)
 
-        }.onAppear(perform: {
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: {
             dvcObj.continueRefresh = false
             dvcObj.createScene(scene: scene)
         })
@@ -116,6 +117,23 @@ struct AddSceneView: View {
             dvcObj.continueRefresh = true
             dvcObj.loadData()
         })
+    }
+    
+    private var footerDevices : some View {
+           VStack(alignment: .leading){
+            if(scene.devices.count > 0){
+                Text("Devices")
+                    .textCase(nil)
+                    .font(.system(size:25, weight: .semibold))
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+                Text("Configure devices in scene \(scene.scene_name) by pushing or holding")
+                    .textCase(nil)
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+            }
+            else{
+                Text("")
+            }
+        }
     }
 }
 

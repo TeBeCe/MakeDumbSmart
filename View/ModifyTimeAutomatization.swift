@@ -51,6 +51,7 @@ struct ModifyTimeAutomatization: View {
                             Circle()
                                 .foregroundColor(automatization.days![ind] ? .orange : .gray)
                                 .onTapGesture {
+                                    selectionFeedbackGenerator.selectionChanged()
                                     automatization.days![ind].toggle()
                                     dvcObj.updateAutomatization(automatization: automatization)
                                     dvcObj.updateBackendAutomatization(automatizationx: automatization)
@@ -93,6 +94,14 @@ struct ModifyTimeAutomatization: View {
                     AssignDevicesToAutomationView(dvcObj: dvcObj, automatization: $automatization, devicesInRoom: dvcObj.getDevicesInRooms())
                 }
             }
+            Section(){
+                Button(action: {
+                    dvcObj.deleteBackendAutomatization(automatization: automatization)
+                    self.showSelf = false
+                }){
+                    Text("Delete Automatization").foregroundColor(.red)
+                }
+            }
         }.sheet(item: $selectedDevice){ device in
             SceneDeviceDetailView(sd: $selectedDevice, dvcObj: dvcObj, device: device, automatization: automatization)
         }
@@ -133,6 +142,6 @@ struct ModifyTimeAutomatization: View {
 
 struct ModifyTimeAutomatization_Previews: PreviewProvider {
     static var previews: some View {
-        ModifyTimeAutomatization(dvcObj: LoadJSONData(), addAutType: .constant(nil), automatization: Automatization(id: 0,devices: [], scenes:[]), showSelf: .constant(true))
+        ModifyTimeAutomatization(dvcObj: LoadJSONData(), addAutType: .constant(nil), automatization: Automatization(id: 0,devices: [], scenes:[], time: "",days: Array.init(repeating: true, count: 7)), showSelf: .constant(true))
     }
 }

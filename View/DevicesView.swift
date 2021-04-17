@@ -8,24 +8,6 @@
 
 import SwiftUI
 
-func getRoomFrom(rooms: [Room], device: Device) -> String{
-    
-    if let indx = rooms.firstIndex(where: {$0.id == device.room}){
-        return rooms[indx].room_name
-    }
-    else{
-        return ""
-    }
-}
-func getModuleNameFrom(modules: [Module], device: Device) -> String{
-    
-    if let indx = modules.firstIndex(where: {$0.id == device.module_id}){
-        return modules[indx].module_name
-    }
-    else{
-        return ""
-    }
-}
 
 struct DevicesView: View {
     var device : Device

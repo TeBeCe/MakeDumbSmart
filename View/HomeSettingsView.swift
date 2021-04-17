@@ -13,6 +13,7 @@ struct HomeSettingsView: View {
     @AppStorage("use_biometrics") var useBiometrics = true
     @AppStorage("update_frequency") var updateFreq = 15.0
     @AppStorage("wallpaper") var wallpaper = images[0]
+//    @State var wallpaper = images[0]
     
     @AppStorage("ask_biometrics") var askBiomOnLogIn = false
 
@@ -44,6 +45,7 @@ struct HomeSettingsView: View {
                                         .scaledToFit()
                                         .onTapGesture {
                                             wallpaper = i
+                                            print(dvcObj.home)
                                         }.border(Color.orange, width: wallpaper == i ? 2 : 0)
                                 }
                             }
@@ -69,7 +71,7 @@ struct HomeSettingsView: View {
                         }
                         
                     }
-                    Section(header: Text("Update frequency")) {
+                    Section(header: Text("Update frequency"),footer: Text("Choose your suitable update interval")) {
                         HStack{
                             Text("Frequency")
                             Spacer()
@@ -102,6 +104,14 @@ struct HomeSettingsView: View {
                 }
                 
             }.navigationBarTitle(Text("Home Settings"), displayMode: .inline)
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(
+            perform: {
+                dvcObj.continueRefresh = false
+            })
+        .onDisappear {
+            dvcObj.continueRefresh = true
+            dvcObj.loadData()
         }
     }
 }

@@ -10,54 +10,50 @@ import SwiftUI
 import LocalAuthentication
 
 struct CrossroadView: View {
-//    @ObservedObject var loginMng = loadLoginJSONData()
+    //    @ObservedObject var loginMng = loadLoginJSONData()
     @State private var isUnlocked = false
     @AppStorage("register") var register = false
-
+    @AppStorage("wallpaper") var wallpaper = images[0]
+    @State var wlp : String?
     @AppStorage("logged_status") var validated = false
     @AppStorage("use_biometrics") var useBiometrics = false
     @AppStorage("first_run_done") var firstRunDone = false
     
-    @StateObject var dvcObj: LoadJSONData = LoadJSONData()
-
+//    @StateObject var dvcObj: LoadJSONData = LoadJSONData()
+    
     var body: some View {
         if(validated){
             if(firstRunDone){
-                if(isUnlocked){
-//                    TabView {
-                        ContentView()
-//                            .tabItem {
-//                            Label("Home", systemImage: "house.fill")
-//                        }
-//                            .environmentObject(dvcObj)
-//
-//                        Text("Room").tabItem{
-//                            Label("Rooms", systemImage: "list.dash")
-//                        }.environmentObject(dvcObj)
-//
-//                        AutomatizationsView(/*dvcObj: dvcObj, */activeSheet: .constant(nil)).tabItem {
-//                            Label("Automatizations", systemImage: "list.dash")
-//                        }.environmentObject(dvcObj)
-                        
-//                    }
-//                .onAppear(perform: {
-//                        dvcObj.loadData()
-//                    }).onDisappear(perform: {
-//                        print("ContetnView dissapear")
-//                        dvcObj.continueRefresh = false
-//                    })
+                if(isUnlocked ){
+                    ContentView()
                 }
                 else{
-                    Text("unlock").onAppear(perform: {
-                        authenticate()
+                    VStack{
+                        Spacer()
+                        HStack{Spacer()
+                            Image(systemName: "touchid")
+                                .font(.title)
+                                .onTapGesture {
+                                    print("touchy")
+                                    authenticate()
+                                }
+                            Spacer()
+                        }
+                        Text("Tap to unlock")
+                        Spacer()
+                    }
+                    .background(Image(decorative: wlp ?? images[0])
+                                    
+                                    .resizable()
+                                    .blur(radius: 10, opaque: true))
+                    .edgesIgnoringSafeArea(.all)
+                    .onAppear(perform: {
+                        print("appared")
+                        wlp = wallpaper
+                        useBiometrics ? (isUnlocked = false) : (isUnlocked = true)
+                        useBiometrics ? authenticate() : print("")
                     })
                 }
-                
-                //                if(!isUnlocked){
-                //                    Image(systemName: "touchid")
-                //
-                //                }
-                //                    ContentView().blur(radius: isUnlocked ? 0 : 10)
             }else{
                 FirstRunView()
             }
@@ -100,8 +96,8 @@ struct CrossroadView: View {
 struct CrossroadView_Previews: PreviewProvider {
     static var previews: some View {
         CrossroadView()
-//            .environmentObject(LoadJSONData())
-//            .previewDevice("iPad Pro (12.9-inch) (4th generation)")
-
+        //            .environmentObject(LoadJSONData())
+        //            .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+        
     }
 }

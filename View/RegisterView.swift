@@ -53,7 +53,9 @@ struct RegisterView: View {
             }
             .padding(.all,10)
             .border(Color(UIColor.init(named:"textColor")!))
-            
+            if(loginMng.errorMsg != ""){
+                Text(loginMng.errorMsg)
+            }
             Button(action: {
                 loginMng.registerData(mail: userName, password: userPwd)
             }) {

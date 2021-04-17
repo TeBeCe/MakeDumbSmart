@@ -58,7 +58,7 @@ struct SceneDeviceDetailView: View {
                                         Spacer()
                                     }, trailing: Button(action:{self.sd = nil}){Image(systemName: "xmark.circle.fill")
                                         .font(.system(size:25, weight: .bold)).accentColor(.gray)})
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

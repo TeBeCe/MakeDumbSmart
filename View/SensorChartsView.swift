@@ -86,12 +86,11 @@ struct SensorChartsView: View {
     }
     
     var body: some View {
-//        GeometryReader { geo in
         ZStack {
             if(data.count > 1){
                 gridBody
                 chartBody
-                chartXLabel
+                chartXLabel.offset(y:20)
                 chartYLabel}
             if(showIndicator){
                 Circle().position(self.closestPoint).frame(width: 10, height: 10)
@@ -102,13 +101,10 @@ struct SensorChartsView: View {
                                         : (130 + self.closestPoint.y + 5))
                     )
             }
-            
         }
-//        .frame(width: geo.size.width * 0.95,height: 250)
         .frame(width:400, height:250)
-        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-            
-//        }
+//        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+        
     }
     
     private var gridBody: some View {
@@ -119,14 +115,14 @@ struct SensorChartsView: View {
                 print("xStepWidth: \(xStepWidth)")
                 
                 // Y axis lines
-                (1...self.yStepsCount).forEach { index in
+                (0...self.yStepsCount).forEach { index in
                     let y = CGFloat(index) * yStepWidth
                     path.move(to: .init(x: 0, y: y))
                     path.addLine(to: .init(x: geometry.size.width, y: y))
                 }
                 
                 // X axis lines
-                (1...6).forEach { index in
+                (0...6).forEach { index in
                     let x = CGFloat(index) * xStepWidth
                     path.move(to: .init(x: x, y: 0))
                     path.addLine(to: .init(x: x, y: geometry.size.height))
@@ -174,6 +170,7 @@ struct SensorChartsView: View {
                 }
             }
             .gesture(DragGesture().onChanged({value in
+                print(value)
                 self.showIndicator = true
                 self.closestPoint = getClosestDataPoint(toPoint: value.location, width: geometry.size.width, height: geometry.size.height)
             }).onEnded({value in
@@ -324,6 +321,6 @@ struct LineChartProvider {
 struct SensorChartsView_Previews: PreviewProvider {
     static var previews: some View {
         SensorChartsView(device: Device(id: 0, device_name: "xxx", device: nil, reseting: false, glyph: "lightbulb", is_active: false, type: "sensor_temp", value: 24.0, max_level: 100, room: 1, processing: 0))
-            .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+//            .previewDevice("iPad Pro (12.9-inch) (4th generation)")
     }
 }

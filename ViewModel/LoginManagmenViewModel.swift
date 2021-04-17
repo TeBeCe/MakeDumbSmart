@@ -45,7 +45,6 @@ class loadLoginJSONData: ObservableObject{
                         
 //                        let dataString = String(data: data, encoding: .utf8)
 //                        print("Response data string:\n \(dataString ?? "error")")
-                        print("loggedIn")
                         print(self.loggedUser)
                         if(self.loggedUser.user_id != nil && self.loggedUser.error == nil){
                             self.loggedIn = true
@@ -135,7 +134,7 @@ class loadLoginJSONData: ObservableObject{
         let postString = param
         print(postString)
         // Set HTTP Request Body
-//        request.httpBody = postString.data(using: String.Encoding.utf8);
+        request.httpBody = postString.data(using: String.Encoding.utf8);
         
         URLSession.shared.dataTask(with: request){data, response,error in
             if let data = data {
@@ -149,6 +148,7 @@ class loadLoginJSONData: ObservableObject{
 //                        print("loggedIn")
 //                        print(self.loggedUser)
                         if(self.loggedUser.user_id != nil && self.loggedUser.error == nil){
+                            self.firstRunDone = self.loggedUser.createdHome ?? false
                             self.loggedIn = true
                             self.userId = self.loggedUser.user_id ?? 0
                         }

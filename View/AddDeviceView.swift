@@ -31,7 +31,8 @@ struct AddDeviceView: View {
             .navigationBarItems(trailing: Button(action:{self.activeSheet = nil}){
                                     Image(systemName: "xmark.circle.fill")
                                         .font(.system(size:25, weight: .bold)).accentColor(.gray)})
-        }.onAppear(perform: {
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: {
             newIRFunctions.loadData(param: "");
             print(newIRFunctions.similarIRDevices)
             dvcObj.continueRefresh = false

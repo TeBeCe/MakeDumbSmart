@@ -36,11 +36,7 @@ struct SceneSettingsView: View {
         NavigationView {
             VStack{
                 List{
-                    Section(footer:
-                                VStack(alignment: .leading){
-                                    Text("Devices").font(.system(size:25, weight: .semibold))
-                                    Text("Configure devices in scene \(scene.scene_name) by pushing or holding devices")
-                                }){
+                    Section(footer: footerDevices){
                         HStack{
                             NavigationLink(destination: GlyphSelectionView(selectedGlyph: $scene.glyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                             Image(systemName: scene.glyph )
@@ -64,7 +60,7 @@ struct SceneSettingsView: View {
                                     dvcObj.updateScene(scene: scene)
                                 }
                             .disableAutocorrection(true)
-                        }.padding(.leading, -10)
+                        }.padding(.leading, -20)
                     }
 
 //                    TODO: Rework variables
@@ -122,7 +118,8 @@ struct SceneSettingsView: View {
                                         Text(scene.scene_name).font(.system(size:17, weight: .semibold))
                                     }, trailing: Button(action:{self.sc = nil}){Image(systemName: "xmark.circle.fill")
                                         .font(.system(size:25, weight: .bold)).accentColor(.gray)}).navigationBarTitleDisplayMode(.inline)
-        }.onAppear(perform:{
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform:{
                     print(scene)
         })
         .onDisappear(perform: {
@@ -130,6 +127,22 @@ struct SceneSettingsView: View {
 //            print(scene)
             dvcObj.updateBackendScene(scenex: scene)
         })
+    }
+    private var footerDevices : some View {
+           VStack(alignment: .leading){
+            if(scene.devices.count > 0){
+                Text("Devices")
+                    .textCase(nil)
+                    .font(.system(size:25, weight: .semibold))
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+                Text("Configure devices in scene \(scene.scene_name) by pushing or holding")
+                    .textCase(nil)
+                    .foregroundColor(Color(UIColor.init(named:"textColor")!))
+            }
+            else{
+                Text("")
+            }
+        }
     }
 }
 
