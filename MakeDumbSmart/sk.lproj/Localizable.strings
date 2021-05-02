@@ -7,6 +7,12 @@
 */
 
 /* No comment provided by engineer. */
+"Bad login and/or password" = "zly login ci heslo";
+
+/* No comment provided by engineer. */
+"Login Error" = "problem s prihlasenim";
+
+/* No comment provided by engineer. */
 " " = " ";
 
 /* No comment provided by engineer. */
@@ -345,3 +351,4 @@
 /* No comment provided by engineer. */
 "Wallpaper" = "Wallpaper";
 
+"Temperature" = "Teplota";

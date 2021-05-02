@@ -86,6 +86,9 @@ struct RegisterView: View {
                 }
             }
         }.padding(.horizontal,40)
+        .alert(isPresented: $loginMng.presentAlert) {
+            Alert(title: Text("Register Error"), message: Text(LocalizedStringKey(loginMng.errorMsg)))
+        }
     }
 }
 

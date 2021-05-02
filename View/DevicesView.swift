@@ -39,11 +39,11 @@ struct DevicesView: View {
                   }
                 }
                 
-                
                 Text(device.device_name)
                     .fontWeight(.regular)
                     .foregroundColor(device.is_active ? Color(.black) : Color(UIColor.init(named:"textColor")!))
                     .font(.system(size:16))
+                    .allowsTightening(true).lineLimit(1)
                 //.padding(.top,1)
                 //.multilineTextAlignment(.leading)
                 Text(device.device ?? "nil")

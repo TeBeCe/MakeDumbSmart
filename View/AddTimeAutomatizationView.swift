@@ -12,7 +12,7 @@ struct AddTimeAutomatizationView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var addAutType: automatizationType?
     @State var sheetAutomatization: Automatization? = nil
-    var days : [String] = ["mo","tu","we","th","fr","sa","su"]
+    @State var days : [String]=[] //["mo","tu","we","th","fr","sa","su"]
     @State var automatization = Automatization(id: 0,devices:[],scenes: [],time: getStringFromDate(date: Date()))
     @State var selectedDays : [Bool] = Array.init(repeating: true, count: 7)
     @State var time = Date()
@@ -49,7 +49,8 @@ struct AddTimeAutomatizationView: View {
                                         selectionFeedbackGenerator.selectionChanged()
                                     }
                                     .frame(height: 50)
-                                Text(days[ind]).foregroundColor(.white)
+                                Text(days[ind])
+                                    .foregroundColor(.white)
                             }
                         }
                     }
@@ -112,6 +113,10 @@ struct AddTimeAutomatizationView: View {
 //                    .font(.system(size:25, weight: .bold)).accentColor(.gray)})
         }.navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: {
+            let calendar = Calendar(identifier: .gregorian)
+            self.days = calendar.weekdaySymbols
+            self.days = Array(days[2-1..<days.count]) + days[0..<2-1]
+            
             dvcObj.createAutomatization(automatization: automatization)
             dvcObj.continueRefresh = false
         })

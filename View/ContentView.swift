@@ -128,8 +128,7 @@ struct ContentView: View {
             print("ContetnView dissapear")
             dvcObj.continueRefresh = false
         })
-        .background(Image(decorative: wallpaper)
-                        .resizable())
+        .background(Image(decorative: wallpaper).resizable())
         .navigationTitle(dvcObj.home.home_name)
         .edgesIgnoringSafeArea(.all)
         

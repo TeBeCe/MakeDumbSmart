@@ -27,7 +27,7 @@ struct LoginView: View {
                     TextField("Email", text: $userMail)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
-                        
+                    
                 }
                 .padding(.all,10)
                 .border(Color(UIColor.init(named:"textColor")!))
@@ -37,7 +37,7 @@ struct LoginView: View {
                     SecureField("Password", text: $password)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
-                        
+                    
                 }
                 .padding(.all,10)
                 .border(Color(UIColor.init(named:"textColor")!))
@@ -73,6 +73,9 @@ struct LoginView: View {
                     }
                 }
             }.padding(.horizontal, 40)
+            .alert(isPresented: $loginMng.presentAlert) {
+                Alert(title: Text("Login Error"), message: Text(LocalizedStringKey(loginMng.errorMsg)))
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ struct FirstRunView: View {
     @AppStorage("logged_status") var validated = false
     @AppStorage("first_run_done") var firstRunDone = false
     @AppStorage("register") var register = false
-
+    
     //to delete
     
     @ObservedObject var loginMng = loadLoginJSONData()
@@ -49,172 +49,163 @@ struct FirstRunView: View {
     @State var sensors : [newSensor] = []
     @State var showPicker : Bool = false
     @State var showPickerMod : Bool = false
-
+    
     @State var pin : String = ""
     var body: some View {
-        //        TabView {
-        Form {
-//            Label("Test")
-//            Text("First Run Configuration").font(.system(size: 20, weight: .semibold))
-            //                    VStack(alignment: .leading) {
-            Section(header: Text("Set Home Name")) {
-                TextField("E.g. Sweet Home", text: $homeName, onEditingChanged: { editing in
-                    if !editing{
-                        
-                    }
-                }).disableAutocorrection(true)
-            }
-            Section(header: Text("Set Defaul Room Name")) {
-                TextField("E.g Bedroom", text: $roomName, onEditingChanged: { editing in
-                    if !editing{
-                        
-                    }
-                }).disableAutocorrection(true)
-            }
-            Section(header: Text("Add Modules")) {
-                List{
-                    ForEach(modules, id: \.self){ module in
-                        
-                        Text(module)
-                    
-                    }.onDelete(perform: { indexSet in
-                        
-                        let deletedModuleIndex = Array(indexSet)[0]
-                        print(deletedModuleIndex)
-                        modules.remove(atOffsets: indexSet)
-                    })
-                    HStack{
-                        TextField("Module Name",text: $moduleName)
-                            .disableAutocorrection(true)
-                        Button(action:{
-                            modules.isEmpty ? assignedToModule = moduleName : nil
-                            modules.append(moduleName)
-                            moduleName = ""
-                        } ){
-                            Text("Create Module")
-                        }.disabled(moduleName == "" ? true : false)
-                        .help(Text("Help Content"))
-                    }
+        NavigationView{
+            Form {
+                Section(header: Text("Set Home Name")) {
+                    TextField("e.g. Sweet Home", text: $homeName, onEditingChanged: { editing in
+                        if !editing{
+                            
+                        }
+                    }).disableAutocorrection(true)
                 }
-            }
-            Section(header: Text("Add Sensors")) {
-                List{
-                    ForEach(sensors, id: \.self){ sensor in
-                        VStack(alignment: .leading){
-                            HStack{
-                                Text(sensor.sensorName)
-                                Spacer()
-                                Text(String(sensor.arduinoPin))
-                            }
-                            Text(sensor.sensorType)
-                            Text("\(sensor.assignedModule)")
+                Section(header: Text("Set Defaul Room Name"),footer: Text("Set default room name. This room cannot be edited later.")) {
+                    TextField("e.g Bedroom", text: $roomName, onEditingChanged: { editing in
+                        if !editing{
+                            
                         }
-                    }.onDelete(perform: { indexSet in
-                        
-                        let deletedModuleIndex = Array(indexSet)[0]
-                        print(deletedModuleIndex)
-                        sensors.remove(atOffsets: indexSet)
-                    })
-                    VStack{
-                        HStack{
-                            Text("Sensor Type")
-                            Spacer()
-                            Text(sensorType)
-                                .foregroundColor(.orange)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture(perform: {
-                            //withAnimation(.linear(duration:0.2)){
-                            self.showPicker.toggle()
-                            //}
+                    }).disableAutocorrection(true)
+                }
+                Section(header: Text("Add Modules"),footer: Text("Set default module name. This module cannot be edited later.")) {
+                    List{
+                        ForEach(modules, id: \.self){ module in
+                            
+                            Text(module)
+                            
+                        }.onDelete(perform: { indexSet in
+                            
+                            let deletedModuleIndex = Array(indexSet)[0]
+                            print(deletedModuleIndex)
+                            modules.remove(atOffsets: indexSet)
                         })
-                        if self.showPicker {
-                            Picker(selection: $sensorType, label: Text("Sensor")) {
-                                ForEach(sensorTypeArray,id: \.self){
-                                    Text($0).tag($0)
-                                }
-                            }.onChange(of: sensorType){ _ in
-                                print("picker changed")
-                                //device.room = dvcObj.rooms[roomIndex-1].id
-                            }
-                            .pickerStyle(InlinePickerStyle())
-                        }
-                        
                         HStack{
-                            Text("Assign to module")
-                            Spacer()
-                            Text(assignedToModule)
-                                .foregroundColor(.orange)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture(perform: {
-                            //withAnimation(.linear(duration:0.2)){
-                            self.showPickerMod.toggle()
-                            //}
-                        })
-                        if self.showPickerMod {
-                            Picker(selection: $assignedToModule, label: Text("Sensor")) {
-                                ForEach(modules,id: \.self){
-                                    Text($0).tag($0)
-                                }
-                            }.onChange(of: assignedToModule){ _ in
-                                print("picker changed")
-                                //device.room = dvcObj.rooms[roomIndex-1].id
-                            }
-                            .pickerStyle(InlinePickerStyle())
-                        }
-                        HStack{
-                            Text("Arduino Pin")
-                            Spacer()
-                            TextField("Pin",text: $pin).frame(width:25)
-                                .disableAutocorrection(true)
-                                .keyboardType(.numberPad)
-                                .onReceive(Just(pin)) { newValue in
-                                    let filtered = newValue.filter { "0123456789".contains($0) }
-                                    if filtered != newValue {
-                                        self.pin = filtered
-                                    }
-                                }
-                        }
-                        HStack{
-                            TextField("Sensor Name",text: $sensorName)
+                            TextField("Module Name",text: $moduleName)
                                 .disableAutocorrection(true)
                             Button(action:{
-                                let sensor =  newSensor(sensorName: sensorName, sensorType: sensorType, arduinoPin: Int(pin) ?? 1, assignedModule: assignedToModule)
-                                sensors.append(sensor)
-                                sensorName = ""
+                                modules.isEmpty ? assignedToModule = moduleName : nil
+                                modules.append(moduleName)
+                                moduleName = ""
                             } ){
-                                Text("Create Sensor")
-                            }.disabled(sensorName == "" ? true : false)
+                                Text("Create Module")
+                            }.disabled(moduleName == "" ? true : false)
                             .help(Text("Help Content"))
                         }
                     }
                 }
+                Section(header: Text("Add Sensors"),footer: Text("Add sensor to your initial home \n • Select sensor type \n • Assign to created module \n • Assign to ArduinoPin ")) {
+                    List{
+                        ForEach(sensors, id: \.self){ sensor in
+                            VStack(alignment: .leading){
+                                HStack{
+                                    Text(sensor.sensorName)
+                                    Spacer()
+                                    Text(String(sensor.arduinoPin))
+                                }
+                                Text(sensor.sensorType)
+                                Text("\(sensor.assignedModule)")
+                            }
+                        }.onDelete(perform: { indexSet in
+                            
+                            let deletedModuleIndex = Array(indexSet)[0]
+                            print(deletedModuleIndex)
+                            sensors.remove(atOffsets: indexSet)
+                        })
+                        VStack{
+                            HStack{
+                                Text("Sensor Type")
+                                Spacer()
+                                Text(sensorType)
+                                    .foregroundColor(.orange)
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture(perform: {
+                                //withAnimation(.linear(duration:0.2)){
+                                self.showPicker.toggle()
+                                //}
+                            })
+                            if self.showPicker {
+                                Picker(selection: $sensorType, label: Text("Sensor")) {
+                                    ForEach(sensorTypeArray,id: \.self){
+                                        Text($0).tag($0)
+                                    }
+                                }.onChange(of: sensorType){ _ in
+                                    print("picker changed")
+                                    //device.room = dvcObj.rooms[roomIndex-1].id
+                                }
+                                .pickerStyle(InlinePickerStyle())
+                            }
+                            
+                            HStack{
+                                Text("Assign to module")
+                                Spacer()
+                                Text(assignedToModule)
+                                    .foregroundColor(.orange)
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture(perform: {
+                                //withAnimation(.linear(duration:0.2)){
+                                self.showPickerMod.toggle()
+                                //}
+                            })
+                            if self.showPickerMod {
+                                Picker(selection: $assignedToModule, label: Text("Sensor")) {
+                                    ForEach(modules,id: \.self){
+                                        Text($0).tag($0)
+                                    }
+                                }.onChange(of: assignedToModule){ _ in
+                                    print("picker changed")
+                                    //device.room = dvcObj.rooms[roomIndex-1].id
+                                }
+                                .pickerStyle(InlinePickerStyle())
+                            }
+                            HStack{
+                                Text("Arduino Pin")
+                                Spacer()
+                                TextField("Pin",text: $pin).frame(width:25)
+                                    .disableAutocorrection(true)
+                                    .keyboardType(.numberPad)
+                                    .onReceive(Just(pin)) { newValue in
+                                        let filtered = newValue.filter { "0123456789".contains($0) }
+                                        if filtered != newValue {
+                                            self.pin = filtered
+                                        }
+                                    }
+                            }
+                            HStack{
+                                TextField("Sensor Name",text: $sensorName)
+                                    .disableAutocorrection(true)
+                                Button(action:{
+                                    let sensor =  newSensor(sensorName: sensorName, sensorType: sensorType, arduinoPin: Int(pin) ?? 1, assignedModule: assignedToModule)
+                                    sensors.append(sensor)
+                                    sensorName = ""
+                                } ){
+                                    Text("Create Sensor")
+                                }.disabled(sensorName == "" ? true : false)
+                                .help(Text("Help Content"))
+                            }
+                        }
+                    }
+                }
+                Button(action:{
+                    let newHome = NewHome(homeName: homeName, roomName: roomName, modules: modules, sensors: sensors)
+                    print(newHome)
+                    loginMng.loadfirstRunData(newHome: newHome)
+                    //do create
+                } ){
+                    Text("Create new Home")
+                }.disabled(homeName == "" || modules.count < 1 || roomName == "")
+                Button(action:{
+                    validated = false
+                    register = false
+                }){
+                    Text("Back to login")
+                }
             }
-            Button(action:{
-                let newHome = NewHome(homeName: homeName, roomName: roomName, modules: modules, sensors: sensors)
-                print(newHome)
-                loginMng.loadfirstRunData(newHome: newHome)
-                //do create
-            } ){
-                Text("Create new Home")
-            }.disabled(homeName == "" || modules.count < 1 || roomName == "")
-            Button(action:{
-                validated = false
-                register = false
-            }){
-                Text("Back to login")
-            }
+            .navigationTitle("First Run")
+            .navigationBarTitleDisplayMode(.large)
         }
-        //                   Text("First")
-        //                   Text("Second")
-        //                   Text("Third")
-        //                   Text("Fourth")
-        //        }
-        //        .tabViewStyle(PageTabViewStyle())
-        //        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        
-        
     }
 }
 

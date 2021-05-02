@@ -23,7 +23,7 @@ struct DeviceSettingsView: View {
     var body: some View {
         VStack{
             Form{
-                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen")) {
+                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen.")) {
                     HStack{
                         NavigationLink(destination: GlyphSelectionView(selectedGlyph: $device.glyph, glyphArray: glyphSceneArray) ){
                             EmptyView()
@@ -108,8 +108,8 @@ struct DeviceSettingsView: View {
                             }
                         }.onChange(of: moduleIndex){ _ in
                             print("picker changed")
-                            device.module_id = dvcObj.modules[moduleIndex-1].id
-                            dvcObj.changeModuleInSceneDevices(device: device, toId: dvcObj.modules[moduleIndex-1].id)
+//                            device.module_id = dvcObj.modules[moduleIndex-1].id
+                            dvcObj.changeModuleInSceneDevices(device: device, toId: moduleIndex)
                             dvcObj.updateDevice(device: device)
                             dvcObj.updateBackendDevice(device: device)
                         }

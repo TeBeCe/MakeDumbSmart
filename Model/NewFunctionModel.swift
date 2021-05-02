@@ -34,17 +34,29 @@ struct SimilarNewFunction: Identifiable, Decodable {
     var similarIRDevices: [SimilarNewFunction]?
 }
 
+struct OtherNewFunction: Identifiable, Decodable {
+    let id : Int
+    var vendor : String
+    var deviceRealName : String
+    var functionName : String
+    var rawData : String?
+    var rawDataLen : String?
+    var otherIRDevices: [OtherNewFunction]?
+}
+
 struct NewIRFunctions : Decodable{
     var myIRDevices : [NewFunction]
     var similarIRDevices : [SimilarNewFunction]
+    var otherIRDevices : [OtherNewFunction]
 }
 
 class LoadJSONNewFunctionData : ObservableObject {
     var loading = true
     var param : String = ""
-    @Published var newFunctions = NewIRFunctions(myIRDevices:[],similarIRDevices:[])
+    @Published var newFunctions = NewIRFunctions(myIRDevices:[],similarIRDevices:[], otherIRDevices: [])
     @Published var myIRDevices = [NewFunction]()
     @Published var similarIRDevices = [SimilarNewFunction]()
+    @Published var otherIRDevices = [OtherNewFunction]()
     
     func loadData(param: String) {
         guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/get_new_devices.php") else { return }
@@ -64,6 +76,7 @@ class LoadJSONNewFunctionData : ObservableObject {
                         self.newFunctions = try! JSONDecoder().decode(NewIRFunctions.self, from: data)
                         self.myIRDevices = self.newFunctions.myIRDevices
                         self.similarIRDevices = self.newFunctions.similarIRDevices
+                        self.otherIRDevices = self.newFunctions.otherIRDevices
                         self.loading = false
 //                        print(self.similarIRDevices)
                     }
@@ -124,6 +137,25 @@ class LoadJSONNewFunctionData : ObservableObject {
             + "&function_module=\(device.module_id ?? 1)"
             + "&function_type=\(device.type)"
             + "&function_device=\(similarNewFunction.deviceRealName)"
+            + "&function_glyph=\(device.glyph )"
+            + "&function_is_active=\(device.is_active)"
+            + "&function_max_value=\(device.max_level ?? 1)" //TODO: set max value.
+            + "&function_room=\(device.room )"
+            + "&function_resetable=\(device.reseting)"
+        print(param)
+        self.genericBackendUpdate(param: param)
+    }
+    func nameAndCreateOtherFunction(otherNewFunction: OtherNewFunction, device: Device){
+        let param = "creation_type=similar" +
+            "&vendor=\(otherNewFunction.vendor )" +
+            "&device_real_name=\(otherNewFunction.deviceRealName )" +
+            "&function_name=\(device.device_name)" +
+            "&function_data_len=\(otherNewFunction.rawDataLen ?? "")" +
+            "&function_raw_data=\(otherNewFunction.rawData ?? "")"
+            + "&function_value=0.0"
+            + "&function_module=\(device.module_id ?? 1)"
+            + "&function_type=\(device.type)"
+            + "&function_device=\(otherNewFunction.deviceRealName)"
             + "&function_glyph=\(device.glyph )"
             + "&function_is_active=\(device.is_active)"
             + "&function_max_value=\(device.max_level ?? 1)" //TODO: set max value.

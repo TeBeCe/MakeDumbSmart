@@ -12,7 +12,7 @@ struct ModifyTimeAutomatization: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var addAutType: automatizationType?//to delete
     @State var sheetAutomatization: Automatization? = nil
-    var days : [String] = ["mo","tu","we","th","fr","sa","su"]
+    @State var days : [String] = []//["mo","tu","we","th","fr","sa","su"]
     @State var automatization: Automatization
     @State var selectedDays : [Bool] = Array.init(repeating: true, count: 7)
     @State var time = Date()
@@ -117,6 +117,9 @@ struct ModifyTimeAutomatization: View {
         .onAppear(perform: {
             time = getDateFromTimeString(dateString: automatization.time!) ?? Date()
             dvcObj.continueRefresh = false
+            let calendar = Calendar(identifier: .gregorian)
+            self.days = calendar.weekdaySymbols
+            self.days = Array(days[2-1..<days.count]) + days[0..<2-1]
         })
     }
         

@@ -22,6 +22,7 @@ class loadLoginJSONData: ObservableObject{
     @AppStorage("register") var register = false
     
     @Published var errorMsg: String = ""
+    @Published var presentAlert : Bool = false
     @Published var loggedUser: User = User(user_id: 0)
     
     func loadLoginData(mail: String, password: String){
@@ -53,6 +54,7 @@ class loadLoginJSONData: ObservableObject{
                         }
                         else{
                             self.errorMsg = self.loggedUser.error ?? ""
+                            self.presentAlert = true
                         }
                         
                         
@@ -98,14 +100,10 @@ class loadLoginJSONData: ObservableObject{
                         }
                         else{
                             self.errorMsg = self.loggedUser.error ?? ""
+                            self.presentAlert = true
                         }
-                        
-                        
                     }
                 }
-//                catch {
-//                    print("xxx")
-//                }
             }
             else{
                 print(error!)

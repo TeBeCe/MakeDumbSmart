@@ -12,50 +12,35 @@ struct TestingView2: View {
     var days : [String] = ["mon","tue","wen","thu","fri","sat","sun"]
     @State var selectedDays : [Bool] = [true,false,true,true,true,true,true]
     @State private var birthdate = Date()
+    @GestureState var isLong = false
          var body: some View {
-            VStack{
-                DatePicker("Date of Birth", selection: $birthdate, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(CompactDatePickerStyle())
-                HStack(){
-                    ForEach(0..<7){ind in
-                        ZStack{
-                            Circle()
-                                .foregroundColor(selectedDays[ind] ? .orange : .black )
-    //                            .size(CGSize(width: 50, height: 50))
-                                .onTapGesture {
-                                    selectedDays[ind].toggle()
-                                }
-                            Text(days[ind]).foregroundColor(.white)
-                        }
-                        .frame(height: 50)
-                    }
-                }.padding(.horizontal,10)
+            let lpG = LongPressGesture().updating($isLong) { (newVal, state, trans) in
+                state = newVal
             }
-//             NavigationView{
-//                VStack{
-//                    Text("blbl")
-//                ScrollView{
-//                    VStack{
-//                    ForEach(0..<50){_ in
-//                        HStack{
-//                            Text("bla")
-//                            Spacer()
+            VStack{
+                RoundedRectangle(cornerRadius: 25.0)
+                    .frame(width: 200, height: 200)
+                    .scaleEffect(isLong ? 2 : 1.0)
+                    .gesture(lpG)
+                    .animation(.easeIn(duration:isLong ? 2 : 0.35))
+                    
+//                DatePicker("Date of Birth", selection: $birthdate, displayedComponents: .hourAndMinute)
+//                            .datePickerStyle(CompactDatePickerStyle())
+//                HStack(){
+//                    ForEach(0..<7){ind in
+//                        ZStack{
+//                            Circle()
+//                                .foregroundColor(selectedDays[ind] ? .orange : .black )
+//    //                            .size(CGSize(width: 50, height: 50))
+//                                .onTapGesture {
+//                                    selectedDays[ind].toggle()
+//                                }
+//                            Text(days[ind]).foregroundColor(.white)
+//                        }
+//                        .frame(height: 50)
 //                    }
-//                    }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-//                    .background(Color.red)
-//                    .navigationBarTitle(Text("Title"))
-                    
-                    
-//                }
-//                }
-                
-                    
-//                }
-//                .background(Color.red)
-//                .edgesIgnoringSafeArea(.top)
-//                .navigationBarTitle(Text("Test"))
-
-//             }
+//                }.padding(.horizontal,10)
+            }
          }
      }
 

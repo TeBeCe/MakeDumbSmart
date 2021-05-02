@@ -12,6 +12,7 @@ struct DeviceFunctionSwitchView: View {
     //    @State var offsetY:CGFloat = -100.0
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
+    @Binding var syncMode : Bool
     @State var scene: Scene?
     @State var automatization: Automatization?
     
@@ -42,11 +43,17 @@ struct DeviceFunctionSwitchView: View {
                             }
                         }
                         else{
-                            //dvcObj.updateDevice(device: device)
-                            //dvcObj.updateBackendDevice(device: device)
-                            dvcObj.activateDevice(device: device)//WIP
-                            //dvcObj.activateBackendDevice(device: device, multiplier: 1)
-                            dvcObj.findAndActivateScene()
+                            if(syncMode ){
+                                dvcObj.updateDevice(device: device)
+                                dvcObj.updateBackendDevice(device: device)
+                            }
+                            else{
+                                //dvcObj.updateDevice(device: device)
+                                //dvcObj.updateBackendDevice(device: device)
+                                dvcObj.activateDevice(device: device)//WIP
+                                //dvcObj.activateBackendDevice(device: device, multiplier: 1)
+                                dvcObj.findAndActivateScene()
+                            }
                         }
                     }){
                 RoundedRectangle(cornerRadius:20, style: .continuous)
@@ -76,7 +83,7 @@ struct DeviceFunctionSwitchView: View {
 
 struct DeviceFunctionsView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionSwitchView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "name", device: nil, reseting: false, glyph: "lightbulb", is_active: true, type: "Switch", value: 1, max_level: nil, room: 1, processing: 0)) )
+        DeviceFunctionSwitchView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "name", device: nil, reseting: false, glyph: "lightbulb", is_active: true, type: "Switch", value: 1, max_level: nil, room: 1, processing: 0)), syncMode: .constant(false))
             .frame(width: 140, height: 400, alignment: .center)
             .preferredColorScheme(.dark)
     }

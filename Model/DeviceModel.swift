@@ -83,10 +83,11 @@ class LoadJSONData : ObservableObject {
     
     @AppStorage("update_frequency") var updateFreq = 15.0
     @AppStorage("logged_user_id") var userId = 0
-
+    var count = 0
     var continueRefresh = true
     
     func loadData() {
+        count += 1
         guard let url = URL(string: "https://divine-languages.000webhostapp.com/to_mobile.php") else { return }
         
         var request = URLRequest(url: url)
@@ -127,11 +128,16 @@ class LoadJSONData : ObservableObject {
             }
         }.resume()
         DispatchQueue.main.asyncAfter(deadline: .now() + updateFreq){[self] in
+            count -= 1
             if(continueRefresh){
                 print(updateFreq)
-                self.loadData()
+                print("count: \(count)")
+                if(count == 0){
+                    self.loadData()
+                    print("fetching")
+                }
             }
-            print("fetching")
+            
         }
 //        Timer.scheduledTimer(withTimeInterval: updateFreq, repeats: false){[weak self] timer in
 //            if((self?.continueRefresh) != nil){

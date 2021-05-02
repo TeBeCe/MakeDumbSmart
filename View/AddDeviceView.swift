@@ -25,6 +25,10 @@ struct AddDeviceView: View {
                     .tabItem {
                         Label("Similar Functions", systemImage: "square.and.pencil")
                     }
+                AddOtherFunctionView(activeSheet: $activeSheet, newIRFunctions: newIRFunctions, dvcObj: dvcObj)
+                    .tabItem {
+                        Label("Other Functions", systemImage: "square.and.pencil")
+                    }
             }
 
             .navigationBarTitle(Text("Add New Device"), displayMode: .inline)

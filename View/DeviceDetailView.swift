@@ -12,6 +12,7 @@ struct DeviceDetailView: View {
     @Binding var sd : Device?
     @ObservedObject var dvcObj : LoadJSONData
     @State var device : Device
+    @State var syncMode = false
     var body: some View {
         NavigationView(){
             VStack{
@@ -19,17 +20,17 @@ struct DeviceDetailView: View {
                 
                 switch device.type{
                 case "Switch":
-                    DeviceFunctionSwitchView(dvcObj: dvcObj, device: $device)
+                    DeviceFunctionSwitchView(dvcObj: dvcObj, device: $device, syncMode: $syncMode)
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     
                 case "Slider":
-                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device)
+                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, syncMode: $syncMode)
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     
                 case "Levels":
-                    DeviceFunctionLevelView(dvcObj: dvcObj, device: $device, levelArr: CalculateLevels(levels: device.max_level!))
+                    DeviceFunctionLevelView(dvcObj: dvcObj, device: $device, syncMode: $syncMode, levelArr: CalculateLevels(levels: device.max_level!))
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     
@@ -38,6 +39,12 @@ struct DeviceDetailView: View {
                 }
                 Spacer()
                 HStack(alignment: .top){
+                    Button(action: {self.syncMode.toggle()}, label: {
+                        Image(systemName: "wrench")
+                            .font(.system(size:30, weight: .bold))
+                    }).accentColor(syncMode ? .red :.gray)
+                    .padding(.leading, 20)
+                    
                     Spacer()
                     
                     NavigationLink(

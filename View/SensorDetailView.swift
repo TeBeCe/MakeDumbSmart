@@ -21,17 +21,12 @@ struct SensorDetailView: View {
                 Spacer()
                 HStack{
                     Spacer()
-//                GeometryReader { geo in
-                    
                     SensorChartsView(data: sensorObj.data, device: device)
                         //                SensorChartsView(device: device)
                         .onAppear(perform: {
                             sensorObj.loadData(param: "device_id=1" +
                                                 "&sensor_type=\(device.type == "sensor_temperature" ? "temp":"humid")")
                         })
-//                        .frame(width: geo.size.width*0.95)
-//                }
-//                .frame(height:250)
                     Spacer()
                 }.padding(.bottom, 10)
                 Text("n Hours Max")

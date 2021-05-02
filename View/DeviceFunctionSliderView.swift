@@ -11,6 +11,7 @@ import SwiftUI
 struct DeviceFunctionSliderView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
+    @Binding var syncMode: Bool
     @State var scene : Scene?
     @State var automatization : Automatization?
     
@@ -33,6 +34,7 @@ struct DeviceFunctionSliderView: View {
 //                            self.device.value = Float(Int(100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)))
                             self.device.value = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
                             self.device.is_active = self.device.value == 0.0 ? false : true
+                            
                             if(scene != nil && automatization == nil){
                                 dvcObj.updateDeviceInScene(scene: scene!, device: device)
                             }
@@ -54,9 +56,15 @@ struct DeviceFunctionSliderView: View {
                                 }
                             }
                             else{
-                                dvcObj.activateDevice(device: device)//WIP
-                                dvcObj.updateBackendDevice(device: device)
-                                dvcObj.findAndActivateScene()
+                                if(syncMode ){
+                                    dvcObj.updateDevice(device: device)
+                                    dvcObj.updateBackendDevice(device: device)
+                                }
+                                else{
+                                    dvcObj.activateDevice(device: device)//WIP
+                                    dvcObj.updateBackendDevice(device: device)
+                                    dvcObj.findAndActivateScene()
+                                }
                             }
                         }
                     )
@@ -68,6 +76,6 @@ struct DeviceFunctionSliderView: View {
 struct DeviceFunctionSliderView_Previews: PreviewProvider {
     
     static var previews: some View {
-        DeviceFunctionSliderView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device_name", device: "", reseting: false, glyph: "lightbulb", is_active: true, type: "Slider", value: 1, max_level: 30, room: 1, processing: 0))).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionSliderView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device_name", device: "", reseting: false, glyph: "lightbulb", is_active: true, type: "Slider", value: 1, max_level: 30, room: 1, processing: 0)), syncMode: .constant(false)).preferredColorScheme(.dark).frame(width: 140, height: 400, alignment: .center)
     }
 }

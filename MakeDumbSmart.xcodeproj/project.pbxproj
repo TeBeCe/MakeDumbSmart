@@ -18,8 +18,11 @@
 		BC3B311725BEF19000CFF544 /* SensorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3B311625BEF19000CFF544 /* SensorModel.swift */; };
 		BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4102F52572DC99001258BF /* AddDeviceView.swift */; };
 		BC4102F92572DD3D001258BF /* AddSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4102F82572DD3D001258BF /* AddSceneView.swift */; };
+		BC4329B1263E9CA100C36416 /* AddOtherFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4329B0263E9CA100C36416 /* AddOtherFunctionView.swift */; };
+		BC4329B7263EA09A00C36416 /* OtherFunctionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4329B6263EA09A00C36416 /* OtherFunctionDetailView.swift */; };
 		BC4360BC25C20B4800EA459D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4360BB25C20B4800EA459D /* Extensions.swift */; };
 		BC490C4125EEDB5C00F76661 /* NewFunctionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */; };
+		BC4C7668262B01560092BFEB /* MakeDumbSmartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C7667262B01560092BFEB /* MakeDumbSmartTests.swift */; };
 		BC56EBF025F7C96700201DAD /* GlyphSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56EBEF25F7C96700201DAD /* GlyphSelectionView.swift */; };
 		BC589C28261E323500FF8DB1 /* AddTimeAutomatizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C27261E323500FF8DB1 /* AddTimeAutomatizationView.swift */; };
 		BC589C2C261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC589C2B261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift */; };
@@ -64,6 +67,16 @@
 		BCE609C4256994F800B9405C /* SceneSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE609C3256994F800B9405C /* SceneSettingsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BC4C766A262B01560092BFEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC88EFB2250141DA009821D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC88EFB9250141DA009821D7;
+			remoteInfo = MakeDumbSmart;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		BC0D27AE255EF1AC005F5E46 /* DeviceFunctionSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionSwitchView.swift; sourceTree = "<group>"; };
 		BC0D27B525603BBF005F5E46 /* DeviceFunctionSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFunctionSliderView.swift; sourceTree = "<group>"; };
@@ -76,8 +89,13 @@
 		BC3B311625BEF19000CFF544 /* SensorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorModel.swift; sourceTree = "<group>"; };
 		BC4102F52572DC99001258BF /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
 		BC4102F82572DD3D001258BF /* AddSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSceneView.swift; sourceTree = "<group>"; };
+		BC4329B0263E9CA100C36416 /* AddOtherFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherFunctionView.swift; sourceTree = "<group>"; };
+		BC4329B6263EA09A00C36416 /* OtherFunctionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFunctionDetailView.swift; sourceTree = "<group>"; };
 		BC4360BB25C20B4800EA459D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFunctionDetailView.swift; sourceTree = "<group>"; };
+		BC4C7665262B01560092BFEB /* MakeDumbSmartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakeDumbSmartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC4C7667262B01560092BFEB /* MakeDumbSmartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDumbSmartTests.swift; sourceTree = "<group>"; };
+		BC4C7669262B01560092BFEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC56EBEF25F7C96700201DAD /* GlyphSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphSelectionView.swift; sourceTree = "<group>"; };
 		BC589C27261E323500FF8DB1 /* AddTimeAutomatizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeAutomatizationView.swift; sourceTree = "<group>"; };
 		BC589C2B261E58A600FF8DB1 /* AddSensorBasedAutomatizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorBasedAutomatizationView.swift; sourceTree = "<group>"; };
@@ -126,6 +144,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BC4C7662262B01560092BFEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC88EFB7250141DA009821D7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,6 +171,15 @@
 			name = FunctionControls;
 			sourceTree = "<group>";
 		};
+		BC4C7666262B01560092BFEB /* MakeDumbSmartTests */ = {
+			isa = PBXGroup;
+			children = (
+				BC4C7667262B01560092BFEB /* MakeDumbSmartTests.swift */,
+				BC4C7669262B01560092BFEB /* Info.plist */,
+			);
+			path = MakeDumbSmartTests;
+			sourceTree = "<group>";
+		};
 		BC88EFB1250141DA009821D7 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +191,7 @@
 				BC88EFD425014360009821D7 /* ViewModel */,
 				BC88EFD125014331009821D7 /* View */,
 				BC88EFBC250141DA009821D7 /* MakeDumbSmart */,
+				BC4C7666262B01560092BFEB /* MakeDumbSmartTests */,
 				BC88EFBB250141DA009821D7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -165,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				BC88EFBA250141DA009821D7 /* MakeDumbSmart.app */,
+				BC4C7665262B01560092BFEB /* MakeDumbSmartTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -291,10 +327,12 @@
 			children = (
 				BC88EFD8250149FC009821D7 /* DevicesView.swift */,
 				BC4102F52572DC99001258BF /* AddDeviceView.swift */,
+				BC4329B0263E9CA100C36416 /* AddOtherFunctionView.swift */,
 				BCBC75F5255ED48D00AB4A4D /* DeviceDetailView.swift */,
 				BCE609BD2566EAD500B9405C /* DeviceSettingsView.swift */,
 				BC490C4025EEDB5C00F76661 /* NewFunctionDetailView.swift */,
 				BCA4BDF525FB680B008CECB9 /* SimilarFunctionDetailView.swift */,
+				BC4329B6263EA09A00C36416 /* OtherFunctionDetailView.swift */,
 			);
 			name = DeviceViews;
 			sourceTree = "<group>";
@@ -314,6 +352,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BC4C7664262B01560092BFEB /* MakeDumbSmartTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC4C766C262B01560092BFEB /* Build configuration list for PBXNativeTarget "MakeDumbSmartTests" */;
+			buildPhases = (
+				BC4C7661262B01560092BFEB /* Sources */,
+				BC4C7662262B01560092BFEB /* Frameworks */,
+				BC4C7663262B01560092BFEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC4C766B262B01560092BFEB /* PBXTargetDependency */,
+			);
+			name = MakeDumbSmartTests;
+			productName = MakeDumbSmartTests;
+			productReference = BC4C7665262B01560092BFEB /* MakeDumbSmartTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BC88EFB9250141DA009821D7 /* MakeDumbSmart */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC88EFCE250141DB009821D7 /* Build configuration list for PBXNativeTarget "MakeDumbSmart" */;
@@ -337,10 +393,14 @@
 		BC88EFB2250141DA009821D7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Martin Bachratý";
 				TargetAttributes = {
+					BC4C7664262B01560092BFEB = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = BC88EFB9250141DA009821D7;
+					};
 					BC88EFB9250141DA009821D7 = {
 						CreatedOnToolsVersion = 11.6;
 					};
@@ -361,11 +421,19 @@
 			projectRoot = "";
 			targets = (
 				BC88EFB9250141DA009821D7 /* MakeDumbSmart */,
+				BC4C7664262B01560092BFEB /* MakeDumbSmartTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BC4C7663262B01560092BFEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC88EFB8250141DA009821D7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -380,11 +448,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BC4C7661262B01560092BFEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC4C7668262B01560092BFEB /* MakeDumbSmartTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC88EFB6250141DA009821D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BC3B311725BEF19000CFF544 /* SensorModel.swift in Sources */,
+				BC4329B1263E9CA100C36416 /* AddOtherFunctionView.swift in Sources */,
 				BCC6FCD9257E933E00481D44 /* SceneListItemView.swift in Sources */,
 				BCBC75F6255ED48D00AB4A4D /* DeviceDetailView.swift in Sources */,
 				BCAF6CD8260F85A100EBD65F /* RegisterView.swift in Sources */,
@@ -397,6 +474,7 @@
 				BCA4BDFB25FD5B88008CECB9 /* RoomsManagementView.swift in Sources */,
 				BCAF6CCF260A924200EBD65F /* CrossroadView.swift in Sources */,
 				BC4102F62572DC99001258BF /* AddDeviceView.swift in Sources */,
+				BC4329B7263EA09A00C36416 /* OtherFunctionDetailView.swift in Sources */,
 				BCAF6CD5260BA79900EBD65F /* LoginManagmenViewModel.swift in Sources */,
 				BC88EFBE250141DA009821D7 /* AppDelegate.swift in Sources */,
 				BCC6FCD6257E8E8A00481D44 /* DeviceInSceneView.swift in Sources */,
@@ -440,6 +518,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BC4C766B262B01560092BFEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC88EFB9250141DA009821D7 /* MakeDumbSmart */;
+			targetProxy = BC4C766A262B01560092BFEB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BC589C51261E618200FF8DB1 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -461,6 +547,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BC4C766D262B01560092BFEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FC5W64W574;
+				INFOPLIST_FILE = MakeDumbSmartTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = MakeDumbSmart.MakeDumbSmartTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MakeDumbSmart.app/MakeDumbSmart";
+			};
+			name = Debug;
+		};
+		BC4C766E262B01560092BFEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FC5W64W574;
+				INFOPLIST_FILE = MakeDumbSmartTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = MakeDumbSmart.MakeDumbSmartTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MakeDumbSmart.app/MakeDumbSmart";
+			};
+			name = Release;
+		};
 		BC88EFCC250141DB009821D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -622,6 +750,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BC4C766C262B01560092BFEB /* Build configuration list for PBXNativeTarget "MakeDumbSmartTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC4C766D262B01560092BFEB /* Debug */,
+				BC4C766E262B01560092BFEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BC88EFB5250141DA009821D7 /* Build configuration list for PBXProject "MakeDumbSmart" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

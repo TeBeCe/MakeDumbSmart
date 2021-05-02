@@ -11,6 +11,7 @@ import SwiftUI
 struct DeviceFunctionLevelView: View {
     @ObservedObject var dvcObj : LoadJSONData
     @Binding var device : Device
+    @Binding var syncMode : Bool
     @State var scene : Scene?
     @State var automatization : Automatization?
     
@@ -83,9 +84,15 @@ struct DeviceFunctionLevelView: View {
                                 }
                             }
                             else{
-                                dvcObj.activateDevice(device: device)//WIP
-                                dvcObj.updateBackendDevice(device: device)
-                                dvcObj.findAndActivateScene()
+                                if(syncMode ){
+                                    dvcObj.updateDevice(device: device)
+                                    dvcObj.updateBackendDevice(device: device)
+                                }
+                                else{
+                                    dvcObj.activateDevice(device: device)//WIP
+                                    dvcObj.updateBackendDevice(device: device)
+                                    dvcObj.findAndActivateScene()
+                                }
                             }
                         })
             )
@@ -95,6 +102,6 @@ struct DeviceFunctionLevelView: View {
 
 struct DeviceFunctionLevelView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device: nil, reseting: false, glyph: "lightbulb", is_active: true, type: "Levels", value: 1, max_level: 3, room: 1, processing: 0)), levelArr: [0,33.4,66.7]).preferredColorScheme(.light).frame(width: 140, height: 400, alignment: .center)
+        DeviceFunctionLevelView(dvcObj: LoadJSONData(), device: .constant(Device(id: 0, device_name: "Device Name", device: nil, reseting: false, glyph: "lightbulb", is_active: true, type: "Levels", value: 1, max_level: 3, room: 1, processing: 0)), syncMode: .constant(false), levelArr: [0,33.4,66.7]).preferredColorScheme(.light).frame(width: 140, height: 400, alignment: .center)
     }
 }
