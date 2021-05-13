@@ -24,11 +24,16 @@ struct ModuleManagementView: View {
                     HStack{
                         Text(module.module_name).deleteDisabled(home.modules[0].id == module.id ? true : false)
                         Spacer()
-                        Link(destination: URL(string: link + String(module.id) + "&user_id=\(userId)" + "&module_name=\(module.module_name)")!){
+                        Link(destination: URL(string: link + String(module.id) + "&user_id=\(String(userId))")!){
                             HStack{
                                 Image(systemName: "link")
                                 Text("Source code")
-                            }
+                            }.onAppear(
+                                perform: {
+                                    print(module.module_name)
+                                }
+                            )
+//                            .onAppear({print(module.module_name)})
                         }
                     }
                         
