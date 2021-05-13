@@ -25,7 +25,8 @@ struct DeviceDetailView: View {
                         .accentColor(.white)
                     
                 case "Slider":
-                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, syncMode: $syncMode)
+                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, syncMode: $syncMode, levelArr:
+                        CalculateLevels(levels: device.max_level!))
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     

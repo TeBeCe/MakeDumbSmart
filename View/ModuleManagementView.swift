@@ -9,16 +9,28 @@
 import SwiftUI
 
 struct ModuleManagementView: View {
+    @AppStorage("logged_user_id") var userId = 0
+    
     @Binding var activeSheet: ActiveSheet?
     @ObservedObject var dvcObj: LoadJSONData
     @Binding var home: Home
     @State var moduleName : String = ""
+    var link: String = "https://divine-languages.000webhostapp.com/download_source_code.php?module_id="
     var body: some View {
         VStack{
             List{
                 ForEach(home.modules){ module in
                     
-                    Text(module.module_name).deleteDisabled(home.modules[0].id == module.id ? true : false)
+                    HStack{
+                        Text(module.module_name).deleteDisabled(home.modules[0].id == module.id ? true : false)
+                        Spacer()
+                        Link(destination: URL(string: link + String(module.id) + "&user_id=\(userId)" + "&module_name=\(module.module_name)")!){
+                            HStack{
+                                Image(systemName: "link")
+                                Text("Source code")
+                            }
+                        }
+                    }
                         
                     
                 }.onDelete(perform: { indexSet in

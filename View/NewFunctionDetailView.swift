@@ -32,7 +32,7 @@ struct NewFunctionDetailView: View {
     var body: some View {
         VStack{
             Form{
-                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen")) {
+                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen.")) {
                     HStack{
                         NavigationLink(destination: GlyphSelectionView(selectedGlyph: $selectedGlyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                         Image(systemName: selectedGlyph )
@@ -75,7 +75,7 @@ struct NewFunctionDetailView: View {
                     self.activeSheet = nil
                     let createdFunction = NewFunction(id: newFunction.id, vendor: vendor, deviceRealName: deviceRealName, functionName: functionName, rawData: newFunction.rawData, rawDataLen: newFunction.rawDataLen)
                     
-                    let createdDevice = Device(id: 0, device_name: functionName,module_id: moduleIndex, device: deviceRealName, reseting: isResetable, glyph: selectedGlyph, is_active: false, type: deviceType, value: 0.0, max_level: 1, room: roomIndex, processing: 0)
+                    let createdDevice = Device(id: 0, device_name: functionName,module_id: moduleIndex, device: deviceRealName, reseting: isResetable, glyph: selectedGlyph, is_active: false, type: deviceType, value: 0.0, max_level: Int(maxValue), room: roomIndex, processing: 0)
                     nf.nameAndCreateMyFunction(newFunction: createdFunction)
                     dvcObj.createBackendDevice(function: createdFunction,device: createdDevice, restParam: "")
                 }){

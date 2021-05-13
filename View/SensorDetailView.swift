@@ -24,13 +24,14 @@ struct SensorDetailView: View {
                     SensorChartsView(data: sensorObj.data, device: device)
                         //                SensorChartsView(device: device)
                         .onAppear(perform: {
-                            sensorObj.loadData(param: "device_id=1" +
-                                                "&sensor_type=\(device.type == "sensor_temperature" ? "temp":"humid")")
+//                            sensorObj.loadData(param: "device_id=1" +
+//                                                "&sensor_type=\(device.type == "sensor_temperature" ? "temp":"humid")")
+                            sensorObj.loadData(param: "/\(device.id)/\(device.type == "sensor_temperature" ? "temp":"humid")")
                         })
                     Spacer()
                 }.padding(.bottom, 10)
-                Text("n Hours Max")
-                Text("n Hours Min")
+//                Text("n Hours Max") + Text(sensorObj.data)
+//                Text("n Hours Min")
 
                 Spacer()
                 HStack(alignment: .top){

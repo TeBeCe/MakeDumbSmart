@@ -26,7 +26,7 @@ struct SceneDeviceDetailView: View {
                         .accentColor(.white)
                     
                 case "Slider":
-                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, syncMode: .constant(false), scene: scene, automatization: automatization)
+                    DeviceFunctionSliderView(dvcObj: dvcObj, device: $device, syncMode: .constant(false), scene: scene, automatization: automatization, levelArr: CalculateLevels(levels: device.max_level!))
                         .frame(width: 140, height: 400, alignment: .center)
                         .accentColor(.white)
                     

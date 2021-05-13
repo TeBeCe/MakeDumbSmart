@@ -23,17 +23,18 @@ struct AddMyFunctionsView: View {
             }
             else{
                 if(newIRFunctions.myIRDevices.count > 0){
-                List(newIRFunctions.myIRDevices){newFunction in
-                    NavigationLink(destination:NewFunctionDetailView(newFunction: newFunction, nf: newIRFunctions, dvcObj: dvcObj, activeSheet: $activeSheet)){
-                        HStack{
-                            Text(newFunction.functionName)
-                            Spacer()
-                            Image(systemName: newFunction.deviceRealName != nil ? "checkmark.circle.fill" : "circle").foregroundColor(.green)
+                    List(newIRFunctions.myIRDevices){newFunction in
+                        NavigationLink(destination:NewFunctionDetailView(newFunction: newFunction, nf: newIRFunctions, dvcObj: dvcObj, activeSheet: $activeSheet)){
+                            HStack{
+                                Text(newFunction.functionName)
+                                Spacer()
+                                Image(systemName: newFunction.deviceRealName != nil ? "checkmark.circle.fill" : "circle").foregroundColor(.green)
+                            }
                         }
                     }
-                }}else{
-                    Text("")
-                    //TODO: ak nie su
+                }
+                else{
+                    Text("No devices to add, scanned functions will appear here!")
                 }
             }
         }

@@ -8,25 +8,27 @@
 
 import SwiftUI
 
-struct Point:Decodable {
+struct Point : Decodable {
     let timestamp: String
     let y: CGFloat
 }
+
 class LoadJSONSensorData : ObservableObject {
     var param : String = ""
     @Published var data = [Point]()
+    @AppStorage("logged_user_id") var userId = 0
     
     func loadData(param: String) {
 //        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/get_sensors.php") else { return }
-        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/public/index.php/sensors/get") else { return }
+        guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/public/index.php/sensors/" + String(userId) + param) else { return }
 
         var request = URLRequest(url: urlx)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         print(param)
         // HTTP Request Parameters which will be sent in HTTP Request Body
-        let postString = param
+//        let postString = param
         // Set HTTP Request Body
-        request.httpBody = postString.data(using: String.Encoding.utf8);
+//        request.httpBody = postString.data(using: String.Encoding.utf8);
         
         URLSession.shared.dataTask(with: request){data, response,error in
             if let data = data {

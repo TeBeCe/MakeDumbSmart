@@ -89,6 +89,7 @@ struct AddTimeAutomatizationView: View {
                 Section(){
                     
                     Button(action: {
+                        self.automatization.devices = dvcObj.getDevicesInAutomatizationArray(automatization: automatization)
                         self.automatization.days = selectedDays
                         self.automatization.time = getStringFromDate(date: time)
                         dvcObj.createBackendAutomatization(automatization: automatization)

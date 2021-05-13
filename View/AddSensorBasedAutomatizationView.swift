@@ -31,7 +31,7 @@ struct AddSensorBasedAutomatizationView: View {
         //        GridItem(.flexible()),
         //        GridItem(.flexible()),
         //        GridItem(.flexible())
-        GridItem(.adaptive(minimum: 120, maximum: 120))
+        GridItem(.adaptive(minimum: 110, maximum: 120))
         
     ]
     var body: some View {
@@ -134,6 +134,7 @@ struct AddSensorBasedAutomatizationView: View {
                 Section(){
                     
                     Button(action: {
+                        self.automatization.devices = dvcObj.getDevicesInAutomatizationArray(automatization: automatization)
                         self.automatization.sensor_id = selectedSensorID
                         self.automatization.sensor_condition = (condition != 0)
                         self.automatization.sensor_value = Float(activationValue)

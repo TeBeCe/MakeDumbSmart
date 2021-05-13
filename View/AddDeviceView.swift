@@ -27,7 +27,7 @@ struct AddDeviceView: View {
                     }
                 AddOtherFunctionView(activeSheet: $activeSheet, newIRFunctions: newIRFunctions, dvcObj: dvcObj)
                     .tabItem {
-                        Label("Other Functions", systemImage: "square.and.pencil")
+                        Label("Other Functions", systemImage: "server.rack")
                     }
             }
 

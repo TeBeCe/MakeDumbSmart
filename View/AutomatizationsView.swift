@@ -41,7 +41,12 @@ struct AutomatizationViewSummaryItem: View {
                 else {
                     let sensor = dvcObj.getSensor(id: automatization.sensor_id!)
                     NavigationLink(destination: ModifySensorAutomatization(dvcObj: dvcObj, addAutType: $addAutType, automatization: automatization, showSelf: $showingSensAut), isActive: $showingSensAut ){
-                        Text("\(sensor?.device_name ?? "null") value \(automatization.sensor_condition! ? "more" : "less") than \(String(format: "%.0f%",automatization.sensor_value!)) ") + Text("\(sensor != nil && sensor!.type.contains("temperature") ? "°C" : "%" )")
+//                        Text("\(sensor?.device_name ?? "null") value \(automatization.sensor_condition! ? "more" : "less") than \(String(format: "%.0f%",automatization.sensor_value!)) ") + Text("\(sensor != nil && sensor!.type.contains("temperature") ? "°C" : "%" )")
+                        Text("\(sensor?.device_name ?? "null")")
+                            + Text(" value ") + (automatization.sensor_condition! ? Text("more") : Text("less"))
+                            + Text(" than ")
+                            + Text("\(String(format: "%.0f%",automatization.sensor_value!)) ")
+                            + Text("\(sensor != nil && sensor!.type.contains("temperature") ? "°C" : "%" )")
                     }
                 }
             }

@@ -865,6 +865,18 @@ class LoadJSONData : ObservableObject {
         }
     }
     
+    func removeDevicesFromAutomatization(device: Device){
+        for automatization in automatizations {
+            if let indsx = automatizations.firstIndex(where: {$0.id == automatization.id}){
+                if let indx = automatization.devices.firstIndex(where: {$0.id == device.id}){
+                    print("removing device: \(self.automatizations[indsx].devices[indx].device_name)")
+                    self.automatizations[indsx].devices.remove(at:indx)
+                    updateBackendAutomatization(automatizationx: automatizations[indsx])
+                }
+            }
+        }
+    }
+    
     func updateBackendScene(scenex : Scene){
         if let indsx = scenes.firstIndex(where: {$0.id == scenex.id}){
             let scene = self.scenes[indsx]
@@ -959,6 +971,15 @@ class LoadJSONData : ObservableObject {
             }
         }
         return returnData
+    }
+    
+    func getDevicesInAutomatizationArray(automatization: Automatization)->[Device]{
+        if let indxSc = automatizations.firstIndex(where: {$0.id == automatization.id}){
+            return automatizations[indxSc].devices
+        }
+        else{
+            return []
+        }
     }
     func addOrRemoveDeviceToAutomatization(automatization: Automatization, device: Device) -> Automatization{
         if let indxAu = automatizations.firstIndex(where: {$0.id == automatization.id}){

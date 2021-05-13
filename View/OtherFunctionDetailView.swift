@@ -31,7 +31,7 @@ struct OtherFunctionDetailView: View {
     var body: some View {
         VStack{
             Form{
-                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen")) {
+                Section(header: Text("Function Name"), footer: Text("Entitled function name will appear in main screen.")) {
                     HStack{
                         NavigationLink(destination: GlyphSelectionView(selectedGlyph: $selectedGlyph, glyphArray: glyphSceneArray) ){EmptyView()}.hidden().frame(width:0)
                         Image(systemName: selectedGlyph )
@@ -71,7 +71,7 @@ struct OtherFunctionDetailView: View {
                 }
                 Button(action:{
                     self.activeSheet = nil
-                    let createdDevice = Device(id: 0, device_name: functionName,module_id: moduleIndex, device: newFunction.deviceRealName, reseting: isResetable, glyph: selectedGlyph, is_active: false, type: deviceType, value: 0.0, max_level: 1, room: roomIndex, processing: 0)
+                    let createdDevice = Device(id: 0, device_name: functionName,module_id: moduleIndex, device: newFunction.deviceRealName, reseting: isResetable, glyph: selectedGlyph, is_active: false, type: deviceType, value: 0.0, max_level: Int(maxValue), room: roomIndex, processing: 0)
                     nf.nameAndCreateOtherFunction(otherNewFunction: newFunction, device: createdDevice)
 //                    dvcObj.createBackendDevice(function: createdFunction,device: createdDevice, restParam: "")
                 }){
@@ -80,6 +80,7 @@ struct OtherFunctionDetailView: View {
                 }.disabled(!(self.functionName != "" && newFunction.deviceRealName != "" && newFunction.vendor != ""))
             }
         }.onAppear(perform: {
+            print(newFunction)
             roomIndex = dvcObj.rooms[0].id
             moduleIndex = dvcObj.modules[0].id
         })

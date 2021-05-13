@@ -24,7 +24,7 @@ struct LoginView: View {
                     .fontWeight(.semibold)
                 HStack{
                     Image(systemName: "person")
-                    TextField("Email", text: $userMail)
+                    TextField("Name", text: $userMail)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                     

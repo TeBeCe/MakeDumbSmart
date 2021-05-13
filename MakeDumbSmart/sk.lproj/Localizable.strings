@@ -7,13 +7,19 @@
 */
 
 /* No comment provided by engineer. */
-"Bad login and/or password" = "zly login ci heslo";
+"Bad login and/or password" = "Zly login či heslo";
 
 /* No comment provided by engineer. */
-"Login Error" = "problem s prihlasenim";
+"Login Error" = "Problém s prihlásenim";
 
 /* No comment provided by engineer. */
 " " = " ";
+
+/* No comment provided by engineer. */
+"OFF" = "Vyp.";
+
+/* No comment provided by engineer. */
+"ON" = "Zap.";
 
 /* No comment provided by engineer. */
 "%@" = "%@";
@@ -22,10 +28,22 @@
 "%@ %@" = "%1$@ %2$@";
 
 /* No comment provided by engineer. */
-"%@ sec." = "%@ sec.";
+"%@ sec." = "%@ sek.";
 
 /* No comment provided by engineer. */
-"%@ value %@ than %@" = "%1$@ value %2$@ than %3$@";
+" value " = " hodnota ";
+
+/* No comment provided by engineer. */
+" than " = " než ";
+
+/* No comment provided by engineer. */
+"less" = "menej";
+
+/* No comment provided by engineer. */
+"more" = "viac";
+
+/* No comment provided by engineer. */
+"%@ value %@ than %@" = "%1$@ hodnota %2$@ než %3$@";
 
 /* No comment provided by engineer. */
 "1" = "1";
@@ -40,70 +58,70 @@
 "60" = "60";
 
 /* No comment provided by engineer. */
-"Activation Time" = "Activation Time";
+"Activation Time" = "Čas aktivácie";
 
 /* No comment provided by engineer. */
-"Add" = "Add";
+"Add" = "Pridať";
 
 /* No comment provided by engineer. */
-"Add / Remove Accesory" = "Add / Remove Accesory";
+"Add / Remove Accesory" = "Pridať / Odobrať Príslušenstvo";
 
 /* No comment provided by engineer. */
-"Add Automatization" = "Add Automatization";
+"Add Automatization" = "Pridať Automatizáciu";
 
 /* No comment provided by engineer. */
-"Add Device" = "Add Device";
+"Add Device" = "Pridať Zariadenia";
 
 /* No comment provided by engineer. */
-"Add Modules" = "Add Modules";
+"Add Modules" = "Pridať Moduly";
 
 /* No comment provided by engineer. */
-"Add New Automatization" = "Add New Automatization";
+"Add New Automatization" = "Pridať Novú Automatizáciu";
 
 /* No comment provided by engineer. */
-"Add New Device" = "Add New Device";
+"Add New Device" = "Pridať Nové Zariadenie";
 
 /* No comment provided by engineer. */
-"Add or remove Accesories" = "Add or remove Accesories";
+"Add or remove Accesories" = "Pridať alebo odobrať Príslušenstvá";
 
 /* No comment provided by engineer. */
-"Add Scene" = "Add Scene";
+"Add Scene" = "Pridať Scénu";
 
 /* No comment provided by engineer. */
-"Add Sensors" = "Add Sensors";
+"Add Sensors" = "Pridať Senzory";
 
 /* No comment provided by engineer. */
-"Add senzor based automatization" = "Add senzor based automatization";
+"Add senzor based automatization" = "Pridať senzorovo závislú automatization";
 
 /* No comment provided by engineer. */
-"Add time based automatization" = "Add time based automatization";
+"Add time based automatization" = "Pridať časovo závislú automatization";
 
 /* No comment provided by engineer. */
-"Add to devices" = "Add to devices";
+"Add to devices" = "Pridať k zariadeniam";
 
 /* No comment provided by engineer. */
-"Add to Favorite" = "Add to Favorite";
+"Add to Favorite" = "Pridať k obľúbeným";
 
 /* No comment provided by engineer. */
-"Add/Remove Accesories" = "Add/Remove Accesories";
+"Add/Remove Accesories" = "Pridať/Odobrať Príslušenstvá";
 
 /* No comment provided by engineer. */
 "Ahoj AHOJ AHOJ" = "Ahoj AHOJ AHOJ";
 
 /* No comment provided by engineer. */
-"Allow your devices to react based on time or senor values." = "Allow your devices to react based on time or senor values.";
+"Allow your devices to react based on time or sensor values." = "Umožnite príslušenstvu, aby reagovalo na čas alebo hodnotu senzoru";
 
 /* No comment provided by engineer. */
 "Arduino Pin" = "Arduino Pin";
 
 /* No comment provided by engineer. */
-"Assign to module" = "Assign to module";
+"Assign to module" = "Priradiť k modulu";
 
 /* No comment provided by engineer. */
-"Automatizations" = "Automatizations";
+"Automatizations" = "Automataizácie";
 
 /* No comment provided by engineer. */
-"Back to login" = "Back to login";
+"Back to login" = "Späť na prihlásenie";
 
 /* No comment provided by engineer. */
 "bla" = "bla";
@@ -115,91 +133,115 @@
 "blbl" = "blbl";
 
 /* No comment provided by engineer. */
-"Configure devices in scene %@ by pushing or holding devices" = "Configure devices in scene %@ by pushing or holding devices";
+"Choose your suitable update interval" = "Nastavte si vhodný interval aktualizácie";
 
 /* No comment provided by engineer. */
-"Correct vendor will help other people setting similar devices" = "Correct vendor will help other people setting similar devices";
+"Configure devices in scene %@ by pushing or holding" = "Konfigurujte zariadenia v scéne %@ krátkym alebo dlhým stlačením zariadení";
 
 /* No comment provided by engineer. */
-"Create Automatization" = "Create Automatization";
+"Configure devices in automatization by taping or holding devices" = "Konfigurujte zariadenia v automatizácií krátkym alebo dlhým stlačením zariadení";
 
 /* No comment provided by engineer. */
-"Create Module" = "Create Module";
+"Correct vendor will help other people setting similar devices" = "Korektný náz výrobcu pomôže iným ľudom pridávať podobné zariadenia";
 
 /* No comment provided by engineer. */
-"Create new Home" = "Create new Home";
+"Create Automatization" = "Vytvoriť Automatizáciu";
 
 /* No comment provided by engineer. */
-"Create Room" = "Create Room";
+"Condition:" = "Podmienka:";
 
 /* No comment provided by engineer. */
-"Create scene" = "Create scene";
+"Create Module" = "Vytvoriť Modul";
 
 /* No comment provided by engineer. */
-"Create Sensor" = "Create Sensor";
+"Create new Home" = "Vytvoriť novú Domácnosť";
 
 /* No comment provided by engineer. */
-"Delete device" = "Delete device";
+"Create Room" = "Vytvoriť Miestnosť";
 
 /* No comment provided by engineer. */
-"Delete Scene" = "Delete Scene";
+"Create scene" = "Vytvoriť scénu";
 
 /* No comment provided by engineer. */
-"Device Name" = "Device Name";
+"Create Sensor" = "Vytvoriť Semzor";
 
 /* No comment provided by engineer. */
-"Device Vendor" = "Device Vendor";
+"daily" = "denne";
 
 /* No comment provided by engineer. */
-"Devices" = "Devices";
+"Delete Automatization" = "Vymazať Automatizáciu";
 
 /* No comment provided by engineer. */
-"E.g Bedroom" = "E.g Bedroom";
+"Delete device" = "Zmazať zariadenie";
 
 /* No comment provided by engineer. */
-"e.g. Apple" = "e.g. Apple";
+"Delete Scene" = "Zmazať scénu";
 
 /* No comment provided by engineer. */
-"e.g. AppleTV 4K " = "e.g. AppleTV 4K ";
+"Device Name" = "Názov Zariadenia";
 
 /* No comment provided by engineer. */
-"E.g. Sweet Home" = "E.g. Sweet Home";
+"Device Vendor" = "Výrobca zariadenia";
 
 /* No comment provided by engineer. */
-"e.g. Switch off" = "e.g. Switch off";
+"Devices" = "Zariadenia";
+
+/* No comment provided by engineer. */
+" devices" = " zariadení";
+
+/* No comment provided by engineer. */
+"E.g Bedroom" = "Napr. Spálňa";
+
+/* No comment provided by engineer. */
+"e.g. Apple" = "Napr. Apple";
+
+/* No comment provided by engineer. */
+"e.g. AppleTV 4K " = "Napr. AppleTV 4K ";
+
+/* No comment provided by engineer. */
+"E.g. Sweet Home" = "Napr. Sweet Home";
+
+/* No comment provided by engineer. */
+"e.g. Switch off" = "Napr. Vypnúť";
 
 /* No comment provided by engineer. */
 "Email" = "Email";
 
 /* No comment provided by engineer. */
-"Entitled function name will appear in main screen" = "Entitled function name will appear in main screen";
+"Every " = "Každý ";
 
 /* No comment provided by engineer. */
-"Favorite Functions" = "Favorite Functions";
+"Everyday" = "Každodenne";
+
+/* No comment provided by engineer. */
+"Entitled function name will appear in main screen." = "Meno funkcie sa zobrazí na hlavnej obrazovke";
+
+/* No comment provided by engineer. */
+"Favorite Functions" = "Obľúbené Funkcie";
 
 /* No comment provided by engineer. */
 "Favorite scenes" = "Obľúbené Scény";
 
 /* No comment provided by engineer. */
-"First" = "First";
+"First" = "Prvý";
 
 /* No comment provided by engineer. */
-"First Run Configuration" = "First Run Configuration";
+"First Run Configuration" = "Prvotná konfigurácia";
 
 /* No comment provided by engineer. */
-"Fourth" = "Fourth";
+"Fourth" = "Štvrtý";
 
 /* No comment provided by engineer. */
-"Frequency" = "Frequency";
+"Frequency" = "Frekvencia";
 
 /* No comment provided by engineer. */
-"Function Name" = "Function Name";
+"Function Name" = "Názov funkcie";
 
 /* No comment provided by engineer. */
-"Function Type" = "Function Type";
+"Function Type" = "Typ funkcie";
 
 /* No comment provided by engineer. */
-"Functions maximum value" = "Functions maximum value";
+"Functions maximum value" = "Maximálna hodnota funkcie";
 
 /* No comment provided by engineer. */
 "Hello, World!" = "Hello, World!";
@@ -208,52 +250,64 @@
 "Help Content" = "Help Content";
 
 /* No comment provided by engineer. */
-"Home Name" = "Home Name";
+"Home Name" = "Názov domácnosti";
 
 /* No comment provided by engineer. */
-"Home Settings" = "Home Settings";
+"Home Settings" = "Nastavenia domácnosti";
 
 /* No comment provided by engineer. */
 "I" = "I";
 
 /* No comment provided by engineer. */
-"If function is resetable, all same device functions will reset when changing state" = "If function is resetable, all same device functions will reset when changing state";
+"If function is resetable, all same device functions will reset when changing state" = "Ak je funkcia resetovateľná, všetky funckie zariadenia budú resetované pri zmene stavu";
 
 /* No comment provided by engineer. */
 "level: %@" = "level: %@";
 
 /* No comment provided by engineer. */
-"Lock app after closing app without logging out" = "Lock app after closing app without logging out";
+"Lock app after closing app without logging out" = "Zamknúť po zavretí applikácie  ";
 
 /* No comment provided by engineer. */
-"Log Out" = "Log Out";
+"Log Out" = "Odhlásiť";
 
 /* No comment provided by engineer. */
-"LogIn" = "LogIn";
+"LogIn" = "Prihlásiť";
 
 /* No comment provided by engineer. */
 "MakeDumbSmart" = "MakeDumbSmart";
 
 /* No comment provided by engineer. */
-"Maximum Value" = "Maximum Value";
+"Manage Automatizations" = "Manaž. Automatizácie";
 
 /* No comment provided by engineer. */
-"Module" = "Module";
+"Maximum Value" = "Maximálna hodnota";
 
 /* No comment provided by engineer. */
-"Module Management" = "Module Management";
+"Module" = "Modul";
 
 /* No comment provided by engineer. */
-"Module Name" = "Module Name";
+"Module Management" = "Manažment modulu";
 
 /* No comment provided by engineer. */
-"Modules" = "Modules";
+"Module Name" = "Názov Modulu";
 
 /* No comment provided by engineer. */
-"Modules Management" = "Modules Management";
+"Modules" = "Moduly";
 
 /* No comment provided by engineer. */
-"Name" = "Name";
+"Modules Management" = "Manažment modulov";
+
+/* No comment provided by engineer. */
+"Name" = "Meno";
+
+/* No comment provided by engineer. */
+"Never" = "Nikdy";
+
+/* No comment provided by engineer. */
+"never" = "nikdy";
+
+/* No comment provided by engineer. */
+"No devices or scenes" = "Žiadne zariadenia alebo scény";
 
 /* No comment provided by engineer. */
 "nil" = "nil";
@@ -265,90 +319,93 @@
 "Pin" = "Pin";
 
 /* No comment provided by engineer. */
-"Please set correct device name: \n • toggle \"Resetable\" applies to same Device Name\n • help other people setup similar functions" = "Please set correct device name: \n • toggle \"Resetable\" applies to same Device Name\n • help other people setup similar functions";
+"Please set correct device name: \n • toggle \"Resetable\" applies to same Device Name\n • help other people setup similar functions" = "Prosím zadajte skutočný názov zariadenia: \n • prepínač \"Resetable\" ovplyňuje funkcie s rovnakým názvom zariadenia\n • pomáha iným používateľom nastaviť podobné funkcie";
 
 /* No comment provided by engineer. */
-"Register" = "Register";
+"Register" = "Registrovať";
 
 /* No comment provided by engineer. */
-"Repeating" = "Repeating";
+"Repeating" = "Opakujúci";
 
 /* No comment provided by engineer. */
 "Resetable" = "Resetable";
 
 /* No comment provided by engineer. */
-"Room" = "Room";
+"Room" = "Miestnosť";
 
 /* No comment provided by engineer. */
-"Room Name" = "Room Name";
+"Room Name" = "Názov Miestnosti";
 
 /* No comment provided by engineer. */
-"Rooms" = "Rooms";
+"Rooms" = "Miestnosti";
 
 /* No comment provided by engineer. */
-"Rooms Management" = "Rooms Management";
+"Rooms Management" = "Manažment Miestností";
 
 /* No comment provided by engineer. */
-"Scene Name" = "Scene Name";
+"Scene Name" = "Názov Scény";
 
 /* No comment provided by engineer. */
-"Scenes" = "Scenes";
+"Scenes" = "Scény";
 
 /* No comment provided by engineer. */
-"Second" = "Second";
+" scenes and " = " scén a ";
 
 /* No comment provided by engineer. */
-"Select Glyph" = "Select Glyph";
+"Second" = "Druhý";
 
 /* No comment provided by engineer. */
-"Sensor" = "Sensor";
+"Select Glyph" = "Vybrať ikonu";
 
 /* No comment provided by engineer. */
-"Sensor Name" = "Sensor Name";
+"Sensor" = "Senzor";
 
 /* No comment provided by engineer. */
-"Sensor Type" = "Sensor Type";
+"Sensor Name" = "Názov Senzoru";
 
 /* No comment provided by engineer. */
-"Set Defaul Room Name" = "Set Defaul Room Name";
+"Sensor Type" = "Typ Senzoru";
 
 /* No comment provided by engineer. */
-"Set Home Name" = "Set Home Name";
+"Set Defaul Room Name" = "Zadaj názov predvolenej Miestnosti";
 
 /* No comment provided by engineer. */
-"Setting correct device type will help other people setting similar devices" = "Setting correct device type will help other people setting similar devices";
+"Set Home Name" = "SZadaj názov Domácnosti";
 
 /* No comment provided by engineer. */
-"Some functions may have many levels, please select correct amount" = "Some functions may have many levels, please select correct amount";
+"Setting correct device type will help other people setting similar devices" = "Zadanie skutočného typu zariadenia pomôže iným nastavovať podobné zariadenia";
+
+/* No comment provided by engineer. */
+"Some functions may have many levels, please select correct amount" = "Niektoré funkcie majú viacero stupňov, zadajte skutočný počet";
 
 /* No comment provided by engineer. */
 "Test" = "Test";
 
 /* No comment provided by engineer. */
-"Third" = "Third";
+"Third" = "Tretí";
 
 /* No comment provided by engineer. */
-"Time" = "Time";
+"Time" = "Čas";
 
 /* No comment provided by engineer. */
-"Title" = "Title";
+"Title" = "Názov";
 
 /* No comment provided by engineer. */
-"Type" = "Type";
+"Type" = "Typ";
 
 /* No comment provided by engineer. */
-"unlock" = "unlock";
+"unlock" = "Odomkni";
 
 /* No comment provided by engineer. */
-"Update frequency" = "Update frequency";
+"Update frequency" = "Frekvencia aktualizácie";
 
 /* No comment provided by engineer. */
-"Use Biometrics" = "Use Biometrics";
+"Use Biometrics" = "Použitie biometriky";
 
 /* No comment provided by engineer. */
-"Use biometrics" = "Use biometrics";
+"Use biometrics" = "Použitie biometriky";
 
 /* No comment provided by engineer. */
-"Wallpaper" = "Wallpaper";
+"Wallpaper" = "Pozadie";
 
 "Temperature" = "Teplota";

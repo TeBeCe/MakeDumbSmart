@@ -130,6 +130,7 @@ struct DeviceSettingsView: View {
                 Button(action:{dvcObj.deleteBackendDevice(device: device)
                     dvcObj.deleteDevice(device: device)
                     dvcObj.removeDevicesFromScene(device: device)
+                    dvcObj.removeDevicesFromAutomatization(device: device)
                     self.sd = nil
                     //                    dvcObj.loadData()
                 }){

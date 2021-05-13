@@ -152,7 +152,7 @@ struct ContentView: View {
                 Divider()
                 Button(action: {self.activeSheet = .fourth}, label: {
                     HStack{
-                        Text("Manage Automatization")
+                        Text("Manage Automatizations")
                         Image(systemName: "deskclock.fill")
                     }
                 })

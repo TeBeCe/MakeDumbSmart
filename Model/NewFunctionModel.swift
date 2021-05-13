@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct NewFunction : Decodable,Identifiable {
     let id : Int
@@ -58,6 +59,8 @@ class LoadJSONNewFunctionData : ObservableObject {
     @Published var similarIRDevices = [SimilarNewFunction]()
     @Published var otherIRDevices = [OtherNewFunction]()
     
+    @AppStorage("logged_user_id") var userId = 0
+
     func loadData(param: String) {
         guard let urlx = URL(string: "https://divine-languages.000webhostapp.com/get_new_devices.php") else { return }
         
@@ -65,7 +68,7 @@ class LoadJSONNewFunctionData : ObservableObject {
         request.httpMethod = "POST"
         print(param)
         // HTTP Request Parameters which will be sent in HTTP Request Body
-        let postString = param
+        let postString = "user_id=\(userId)&" + param
         // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);
         
@@ -73,6 +76,7 @@ class LoadJSONNewFunctionData : ObservableObject {
             if let data = data {
                 do {
                     DispatchQueue.main.async {
+                        
                         self.newFunctions = try! JSONDecoder().decode(NewIRFunctions.self, from: data)
                         self.myIRDevices = self.newFunctions.myIRDevices
                         self.similarIRDevices = self.newFunctions.similarIRDevices
@@ -111,9 +115,9 @@ class LoadJSONNewFunctionData : ObservableObject {
                 }
          
                 // Convert HTTP Response Data to a String
-                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                    print("Response data string:\n \(dataString)")
-                }
+//                if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                    print("Response data string:\n \(dataString)")
+//                }
         }
         task.resume()
     }

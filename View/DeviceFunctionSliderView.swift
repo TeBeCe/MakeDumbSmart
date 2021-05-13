@@ -15,6 +15,10 @@ struct DeviceFunctionSliderView: View {
     @State var scene : Scene?
     @State var automatization : Automatization?
     
+    @State var levelArr : [Float] = []
+    @State var percentage : Float = 0
+    @State var selectedLevel: Int = 0
+    
     var tempValue : Float = 0
     
     var body: some View {
@@ -25,24 +29,34 @@ struct DeviceFunctionSliderView: View {
                     .opacity(0.8)
                 Rectangle()
                     .foregroundColor(Color(UIColor(.init(.systemGray))))
-                    .frame(height: (geometry.size.height * CGFloat((self.device.is_active ? self.device.value : 0) / 100)))
-                    .animation(.linear(duration: 0.1))
+                    .frame(height: (geometry.size.height / CGFloat(device.max_level!)) * CGFloat(device.value))
+                            .animation(.linear(duration: 0.1))
             }
             .cornerRadius(30)
             .gesture(DragGesture(minimumDistance: 0)
                         .onChanged({ value in
-//                            self.device.value = Float(Int(100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)))
-                            self.device.value = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
-                            self.device.is_active = self.device.value == 0.0 ? false : true
-                            
-                            if(scene != nil && automatization == nil){
-                                dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                            self.percentage = 100 - min(max(0, Float(value.location.y / geometry.size.height * 100)), 100)
+                            for i in (0..<levelArr.count).reversed(){
+                                if(percentage > levelArr[i]){
+                                    self.selectedLevel = levelArr.count - i
+                                }
+                                else if(percentage == 0.0){
+                                    self.selectedLevel = 0
+                                }
                             }
-                            else if(automatization != nil && scene == nil){
-                                dvcObj.updateDeviceInAutomatization(automatization: automatization!, device: device)
-                            }
-                            else{
-                                //dvcObj.updateDevice(device: device)
+                            if(self.device.value != Float(self.selectedLevel)){
+                                self.device.is_active = self.selectedLevel == 0 ? false : true
+                                self.device.value = Float(self.selectedLevel)
+                                
+                                if(scene != nil && automatization == nil){
+                                    dvcObj.updateDeviceInScene(scene: scene!, device: device)
+                                }
+                                else if(automatization != nil && scene == nil){
+                                    dvcObj.updateDeviceInAutomatization(automatization: automatization!, device: device)
+                                }
+                                else{
+                                    //dvcObj.updateDevice(device: device)
+                                }
                             }
                         }).onEnded({_ in
                             if(scene != nil && automatization == nil){

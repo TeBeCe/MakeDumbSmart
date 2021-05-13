@@ -15,20 +15,30 @@ struct AddSimilarFunctionView: View {
     @ObservedObject var newIRFunctions:LoadJSONNewFunctionData
     @ObservedObject var dvcObj:LoadJSONData
     var body: some View {
-        
-        List(newIRFunctions.similarIRDevices, children: \.similarIRDevices){row in
-            
-            if(row.similarIRDevices == nil){
-                NavigationLink(destination: SimilarFunctionDetailView(newFunction: row, nf: newIRFunctions, dvcObj: dvcObj, activeSheet: $activeSheet)){
-                    HStack{
-                        Text(row.functionName)
-                        Spacer()
-                        Text(row.vendor)
+        if(newIRFunctions.loading){
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(3.5)
+        }
+        else{
+            if(newIRFunctions.similarIRDevices.count > 0){
+                List(newIRFunctions.similarIRDevices, children: \.similarIRDevices){row in
+                    if(row.similarIRDevices == nil){
+                        NavigationLink(destination: SimilarFunctionDetailView(newFunction: row, nf: newIRFunctions, dvcObj: dvcObj, activeSheet: $activeSheet)){
+                            HStack{
+                                Text(row.functionName)
+                                Spacer()
+                                Text(row.vendor)
+                            }
+                        }
+                    }
+                    else{
+                        Text(row.deviceRealName)
                     }
                 }
             }
             else{
-                Text(row.deviceRealName)
+                Text("No similar functions to add")
             }
         }
     }

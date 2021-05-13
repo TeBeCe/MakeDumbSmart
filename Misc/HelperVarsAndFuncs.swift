@@ -60,11 +60,11 @@ func DetermineValue(device: Device) -> String {
     
     switch device.type{
     case "Switch" :
-        return !device.is_active || device.value == 0.0 ? "Vyp." : "Zap."
+        return !device.is_active || device.value == 0.0 ? NSLocalizedString("OFF", comment: "") : NSLocalizedString("ON", comment: "")
     case "Slider" :
-        return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.1f%", device.value))%"
+        return !device.is_active || device.value == 0.0 ? NSLocalizedString("OFF", comment: "") : "\(String(format: "%.0f%", device.value))"
     case "Levels" :
-        return !device.is_active || device.value == 0.0 ? "Vyp." : "\(String(format: "%.0f%", device.value))"
+        return !device.is_active || device.value == 0.0 ? NSLocalizedString("OFF", comment: "") : "\(String(format: "%.0f%", device.value))"
     case "sensor_temperature":
         return "\(String(device.value))°"
     case "sensor_humidity":
@@ -83,7 +83,7 @@ func footerDaysRepeat(selectedDays:[Bool], footerDayType: footerDayType) -> Stri
     if(footerDayType == .long){
         dayNames = calendar.weekdaySymbols
         dayNames = Array(dayNames[2-1..<dayNames.count]) + dayNames[0..<2-1]
-        returnDays = "Every "
+        returnDays = NSLocalizedString("Every ", comment: "")
     }
     else{
         dayNames = calendar.shortWeekdaySymbols
@@ -92,10 +92,10 @@ func footerDaysRepeat(selectedDays:[Bool], footerDayType: footerDayType) -> Stri
     }
     if(selectedDays.allSatisfy({$0 == selectedDays.first})){
         if(selectedDays.first!){
-            return footerDayType == .long ? "Everyday" : "daily"
+            return footerDayType == .long ? NSLocalizedString("Everyday", comment: "")  : NSLocalizedString("daily",comment: "")
         }
         else{
-            return footerDayType == .long ? "Never" : "never"
+            return footerDayType == .long ? NSLocalizedString("Never", comment: "") : NSLocalizedString("never", comment: "")
         }
     }
     for (index,day) in selectedDays.enumerated() {
@@ -132,7 +132,7 @@ func getDateFromTimeString(dateString: String)-> Date?{
 
 func getSceneAndDeviceLabel(automatization: Automatization) -> String{
     if(automatization.devices.count == 0 && automatization.scenes.count == 0){
-        return "No devices or scenes"
+        return NSLocalizedString("No devices or scenes", comment: "")
     }
     else{
         if(automatization.devices.count == 1 && automatization.scenes.count == 0){
@@ -142,7 +142,7 @@ func getSceneAndDeviceLabel(automatization: Automatization) -> String{
             return (automatization.scenes.first!.scene_name)
         }
         else {
-            return "\(String(automatization.scenes.count)) scenes and \(String( automatization.devices.count)) devices"
+            return "\(String(automatization.scenes.count))" + NSLocalizedString(" scenes and ", comment: "") + "\(String( automatization.devices.count))" + NSLocalizedString(" devices", comment: "")
         }
     }
 }
